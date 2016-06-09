@@ -8,23 +8,22 @@
     </head>
     <body>
         <div id='kontomatik'></div>
-        <button>Send an HTTP POST request to a page and get the result back</button>
         <script>
             embedKontomatik({
                 client: 'ededu-test',
                 divId: 'kontomatik',
                 onSuccess: function(target, sessionId, sessionIdSignature) {
                     // Pass session parameters to the backend layer
+                    var query='?sessionId=' + sessionId + '&sessionIdSignature=' + sessionIdSignature;
                     $.ajax({
                         type: 'GET',
-                        url: 'http://localhost:8080/kontomatik-app/Session',
+                        url: window.location.origin + '/kontomatik-app/Session' + query,
                         success: function(response) {
-                            alert('Got response: ' + response);
+                            console.log('Got response: ' + response);
                         },
                         error: function() {
                             alert('Sorry, the request can not be processed.');
                         },
-                        async: false
                     });
                 },
                 locale: 'en',
