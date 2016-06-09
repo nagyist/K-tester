@@ -15,26 +15,22 @@
                 divId: 'kontomatik',
                 onSuccess: function(target, sessionId, sessionIdSignature) {
                     // Pass session parameters to the backend layer
-                    var test = "it isn't working";
-                    var response = $.ajax({
+                    $.ajax({
                         type: 'GET',
-                        url: 'http://localhost:8080/kontomatik-app/Session', //This is in the same site as the page calling this request, so it's not a same-domain error.
-                        success: function(){
-                            test = "it's working";
+                        url: 'http://localhost:8080/kontomatik-app/Session',
+                        success: function(response) {
+                            alert('Got response: ' + response);
                         },
                         error: function() {
-                            alert('Error!');
+                            alert('Sorry, the request can not be processed.');
                         },
                         async: false
-                    }).responseText;
-                    alert(test);
-                    alert(response);
-                    $("#kontomatik").html(response);
+                    });
                 },
                 locale: 'en',
                 showFavicons: true,
                 onError: function(exception) { // optional parameter
-                    alert('An error has occurred: ' + exception);
+                    alert('A Kontomatik error has occurred: ' + exception);
                 },
             });
         </script>
