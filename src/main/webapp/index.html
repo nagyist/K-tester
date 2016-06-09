@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SignIn</title>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js'></script>
+        <script src='https://signin.kontomatik.com/assets/signin-widget.js'>
+        </script>
+    </head>
+    <body>
+        <div id='kontomatik'></div>
+        <button>Send an HTTP POST request to a page and get the result back</button>
+        <script>
+            embedKontomatik({
+                client: 'ededu-test',
+                divId: 'kontomatik',
+                onSuccess: function(target, sessionId, sessionIdSignature) {
+                    // Pass session parameters to the backend layer
+                    var test = "it isn't working";
+                    var response = $.ajax({
+                        type: 'GET',
+                        url: 'http://localhost:8080/kontomatik-app/Session', //This is in the same site as the page calling this request, so it's not a same-domain error.
+                        success: function(){
+                            test = "it's working";
+                        },
+                        error: function() {
+                            alert('Error!');
+                        },
+                        async: false
+                    }).responseText;
+                    alert(test);
+                    alert(response);
+                    $("#kontomatik").html(response);
+                },
+                locale: 'en',
+                showFavicons: true,
+                onError: function(exception) { // optional parameter
+                    alert('An error has occurred: ' + exception);
+                },
+            });
+        </script>
+    </body>
+</html>
