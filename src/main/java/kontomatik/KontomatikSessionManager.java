@@ -13,15 +13,10 @@ import java.io.PrintWriter;
  * Created on: 09/06/16
  */
 @WebServlet("/Session")
-public class Session  extends HttpServlet {
+public class KontomatikSessionManager extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+        resp.setContentType("text/plain");
         PrintWriter writer = resp.getWriter();
-        writer.println("<html></html>");
-    }
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
-        writer.println("<html><h1>Yeap</h1></html>");
+        writer.println(req.getQueryString());
     }
 }
