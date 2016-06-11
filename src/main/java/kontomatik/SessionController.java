@@ -12,8 +12,8 @@ import java.io.PrintWriter;
  * eduardcdedu@gmail.com
  * Created on: 09/06/16
  */
-@WebServlet("/Session")
-public class KontomatikSessionManager extends HttpServlet {
+@WebServlet("/session")
+public class SessionController extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/plain");
         PrintWriter writer = resp.getWriter();

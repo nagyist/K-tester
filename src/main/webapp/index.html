@@ -12,12 +12,19 @@
             embedKontomatik({
                 client: 'ededu-test',
                 divId: 'kontomatik',
+                locale: 'en',
+                showFavicons: true,
+
                 onSuccess: function(target, sessionId, sessionIdSignature) {
-                    // Pass session parameters to the backend layer
+                    // Pass session parameters to the backend layer:
+
                     var query='?sessionId=' + sessionId + '&sessionIdSignature=' + sessionIdSignature;
+
+                    // Use JQuery to send an Http request to a HttpServlet class mapped to the '/session' URL
                     $.ajax({
                         type: 'GET',
-                        url: window.location.origin + '/kontomatik-app/Session' + query,
+                        url: window.location.origin + '/kontomatik-app/session' + query,
+
                         success: function(response) {
                             console.log('Got response: ' + response);
                         },
@@ -26,9 +33,9 @@
                         },
                     });
                 },
-                locale: 'en',
-                showFavicons: true,
-                onError: function(exception) { // optional parameter
+
+
+                onError: function(exception) {
                     alert('A Kontomatik error has occurred: ' + exception);
                 },
             });
