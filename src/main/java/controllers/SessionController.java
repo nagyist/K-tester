@@ -25,12 +25,14 @@ public class SessionController extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/plain");
         PrintWriter writer = resp.getWriter();
-        Hashtable<String, String> pairs = new utils.QueryParser().parseQueryString(req.getQueryString());
+        Hashtable<String, String> hTable = new utils.QueryParser().parseQueryString(req.getQueryString());
+
         try {
-            sessionBean.setSessionId(pairs.get("sessionId"));
-            sessionBean.setSessionIdSignature(pairs.get("sessionIdSignature"));
+            sessionBean.setSessionId(hTable.get("sessionId"));
+            sessionBean.setSessionIdSignature(hTable.get("sessionIdSignature"));
+            writer.println(req.getQueryString());
         } catch (PatternSyntaxException e) {
-            writer.println(e.getDescription() + ": " + e.getPattern());
+            writer.println(e.getDescription());
         }
     }
 }
