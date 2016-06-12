@@ -30,7 +30,7 @@ public class QueryParser {
 
         for (String s1 : keyValuePairs) {
             String key, value;
-            String[] pair = s1.split("=");
+            String [] pair = s1.split("=");
             if (pair.length < 2)
                 throw new IllegalArgumentException("Found no \"=\" character in argument string");
             key = pair[0];
