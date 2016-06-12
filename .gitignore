@@ -2,6 +2,7 @@
 ..
 .idea
 Trash.txt
-kontomatik-maven-app.iml
+controllers-app.iml
+controllers-maven-app.iml
 target
 widget.html

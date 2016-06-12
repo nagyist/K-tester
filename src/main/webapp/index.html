@@ -8,36 +8,39 @@
     </head>
     <body>
         <div id='kontomatik'></div>
+        <h1 id='header'>hello</h1>
         <script>
             embedKontomatik({
                 client: 'ededu-test',
                 divId: 'kontomatik',
+                country: 'pl',
                 locale: 'en',
-                showFavicons: true,
 
                 onSuccess: function(target, sessionId, sessionIdSignature) {
                     // Pass session parameters to the backend layer:
 
                     var query='?sessionId=' + sessionId + '&sessionIdSignature=' + sessionIdSignature;
 
-                    // Use JQuery to send an Http request to a HttpServlet class mapped to the '/session' URL
+                    // Dispatch session params through an Http request to '/session-params'
                     $.ajax({
                         type: 'GET',
-                        url: window.location.origin + '/kontomatik-app/session' + query,
+                        url: window.location.origin + '/kontomatik-app/session-params' + query,
 
                         success: function(response) {
                             console.log('Got response: ' + response);
+                            window.location.replace(window.location.origin + "/kontomatik-app/welcome.xhtml");
+
                         },
-                        error: function() {
-                            alert('Sorry, the request can not be processed.');
-                        },
+                        error: function(response) {
+                            alert('Sorry, the Ajax request failed with response: ' + response);
+                        }
                     });
                 },
 
 
                 onError: function(exception) {
                     alert('A Kontomatik error has occurred: ' + exception);
-                },
+                }
             });
         </script>
     </body>

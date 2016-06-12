@@ -5,7 +5,7 @@
     <artifactId>kontomatik-app</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>kontomatik-maven-app :Maven Webapp</name>
+    <name>controllers-maven-app :Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -77,6 +77,14 @@
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <!-- Import the JSF API, we use provided scope as the API is included in WildFly -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.faces</groupId>
+            <artifactId>jboss-jsf-api_2.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
