@@ -25,18 +25,21 @@
                 locale: 'en',
 
                 onSuccess: function(target, sessionId, sessionIdSignature) {
-                    // Send session params to the server-side with an Http GET request
+                    // Pass session params to the server-side with an Http GET request
 
-                    var query='?sessionId=' + sessionId + '&sessionIdSignature=' + sessionIdSignature +
-                            '&target=' + target;
+                    var query = '?sessionId=' + sessionId + '&sessionIdSignature=' + sessionIdSignature + '&target=' + target;
 
                     $.ajax({
                         type: 'GET',
-                        url: window.location.origin + '/kontomatik-app/session-params' + query,
+                        url: window.location.href + '/session-params' + query,
 
                         success: function(response) {
+
                             console.log('Got response: ' + response);
-                            window.location.replace(window.location.origin + "/kontomatik-app/welcome.xhtml");
+
+                            window.location.replace(window.location.href + '/welcome.xhtml');
+
+
 
                         },
                         error: function(response) {
