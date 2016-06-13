@@ -17,11 +17,11 @@
                 locale: 'en',
 
                 onSuccess: function(target, sessionId, sessionIdSignature) {
-                    // Pass session parameters to the backend layer:
+                    // Pass session params to the server side via an Http GET request to '/session-params'
 
-                    var query='?sessionId=' + sessionId + '&sessionIdSignature=' + sessionIdSignature;
+                    var query='?sessionId=' + sessionId + '&sessionIdSignature=' + sessionIdSignature +
+                            '&target=' + target;
 
-                    // Dispatch session params through an Http request to '/session-params'
                     $.ajax({
                         type: 'GET',
                         url: window.location.origin + '/kontomatik-app/session-params' + query,
@@ -32,7 +32,8 @@
 
                         },
                         error: function(response) {
-                            alert('Sorry, the Ajax request failed with response: ' + response);
+                            alert('Sorry, the request cannot be processed');
+                            console.log('Ajax request failed with response: ' + response);
                         }
                     });
                 },
