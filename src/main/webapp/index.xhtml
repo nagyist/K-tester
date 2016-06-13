@@ -1,23 +1,31 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>SignIn</title>
-        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js'></script>
-        <script src='https://signin.kontomatik.com/assets/signin-widget.js'>
-        </script>
-    </head>
-    <body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<head>
+    <title>SignIn</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <script type="text/javascript" src='https://signin.kontomatik.com/assets/signin-widget.js'></script>
+    <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js'></script>
+
+
+</head>
+    <h:body>
         <div id='kontomatik'></div>
-        <h1 id='header'>hello</h1>
-        <script>
+        <script type="text/javascript">
             embedKontomatik({
-                client: 'ededu-test',
+                //<![CDATA[
+                client: '#{clientBean.name}',
                 divId: 'kontomatik',
                 country: 'pl',
                 locale: 'en',
 
                 onSuccess: function(target, sessionId, sessionIdSignature) {
-                    // Pass session params to the server side via an Http GET request to '/session-params'
+                    // Send session params to the server-side with an Http GET request
 
                     var query='?sessionId=' + sessionId + '&sessionIdSignature=' + sessionIdSignature +
                             '&target=' + target;
@@ -43,6 +51,7 @@
                     alert('A Kontomatik error has occurred: ' + exception);
                 }
             });
+            //]]>
         </script>
-    </body>
+    </h:body>
 </html>

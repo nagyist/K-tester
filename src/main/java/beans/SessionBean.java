@@ -1,4 +1,4 @@
-package controllers;
+package beans;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 

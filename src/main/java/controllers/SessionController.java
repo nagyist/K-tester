@@ -1,5 +1,7 @@
 package controllers;
 
+import beans.SessionBean;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +32,7 @@ public class SessionController extends HttpServlet {
         try {
             sessionBean.setSessionId(hTable.get("sessionId"));
             sessionBean.setSessionIdSignature(hTable.get("sessionIdSignature"));
-            writer.println(req.getQueryString());
+            writer.println("Hello from the server-side: session params received.");
         } catch (PatternSyntaxException e) {
             writer.println(e.getDescription());
         }
