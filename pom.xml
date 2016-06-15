@@ -5,7 +5,7 @@
     <artifactId>kontomatik-app</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>controllers-maven-app :Maven Webapp</name>
+    <name>kontomatik-maven-app :Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
     <properties>

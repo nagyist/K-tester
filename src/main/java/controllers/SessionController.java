@@ -1,5 +1,8 @@
 package controllers;
 
+import beans.ClientBean;
+import beans.SessionBean;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +22,11 @@ import java.io.PrintWriter;
 @WebServlet("/session-params")
 public class SessionController extends HttpServlet {
 
+    //TODO: research and use action methods if possible
+
 
     @Inject private SessionBean sessionBean;
+    @Inject private ClientBean clientBean;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/plain");
@@ -30,7 +36,7 @@ public class SessionController extends HttpServlet {
         try {
             sessionBean.setSessionId(hTable.get("sessionId"));
             sessionBean.setSessionIdSignature(hTable.get("sessionIdSignature"));
-            writer.println(req.getQueryString());
+            writer.println(/*"Hello from the server-side: session params received."*/req.getQueryString());
         } catch (PatternSyntaxException e) {
             writer.println(e.getDescription());
         }
