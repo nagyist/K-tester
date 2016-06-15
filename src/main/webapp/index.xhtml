@@ -10,20 +10,11 @@
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="3">
-                <h:outputLabel>Test with current client, ${clientBean.name} ?</h:outputLabel>
-                <h:commandButton value="Keep current client" onclick="redirectToSignin()"/>
-                <h:outputLabel>Change client parameter</h:outputLabel>
-                <h:outputLabel>Keep current client</h:outputLabel>
+                <h:outputLabel>Use current client: ${clientBean.name} ?</h:outputLabel>
+                <h:commandButton value="Yes" action="signin.xhtml"/>
+                <h:commandButton value="No, change the client parameter" action="inputform.xhtml"/>
             </h:panelGrid>
         </h:form>
-        <script type="text/javascript">
-            //<![CDATA[
-            function redirectToSignin() {
-                alert('here');
-                window.location.replace('/signin.xhtml');
-            }
-            //]]>
-        </script>
     </ui:define>
 </ui:composition>
 </html>
