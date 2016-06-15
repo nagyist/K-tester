@@ -6,10 +6,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <head>
-    <title>temp</title>
+    <title>Signin</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-    <script type="text/javascript" src='https://signin.kontomatik.com/assets/signin-widget.js'></script>
-    <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js'></script>
 </head>
 
 <ui:composition template="template.xhtml">
@@ -24,7 +22,7 @@
                 locale: 'en',
 
                 onSuccess: function (target, sessionId, sessionIdSignature) {
-                    // Pass session params to the server-side with an Http GET request
+                    // Pass session params to the backend:
 
                     var query = '?sessionId=' + sessionId + '&sessionIdSignature=' + sessionIdSignature + '&target=' + target;
 
@@ -47,8 +45,6 @@
                         }
                     });
                 },
-
-
                 onError: function (exception) {
                     alert('A Kontomatik error has occurred: ' + exception);
                 }

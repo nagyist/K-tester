@@ -5,13 +5,16 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <title>Home</title>
+</h:head>
 
 <ui:composition template="template.xhtml">
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="3">
                 <h:outputLabel>Use current client: ${clientBean.name} ?</h:outputLabel>
-                <h:commandButton value="Yes" action="signin.xhtml?faces-redirect=true"/>
+                <h:commandButton value="Yes" action="signin?faces-redirect=true"/>
                 <h:commandButton value="No, change the client parameter" action="inputform.xhtml"/>
             </h:panelGrid>
         </h:form>
