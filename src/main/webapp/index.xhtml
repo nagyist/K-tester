@@ -11,7 +11,7 @@
         <h:form>
             <h:panelGrid columns="3">
                 <h:outputLabel>Use current client: ${clientBean.name} ?</h:outputLabel>
-                <h:commandButton value="Yes" action="signin.xhtml"/>
+                <h:commandButton value="Yes" action="signin.xhtml?faces-redirect=true"/>
                 <h:commandButton value="No, change the client parameter" action="inputform.xhtml"/>
             </h:panelGrid>
         </h:form>
