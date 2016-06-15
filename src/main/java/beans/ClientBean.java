@@ -31,11 +31,10 @@ public class ClientBean {
             props.load(in);
             name = props.getProperty("name");
             apiKey = props.getProperty("apiKey");
-            System.out.println(name + ", " + apiKey);
         } catch(FileNotFoundException e) {
-            System.err.println("Credentials file not found.");
+            System.err.println("Credentials file not found:" + e.getMessage());
         } catch(IOException e1) {
-            System.err.println("Cannot read from credentials file.");
+            System.err.println("Cannot read from credentials file:" + e1.getMessage());
         }
 
     }

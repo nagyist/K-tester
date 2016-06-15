@@ -8,13 +8,22 @@
 
 <ui:composition template="template.xhtml">
     <ui:define name="content">
-        <h1>Hello</h1>
         <h:form>
             <h:panelGrid columns="3">
-                <h:outputLabel>Do you want to test Kontomatik using the current client (${clientBean.name}) or change the client?</h:outputLabel>
-                <h:outputLabel>Enter first name:</h:outputLabel>
+                <h:outputLabel>Test with current client, ${clientBean.name} ?</h:outputLabel>
+                <h:commandButton value="Keep current client" onclick="redirectToSignin()"/>
+                <h:outputLabel>Change client parameter</h:outputLabel>
+                <h:outputLabel>Keep current client</h:outputLabel>
             </h:panelGrid>
         </h:form>
+        <script type="text/javascript">
+            //<![CDATA[
+            function redirectToSignin() {
+                alert('here');
+                window.location.replace('/signin.xhtml');
+            }
+            //]]>
+        </script>
     </ui:define>
 </ui:composition>
 </html>

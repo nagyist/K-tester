@@ -1,5 +1,6 @@
 package controllers;
 
+import beans.ClientBean;
 import beans.SessionBean;
 
 import javax.inject.Inject;
@@ -21,8 +22,11 @@ import java.io.PrintWriter;
 @WebServlet("/session-params")
 public class SessionController extends HttpServlet {
 
+    //TODO: research and use action methods if possible
+
 
     @Inject private SessionBean sessionBean;
+    @Inject private ClientBean clientBean;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/plain");
