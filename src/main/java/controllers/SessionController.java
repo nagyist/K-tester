@@ -32,7 +32,7 @@ public class SessionController extends HttpServlet {
         try {
             sessionBean.setSessionId(hTable.get("sessionId"));
             sessionBean.setSessionIdSignature(hTable.get("sessionIdSignature"));
-            writer.println("Hello from the server-side: session params received.");
+            writer.println(/*"Hello from the server-side: session params received."*/req.getQueryString());
         } catch (PatternSyntaxException e) {
             writer.println(e.getDescription());
         }

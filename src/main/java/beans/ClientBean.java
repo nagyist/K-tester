@@ -2,8 +2,10 @@ package beans;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -20,12 +22,22 @@ public class ClientBean {
     FileInputStream in;
 
     {
+       init();
+    }
+
+    private void init() {
         try {
-            in  = new FileInputStream("resources/credentials");
+            in  = new FileInputStream("src/main/resources/credentials.txt");
+            props.load(in);
             name = props.getProperty("name");
+            apiKey = props.getProperty("apiKey");
+            System.out.println(name + ", " + apiKey);
         } catch(FileNotFoundException e) {
-            System.out.println("Can't read or write to client-credentials file.");
+            System.err.println("Credentials file not found.");
+        } catch(IOException e1) {
+            System.err.println("Cannot read from credentials file.");
         }
+
     }
 
 
