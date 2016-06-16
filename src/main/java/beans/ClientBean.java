@@ -44,12 +44,14 @@ public class ClientBean {
         return name;
     }
 
+
     public void setName(String name) {
         this.name = name;
         // Persist name:
         props.setProperty("name", name);
     }
 
+    public String getApiKey() { return apiKey; }
 
     public void setApiKey(String apiKey) {
         this.apiKey = apiKey;
