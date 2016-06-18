@@ -58,4 +58,9 @@ public class ClientBean {
         // Persist API key:
         props.setProperty("apiKey", apiKey);
     }
+    public void setToNull() {
+        this.name = null;
+        this.apiKey= null;
+        System.err.println("Dooooooooonnne");
+    }
 }

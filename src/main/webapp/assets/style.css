@@ -5,7 +5,10 @@ h2 {
     display: inline;
 }
 
-
+#clientForm {
+    visibility: hidden;
+    float: right;
+}
 
 .tooltip {
     position: relative;
