@@ -14,48 +14,21 @@
     <script type="text/javascript" src='https://signin.kontomatik.com/assets/signin-widget.js'></script>
     <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js'></script>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
-    <script type="text/javascript">
-        function showForm() {
-            $("#clientForm").css('visibility', 'visible');
-        }
-        $(document).ready(function hideForm() {
-            $("#clientForm").css('visibility', 'hidden');
-        });
-        $(document).ready(function(){
-            $("button").click(function(){
-                $("input:text").val("#{clientBean.name}");
-                alert('out');
-            });
-        });
-    </script>
 </head>
 
 <body>
 
 <div id="container">
     <div id="header">
-            <h2>Test app: Kontomatik API</h2>
+        <h2>Test app: Kontomatik API</h2>
 
-        <div class="tooltip" onclick="showForm()">${clientBean.name}
-            <span class="tooltiptext">Click to change the client</span>
-        </div>
-        <p>Name: <input title="test" type="text" name="user"/></p>
+        <form action="client-params" method="get" enctype="application/x-www-form-urlencoded">
+            Enter your client parameter: <input name="clientname" type="text" />
+            <br/>
+            Enter your API key: <input name="apikey" type="text" />
+            <button type="submit">Submit</button>
+        </form>
 
-        <button>Set the value of the input field</button>
-
-
-        <h:form id="clientForm">
-            <h:panelGrid columns="3">
-                <h:outputLabel for="clientname">Enter your client parameter:</h:outputLabel>
-                <h:inputText id="clientname" value="#{clientBean.name}" required="true"/>
-                <h:message for="clientname" />
-
-                <h:outputLabel for="apikey">Enter your API key:</h:outputLabel>
-                <h:inputText id="apikey" value="#{clientBean.apiKey}" required="true"/>
-                <h:message for="apikey" />
-                <h:commandButton type="submit" value="Submit" onclick="hideForm()"/>
-            </h:panelGrid>
-        </h:form>
     </div>
 
 
