@@ -4,7 +4,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <welcome-file-list>
-        <welcome-file>home.xhtml</welcome-file>
+        <welcome-file>signin.xhtml</welcome-file>
     </welcome-file-list>
     <!--
       FacesServlet is main servlet responsible to handle all request.
@@ -27,6 +27,4 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-
-
 </web-app>

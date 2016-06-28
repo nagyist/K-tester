@@ -17,6 +17,7 @@ import java.util.Hashtable;
 import java.util.regex.PatternSyntaxException;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import utils.QueryParser;
 
 /**
@@ -28,19 +29,17 @@ import utils.QueryParser;
 public class ClientController extends HttpServlet {
 
     //TODO: research and use action methods if possible
-    @Inject private ClientBean clientBean;
-
-
+    @Inject
+    private ClientBean clientBean;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/plain");
         PrintWriter writer = resp.getWriter();
-        writer.println(req.getQueryString());
         Hashtable<String, String> table = new QueryParser().parseQueryString(req.getQueryString());
-        clientBean.setName(table.get("clientname"));
-        clientBean.setApiKey(table.get("apikey"));
-
-
+        clientBean.setName(table.get("clientName"));
+        clientBean.setApiKey(table.get("apiKey"));
+        //System.out.println(req.getQueryString());
+        writer.println(req.getQueryString());
     }
 
 

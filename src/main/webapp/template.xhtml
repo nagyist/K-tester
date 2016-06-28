@@ -13,7 +13,13 @@
     <ui:insert name="head"/>
     <script type="text/javascript" src='https://signin.kontomatik.com/assets/signin-widget.js'></script>
     <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js'></script>
+    <script type="text/javascript" src="sendClientParamsToBackend.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
+    <script type="text/javascript">
+        function showForm() {
+            $("#clientForm").css('visibility', 'visible');
+        }
+    </script>
 </head>
 
 <body>
@@ -21,16 +27,18 @@
 <div id="container">
     <div id="header">
         <h2>Test app: Kontomatik API</h2>
-
-        <form action="client-params" method="get" enctype="application/x-www-form-urlencoded">
-            Enter your client parameter: <input name="clientname" type="text" />
-            <br/>
-            Enter your API key: <input name="apikey" type="text" />
-            <button type="submit">Submit</button>
-        </form>
-
+        <div class="tooltip" onclick="showForm()">${clientBean.name}
+            <span class="tooltiptext">Click to change the client</span>
+        </div>
     </div>
 
+    <form id="clientForm" action="" onsubmit="sendParams()">
+        Enter your client parameter: <input id="clientname" name="client" type="text" />
+        <br/>
+        Enter your API key: <input id="apikey" name="key" type="text" />
+        <br/>
+        <button type="submit">Submit</button>
+    </form>
 
     <div id="sidebar"></div>
 
