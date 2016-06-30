@@ -8,6 +8,7 @@ h2 {
 #changeClientForm {
     visibility: hidden;
     float: right;
+    margin-left: 1em;
 }
 
 

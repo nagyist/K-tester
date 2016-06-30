@@ -22,5 +22,10 @@ public class SessionBean {
         this.sessionIdSignature = sessionIdSignature;
     }
 
+    public String getCatalog() {
+        String result = "<!Doctype html>\n<html><head></head><body><h1>Hello iframe</h1></body></html>";
+        return result;
+    }
+
 
 }
