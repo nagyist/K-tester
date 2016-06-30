@@ -1,14 +1,15 @@
 #header {
-    padding: 2%;
+    padding: 0.5%;
 }
 h2 {
     display: inline;
 }
 
-#clientForm {
+#changeClientForm {
     visibility: hidden;
     float: right;
 }
+
 
 .tooltip {
     position: relative;

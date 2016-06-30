@@ -14,16 +14,6 @@ public class SessionBean {
     private String sessionId;
     private String sessionIdSignature;
 
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    public String getSessionIdSignature() {
-        return sessionIdSignature;
-    }
-
-
-
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
     }

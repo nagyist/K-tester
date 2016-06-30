@@ -28,29 +28,14 @@ import utils.QueryParser;
 @WebServlet("/client-params")
 public class ClientController extends HttpServlet {
 
-    //TODO: research and use action methods if possible
     @Inject
     private ClientBean clientBean;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/plain");
-        PrintWriter writer = resp.getWriter();
-        Hashtable<String, String> table = new QueryParser().parseQueryString(req.getQueryString());
-        clientBean.setName(table.get("clientName"));
-        clientBean.setApiKey(table.get("apiKey"));
-        //System.out.println(req.getQueryString());
-        writer.println(req.getQueryString());
+        clientBean.setName(req.getParameter("clientname"));
+        clientBean.setApiKey(req.getParameter("apikey"));
+        resp.sendRedirect("signin.xhtml");
     }
-
-
-    /*
-    @Named
-    @Produces
-    @ApplicationScoped
-    private void setClient() {
-        clientBean = new ClientBean();
-    }
-    */
 
 
 }

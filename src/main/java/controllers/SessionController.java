@@ -26,24 +26,14 @@ import java.io.PrintWriter;
 @WebServlet("/session-params")
 public class SessionController extends HttpServlet {
 
-    //TODO: research and use action methods if possible
-
-
-    @Inject private SessionBean sessionBean;
+    @Inject
+    private SessionBean sessionBean;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/plain");
-        PrintWriter writer = resp.getWriter();
-        Hashtable<String, String> hashtable = new utils.QueryParser().parseQueryString(req.getQueryString());
-
-        try {
-            sessionBean.setSessionId(hashtable.get("sessionId"));
-            sessionBean.setSessionIdSignature(hashtable.get("sessionIdSignature"));
-            writer.println(/*"Hello from the server-side: session params received."*/req.getQueryString());
-        } catch (PatternSyntaxException e) {
-            writer.println(e.getDescription());
-        }
+        sessionBean.setSessionId(req.getParameter("sessionId"));
+        sessionBean.setSessionIdSignature(req.getParameter("sessionIdSignature"));
+        PrintWriter out = resp.getWriter();
+        out.println("Hello from the server-side. Session params successfully transmitted.");
     }
-
 
 }

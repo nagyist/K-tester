@@ -29,18 +29,16 @@
                     $.ajax({
                         type: 'GET',
                         url: window.location.origin + '/kontomatik-app/session-params' + query,
+                        dataType: 'text',
 
                         success: function (response) {
 
                             console.log('Got response: ' + response);
-
                             window.location.replace(window.location.origin + '/kontomatik-app/welcome.xhtml');
-
 
                         },
                         error: function (response) {
                             alert('Sorry, the request cannot be processed');
-
                             console.log('Ajax request failed with response: ' + response.responseText);
                         }
                     });
