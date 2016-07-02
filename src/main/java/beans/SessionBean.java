@@ -11,8 +11,29 @@ import javax.inject.Named;
 @Named
 @ApplicationScoped
 public class SessionBean {
+
     private String sessionId;
     private String sessionIdSignature;
+    private String target;
+
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public String getSessionIdSignature() {
+        return sessionIdSignature;
+    }
+
+
 
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
@@ -20,11 +41,6 @@ public class SessionBean {
 
     public void setSessionIdSignature(String sessionIdSignature) {
         this.sessionIdSignature = sessionIdSignature;
-    }
-
-    public String getCatalog() {
-        String result = "<!Doctype html>\n<html><head></head><body><h1>Hello iframe</h1></body></html>";
-        return result;
     }
 
 

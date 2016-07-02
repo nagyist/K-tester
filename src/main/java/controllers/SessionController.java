@@ -32,6 +32,7 @@ public class SessionController extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         sessionBean.setSessionId(req.getParameter("sessionId"));
         sessionBean.setSessionIdSignature(req.getParameter("sessionIdSignature"));
+        sessionBean.setTarget(req.getParameter("target"));
         PrintWriter out = resp.getWriter();
         out.println("Hello from the server-side. Session params successfully transmitted.");
     }
