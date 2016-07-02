@@ -30,20 +30,13 @@ public class Results extends HttpServlet {
 
     private final String USER_AGENT = "Mozilla/5.0";
 
-    private enum Command {
-        DEFAULT_IMPORT,
-        IMPORT_OWNERS,
-        IMPORT_ACCOUNTS,
-        IMPORT_TRANSACTIONS
-    }
-
-    private Map<Command, String> map = new HashMap<>();
+    private Map<String, String> map = new HashMap<>();
 
     {
-        map.put(Command.DEFAULT_IMPORT, "https://test.api.kontomatik.com/v1/command/default-import.xml");
-        map.put(Command.IMPORT_OWNERS, "https://test.api.kontomatik.com/v1/command/import-owners.xml");
-        map.put(Command.IMPORT_ACCOUNTS, "https://test.api.kontomatik.com/v1/command/import-accounts.xml");
-        map.put(Command.IMPORT_TRANSACTIONS, "https://test.api.kontomatik.com/v1/command/import-account-transactions.xml");
+        map.put("default-import", "https://test.api.kontomatik.com/v1/command/default-import.xml");
+        map.put("import-owners", "https://test.api.kontomatik.com/v1/command/import-owners.xml");
+        map.put("import-accounts", "https://test.api.kontomatik.com/v1/command/import-accounts.xml");
+        map.put("import-transactions", "https://test.api.kontomatik.com/v1/command/import-account-transactions.xml");
     }
 
     private ExecutorService service = Executors.newSingleThreadExecutor();
@@ -95,7 +88,7 @@ public class Results extends HttpServlet {
 
     private String executeImportOwners() throws IOException {
 
-        String POST_URL = map.get(Command.IMPORT_OWNERS);
+        String POST_URL = map.get("import-owners");
         String POST_PARAMS = "apiKey=" + clientBean.getApiKey()
                 + "&sessionId=" + sessionBean.getSessionId()
                 + "&sessionIdSignature=" + sessionBean.getSessionIdSignature();
