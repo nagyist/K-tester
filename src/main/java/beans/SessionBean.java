@@ -16,7 +16,6 @@ public class SessionBean {
     private String sessionIdSignature;
     private String target;
 
-
     public String getTarget() {
         return target;
     }
