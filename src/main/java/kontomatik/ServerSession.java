@@ -3,9 +3,7 @@ package kontomatik;
 import beans.ClientBean;
 import beans.SessionBean;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
@@ -56,7 +54,8 @@ public class ServerSession {
 
     private String parseCommandId(String text) {
         String id;
-        String pattern = "command id=\"([0-9]+)\""; // (capture digits)
+        // Use a capturing group in regex:
+        String pattern = "command id=\"([0-9]+)\"";
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(text);
         if (m.find()) {
@@ -66,7 +65,6 @@ public class ServerSession {
                     String.format("Pattern %s not found in response", pattern));
         }
         return id;
-
     }
 
     private String createGetUrl(String response) {
@@ -84,7 +82,6 @@ public class ServerSession {
         try {
             Boolean success = future.get(60, TimeUnit.SECONDS);
             future.cancel(true);
-            //executor.shutdown();
             if (success) {
                 return h.getResponse();
             } else {
