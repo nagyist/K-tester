@@ -1,9 +1,6 @@
 package kontomatik;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -18,26 +15,24 @@ class HttpUtil {
 
     public String getResponse() {
         if (text == null)
-            throw new IllegalStateException("Http request was not submitted or it failed");
+            throw new IllegalStateException("Http request was never submitted or it failed");
         return text;
     }
 
     public int getResponseCode() throws IOException {
         if (con == null)
-            throw new IllegalStateException("Http request was not submitted or it failed");
+            throw new IllegalStateException("Http request was never submitted or it failed");
         return con.getResponseCode();
     }
 
-    private void setResponse() throws IOException {
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        StringBuilder response = new StringBuilder();
-        String s;
-        while ((s = in.readLine()) != null) {
-            response.append(s);
-        }
+    private void setText() throws IOException {
+        InputStream in = con.getInputStream();
+        int x;
+        StringBuilder sb = new StringBuilder();
+        while ( (x = in.read()) != -1)
+            sb.append( (char) x);
         in.close();
-        text = response.toString();
+        text = sb.toString();
     }
 
     protected HttpUtil doGetRequest(String GET_URL) throws IOException {
@@ -45,7 +40,7 @@ class HttpUtil {
         con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
-        setResponse();
+        setText();
         return this;
     }
 
@@ -61,7 +56,7 @@ class HttpUtil {
         os.write(POST_PARAMS.getBytes());
         os.flush();
         os.close();
-        setResponse();
+        setText();
         return this;
     }
 }

@@ -3,7 +3,9 @@ package kontomatik;
 import beans.ClientBean;
 import beans.SessionBean;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
@@ -31,13 +33,15 @@ public class ServerSession {
         return SIGNATURE;
     }
 
+
     // Add @Resource annotation to mark as a producer method
+    // This is lazy initialization method
     private void setSignature() {
         this.SIGNATURE = "apiKey=" + clientBean.getApiKey()
                 + "&sessionId=" + sessionBean.getSessionId()
                 + "&sessionIdSignature=" + sessionBean.getSessionIdSignature();
-        ;
     }
+
 
     private Map<String, String> map = new HashMap<>();
 
@@ -49,7 +53,6 @@ public class ServerSession {
         map.put("get-url-address", "https://test.api.kontomatik.com/v1/command/");
     }
 
-    private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private String parseCommandId(String text) {
         String id;
@@ -72,6 +75,7 @@ public class ServerSession {
                 map.get("get-url-address"), id, SIGNATURE);
     }
 
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private String pollForCommandStatus(HttpUtil h) {
         String GET_URL = createGetUrl(h.getResponse());
@@ -80,7 +84,7 @@ public class ServerSession {
         try {
             Boolean success = future.get(60, TimeUnit.SECONDS);
             future.cancel(true);
-            executor.shutdown();
+            //executor.shutdown();
             if (success) {
                 return h.getResponse();
             } else {
