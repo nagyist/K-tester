@@ -24,7 +24,7 @@ import java.io.PrintWriter;
  * Created on: 09/06/16
  */
 @WebServlet("/session-params")
-public class SessionController extends HttpServlet {
+public class SessionBeanController extends HttpServlet {
 
     @Inject
     private SessionBean sessionBean;

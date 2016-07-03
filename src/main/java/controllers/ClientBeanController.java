@@ -16,7 +16,7 @@ import java.io.IOException;
  * Created on: 09/06/16
  */
 @WebServlet("/client-params")
-public class ClientController extends HttpServlet {
+public class ClientBeanController extends HttpServlet {
 
     @Inject
     private ClientBean clientBean;
