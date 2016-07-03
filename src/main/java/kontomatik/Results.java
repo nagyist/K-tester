@@ -18,14 +18,12 @@ public class Results extends HttpServlet {
     ServerSession serverSession;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Infer command from the query string and delegate to appropriate executor method:
         PrintWriter out = resp.getWriter();
-        String cmd = req.getParameter("action");
+        String cmd = req.getParameter("command");
         switch (cmd) {
             case "import-owners":
                 String result;
                 result = serverSession.executeImportOwners();
-                System.out.println(result);
                 out.println(result);
                 break;
             case "default-import":

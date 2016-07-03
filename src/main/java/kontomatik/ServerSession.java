@@ -84,7 +84,6 @@ public class ServerSession {
         try {
             Boolean success = future.get(60, TimeUnit.SECONDS);
             future.cancel(true);
-            //executor.shutdown();
             if (success) {
                 return h.getResponse();
             } else {
