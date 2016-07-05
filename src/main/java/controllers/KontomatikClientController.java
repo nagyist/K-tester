@@ -21,7 +21,7 @@ public class KontomatikClientController extends HttpServlet {
     @Inject
     private KontomatikClient kontomatikClient;
 
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         kontomatikClient.setName(req.getParameter("clientname"));
         kontomatikClient.setApiKey(req.getParameter("apikey"));
         resp.sendRedirect("signin.xhtml");

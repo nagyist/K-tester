@@ -17,12 +17,13 @@ public class Results extends HttpServlet {
     @Inject
     KontomatikSession kontomatikSession;
 
+    @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         String cmd = req.getParameter("command");
+        String result;
         switch (cmd) {
             case "import-owners":
-                String result;
                 result = kontomatikSession.executeImportOwners();
                 out.println(result);
                 break;

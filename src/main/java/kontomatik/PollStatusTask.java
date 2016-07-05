@@ -12,9 +12,9 @@ class PollStatusTask implements Callable<Boolean> {
     String url;
     HttpUtil httpUtil;
 
-    public PollStatusTask(String GET_URL, HttpUtil h) {
-        url = GET_URL;
-        this.httpUtil = h;
+    public PollStatusTask(String url, HttpUtil h) {
+        this.url = url;
+        httpUtil = h;
 
     }
 
@@ -22,7 +22,6 @@ class PollStatusTask implements Callable<Boolean> {
         String response;
         while (true) {
             try {
-                // Is it necessary to submit a new request?
                 response = httpUtil.doGetRequest(url).getResponse();
                 if (response.contains("state=\"successful\"")) {
                     return true;

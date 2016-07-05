@@ -25,13 +25,14 @@ public class KontomatikSessionController extends HttpServlet {
     @Inject
     KontomatikClient kontomatikClient;
 
+    @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         kontomatikSession.setSignature(
                 req.getParameter("sessionId"),
                 req.getParameter("sessionIdSignature"),
                 kontomatikClient.getApiKey());
         PrintWriter out = resp.getWriter();
-        out.println("Hello from the server-side. Session params successfully transmitted.");
+        out.println("Session params successfully transmitted.");
     }
 
 }
