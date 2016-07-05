@@ -1,9 +1,7 @@
 package kontomatik;
 
-import beans.ClientBean;
-import beans.SessionBean;
 
-import javax.inject.Inject;
+import javax.enterprise.context.ApplicationScoped;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
@@ -18,26 +16,15 @@ import java.util.regex.Pattern;
 /**
  * Created by eduarddedu on 03/07/16.
  */
-public class ServerSession {
-
-    @Inject
-    SessionBean sessionBean;
-    @Inject
-    ClientBean clientBean;
+@ApplicationScoped
+public class KontomatikSession {
 
     private String SIGNATURE;
 
-    public String getSignature() {
-        return SIGNATURE;
-    }
 
-
-    // Add @Resource annotation to mark as a producer method
-    // This is lazy initialization method
-    private void setSignature() {
-        this.SIGNATURE = "apiKey=" + clientBean.getApiKey()
-                + "&sessionId=" + sessionBean.getSessionId()
-                + "&sessionIdSignature=" + sessionBean.getSessionIdSignature();
+    public void setSignature(String sessionId, String sessionIdSignature, String apiKey) {
+        System.out.println("Inside setSignature()");
+        this.SIGNATURE = "apiKey=" + apiKey + "&sessionId=" + sessionId + "&sessionIdSignature=" + sessionIdSignature;
     }
 
 
@@ -48,7 +35,7 @@ public class ServerSession {
         map.put("import-owners", "https://test.api.kontomatik.com/v1/command/import-owners.xml");
         map.put("import-accounts", "https://test.api.kontomatik.com/v1/command/import-accounts.xml");
         map.put("import-transactions", "https://test.api.kontomatik.com/v1/command/import-account-transactions.xml");
-        map.put("get-url-address", "https://test.api.kontomatik.com/v1/command/");
+        map.put("poll-command-status", "https://test.api.kontomatik.com/v1/command/");
     }
 
 
@@ -70,7 +57,7 @@ public class ServerSession {
     private String createGetUrl(String response) {
         String id = parseCommandId(response);
         return String.format("%s%s.xml?%s",
-                map.get("get-url-address"), id, SIGNATURE);
+                map.get("poll-command-status"), id, SIGNATURE);
     }
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -97,7 +84,6 @@ public class ServerSession {
     public String executeImportOwners() throws IOException {
 
         String POST_URL = map.get("import-owners");
-        setSignature();
         HttpUtil h = new HttpUtil().doPostRequest(POST_URL, SIGNATURE);
         int responseCode = h.getResponseCode();
         System.out.println("POST Response Code :: " + responseCode);

@@ -1,4 +1,4 @@
-package beans;
+package kontomatik;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -13,7 +13,7 @@ import java.util.Properties;
  */
 @Named
 @ApplicationScoped
-public class ClientBean {
+public class KontomatikClient {
 
     private String name;
     private String apiKey;

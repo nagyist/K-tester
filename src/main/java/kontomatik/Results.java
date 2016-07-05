@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 @WebServlet("/results")
 public class Results extends HttpServlet {
     @Inject
-    ServerSession serverSession;
+    KontomatikSession kontomatikSession;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
@@ -23,7 +23,7 @@ public class Results extends HttpServlet {
         switch (cmd) {
             case "import-owners":
                 String result;
-                result = serverSession.executeImportOwners();
+                result = kontomatikSession.executeImportOwners();
                 out.println(result);
                 break;
             case "default-import":

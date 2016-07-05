@@ -1,6 +1,6 @@
 package controllers;
 
-import beans.ClientBean;
+import kontomatik.KontomatikClient;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -16,14 +16,14 @@ import java.io.IOException;
  * Created on: 09/06/16
  */
 @WebServlet("/client-params")
-public class ClientBeanController extends HttpServlet {
+public class KontomatikClientController extends HttpServlet {
 
     @Inject
-    private ClientBean clientBean;
+    private KontomatikClient kontomatikClient;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        clientBean.setName(req.getParameter("clientname"));
-        clientBean.setApiKey(req.getParameter("apikey"));
+        kontomatikClient.setName(req.getParameter("clientname"));
+        kontomatikClient.setApiKey(req.getParameter("apikey"));
         resp.sendRedirect("signin.xhtml");
     }
 
