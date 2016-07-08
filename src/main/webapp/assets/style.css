@@ -1,11 +1,8 @@
 #header {
     padding: 0.5%;
 }
-h2 {
-    display: inline;
-}
 
-#changeClientForm {
+#clientform {
     visibility: hidden;
     float: right;
     margin-left: 1em;
@@ -48,5 +45,11 @@ h2 {
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+.command-button {
+    float: left;
+    margin-left: 10px;
+}
+
 
 

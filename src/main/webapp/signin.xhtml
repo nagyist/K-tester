@@ -18,9 +18,8 @@
                 //<![CDATA[
                 client: '#{kontomatikClient.name}',
                 divId: 'kontomatik',
-                country: 'pl',
                 locale: 'en',
-
+                ownerExternalId: 100776,
                 onSuccess: function (target, sessionId, sessionIdSignature) {
                     // Pass session params to the backend:
 
@@ -34,7 +33,7 @@
                         success: function (response) {
 
                             console.log('Got response: ' + response);
-                            window.location.replace(window.location.origin + '/kontomatik-app/controls.xhtml');
+                            window.location.replace(window.location.origin + '/kontomatik-app/commands.xhtml');
 
                         },
                         error: function (response) {

@@ -21,11 +21,11 @@
 
 <div id="container">
     <div id="header">
-        <h2>Verify your Kontomatik account</h2>
-        <div class="tooltip" onclick="showForm()">${kontomatikClient.name}
+        <a href="signin.xhtml">Sign in</a> | <a href="commands.xhtml">API Commands</a>
+        <div class="tooltip" onclick="showClientForm()">${kontomatikClient.name}
             <span class="tooltiptext">Click to change the client</span>
         </div>
-        <form id="changeClientForm" action="client-params" method="post" >
+        <form id="clientform" action="client-params" method="post" >
             <table style="width:100%">
                 <tr>
                     <td><label for="clientname">Enter your client parameter: </label></td>

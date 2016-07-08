@@ -4,12 +4,7 @@ package kontomatik;
 import javax.enterprise.context.ApplicationScoped;
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,20 +18,13 @@ public class KontomatikSession {
 
 
     public void setSignature(String sessionId, String sessionIdSignature, String apiKey) {
-        System.out.println("Inside setSignature()");
         this.SIGNATURE = "apiKey=" + apiKey + "&sessionId=" + sessionId + "&sessionIdSignature=" + sessionIdSignature;
     }
 
-
-    private Map<String, String> map = new HashMap<>();
-
-    {
-        map.put("default-import", "https://test.api.kontomatik.com/v1/command/default-import.xml");
-        map.put("import-owners", "https://test.api.kontomatik.com/v1/command/import-owners.xml");
-        map.put("import-accounts", "https://test.api.kontomatik.com/v1/command/import-accounts.xml");
-        map.put("import-transactions", "https://test.api.kontomatik.com/v1/command/import-account-transactions.xml");
-        map.put("poll-command-status", "https://test.api.kontomatik.com/v1/command/");
+    public String getSignature() {
+        return SIGNATURE;
     }
+    protected static String API_ENDPOINT = "https://test.api.kontomatik.com/";
 
 
     private String parseCommandId(String text) {
@@ -57,43 +45,42 @@ public class KontomatikSession {
     private String createGetUrl(String response) {
         String id = parseCommandId(response);
         return String.format("%s%s.xml?%s",
-                map.get("poll-command-status"), id, SIGNATURE);
+                Urls.POLL_STATUS.value, id, SIGNATURE);
     }
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    private String pollForCommandStatus(HttpUtil h) {
+    private String pollForCommandStatus(HttpUtil h, int timeout) {
         String GET_URL = createGetUrl(h.getResponse());
-        PollStatusTask task = new PollStatusTask(GET_URL, h);
-        Future<Boolean> future = executor.submit(task);
+        PollingTask task = new PollingTask(GET_URL, h);
+        Future<String> future = executor.submit(task);
         try {
-            Boolean success = future.get(60, TimeUnit.SECONDS);
-            future.cancel(true);
-            if (success) {
-                return h.getResponse();
-            } else {
-                return "PollStatusTask has timed out. Final response: " + h.getResponse();
-            }
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
+            return future.get(timeout, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException ex) {
+            //There will always be an ExecutionException if the task can't complete before timeout.
+            System.out.format("Polling task timeout after %s millis.", timeout);
+            //Return final response:
+            return h.getResponse();
         }
 
     }
 
 
-    public String executeImportOwners() throws IOException {
-
-        String POST_URL = map.get("import-owners");
-        HttpUtil h = new HttpUtil().doPostRequest(POST_URL, SIGNATURE);
+    public String executeCommand(Urls url, String params, int pollingTimeout) throws IOException {
+        String POST_URL = url.value;
+        String PARAMS = params == null ? SIGNATURE : SIGNATURE + params;
+        HttpUtil h = new HttpUtil().doPostRequest(POST_URL, PARAMS);
         int responseCode = h.getResponseCode();
-        System.out.println("POST Response Code :: " + responseCode);
-
+        System.out.format("API %s command called. Response Code :: %s", url, responseCode);
         if (responseCode == HttpURLConnection.HTTP_ACCEPTED) { //success
-            return pollForCommandStatus(h);
+            return pollForCommandStatus(h, pollingTimeout);
         } else {
             return "Error: " + h.getResponse();
         }
+
+
     }
+
 }
 
 

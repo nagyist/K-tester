@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="template.xhtml">
+    <ui:define name="content">
+        <div id="controlpannel">
+            <div id="import-owners-div" class="command-button">
+                <form action="results" method="post">
+                    <input type="hidden" name="command" value="import-owners-details"/>
+                    <button type="submit">Call import-owners-details command</button>
+                </form>
+            </div>
+            <div id="import-accounts-div" class="command-button">
+                <form action="results" method="post">
+                    <input type="hidden" name="command" value="import-accounts"/>
+                    <button type="submit">Call import-accounts command</button>
+                </form>
+            </div>
+            <div id="import-account-transactions-div" class="command-button">
+                <form action="">
+                    <button type="button" onclick="showForm1()">Call import-account-transactions command
+                    </button>
+                </form>
+                <form id="form1" action="results" method="post" style="visibility: hidden">
+                    <input type="hidden" name="command" value="import-account-transactions"/>
+                    <table>
+                        <tr>
+                            <td><label for="ibanfield">IBAN:</label></td>
+                            <td><input id="ibanfield" type="text" name="iban" required="true" autocomplete="off"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="datefield1">Since:</label></td>
+                            <td><input id="datefield1" type="date" name="since" required="true"/></td>
+                        </tr>
+                        <tr>
+                            <td><button type="submit">Submit</button></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div id="default-import-div" class="command-button">
+                <form action="">
+                    <button type="button" onclick="showForm2()">Call default-import command
+                    </button>
+                </form>
+                <form id="form2" action="results" method="post" style="visibility: hidden">
+                    <input type="hidden" name="command" value="default-import"/>
+                    <label for="datefield2"> Since:</label>
+                    <input id="datefield2" type="date" name="since" required="true"/>
+                    <br/>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <br style="clear:both"/>
+        </div>
+    </ui:define>
+</ui:composition>
+
+</html>

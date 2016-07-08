@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by eduarddedu on 30/06/16.
@@ -15,28 +17,37 @@ import java.io.PrintWriter;
 @WebServlet("/results")
 public class Results extends HttpServlet {
     @Inject
-    KontomatikSession kontomatikSession;
+    KontomatikSession ks;
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Check if end user is signed in:
+        if (ks.getSignature() == null) {
+            resp.sendRedirect("signin.xhtml");
+            return;
+        }
         PrintWriter out = resp.getWriter();
         String cmd = req.getParameter("command");
-        String result;
+        String result = null;
         switch (cmd) {
-            case "import-owners":
-                result = kontomatikSession.executeImportOwners();
-                out.println(result);
-                break;
-            case "default-import":
-                break;
-            case "import-transactions":
+            case "import-owners-details":
+                result = ks.executeCommand(Urls.IMPORT_OWNERS, null, 10000);
                 break;
             case "import-accounts":
+                result = ks.executeCommand(Urls.IMPORT_ACCOUNTS, null, 15000);
+                break;
+            case "import-account-transactions":
+                String params = "&iban=" + req.getParameter("iban") + "&since=" + req.getParameter("since");
+                result = ks.executeCommand(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 15000);
+                break;
+            case "default-import":
+                params = "&since=" + req.getParameter("since");
+                result = ks.executeCommand(Urls.DEFAULT_IMPORT, params, 24000);
                 break;
             case "aggregates":
+                result = null;
                 break;
         }
-
-
+        out.println(result);
     }
 }
