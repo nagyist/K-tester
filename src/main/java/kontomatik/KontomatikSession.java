@@ -24,7 +24,7 @@ public class KontomatikSession {
     public String getSignature() {
         return SIGNATURE;
     }
-    protected static String API_ENDPOINT = "https://test.api.kontomatik.com/";
+    protected static final String API_ENDPOINT = "https://test.api.kontomatik.com/";
 
 
     private String parseCommandId(String text) {

@@ -8,19 +8,19 @@
 <ui:composition template="template.xhtml">
     <ui:define name="content">
         <div id="controlpannel">
-            <div id="import-owners-div" class="command-button">
+            <div class="command-button">
                 <form action="results" method="post">
                     <input type="hidden" name="command" value="import-owners-details"/>
                     <button type="submit">Call import-owners-details command</button>
                 </form>
             </div>
-            <div id="import-accounts-div" class="command-button">
+            <div class="command-button">
                 <form action="results" method="post">
                     <input type="hidden" name="command" value="import-accounts"/>
                     <button type="submit">Call import-accounts command</button>
                 </form>
             </div>
-            <div id="import-account-transactions-div" class="command-button">
+            <div class="command-button">
                 <form action="">
                     <button type="button" onclick="showForm1()">Call import-account-transactions command
                     </button>
@@ -42,7 +42,7 @@
                     </table>
                 </form>
             </div>
-            <div id="default-import-div" class="command-button">
+            <div class="command-button">
                 <form action="">
                     <button type="button" onclick="showForm2()">Call default-import command
                     </button>

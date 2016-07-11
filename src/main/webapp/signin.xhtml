@@ -33,7 +33,11 @@
                         success: function (response) {
 
                             console.log('Got response: ' + response);
-                            window.location.replace(window.location.origin + '/kontomatik-app/commands.xhtml');
+                            $(function() {
+                                window.location.replace(
+                                        window.location.origin + '/kontomatik-app/commands.xhtml');
+
+                            });
 
                         },
                         error: function (response) {
