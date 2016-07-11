@@ -26,7 +26,7 @@ class HttpUtil {
     }
 
     private void setText() throws IOException {
-        InputStream in = con.getInputStream();
+        InputStream in = new BufferedInputStream(con.getInputStream());
         int x;
         StringBuilder sb = new StringBuilder();
         while ( (x = in.read()) != -1)
