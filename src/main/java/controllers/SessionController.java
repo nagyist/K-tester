@@ -18,7 +18,7 @@ import java.io.PrintWriter;
  * Created on: 09/06/16
  */
 @WebServlet("session-params")
-public class KontomatikSessionController extends HttpServlet {
+public class SessionController extends HttpServlet {
 
     @Inject
     Session session;
