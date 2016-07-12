@@ -15,7 +15,7 @@ import java.io.IOException;
  * eduardcdedu@gmail.com
  * Created on: 09/06/16
  */
-@WebServlet("/client-params")
+@WebServlet("client-params")
 public class KontomatikResourcesController extends HttpServlet {
 
     @Inject
