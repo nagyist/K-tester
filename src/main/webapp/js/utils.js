@@ -10,3 +10,6 @@ function showForm1() {
 function showForm2() {
     $("#form2").css('visibility', 'visible');
 }
+function showForm3() {
+    $("#form3").css('visibility', 'visible');
+}

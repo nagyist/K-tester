@@ -22,8 +22,7 @@
             </div>
             <div class="command-button">
                 <form action="">
-                    <button type="button" onclick="showForm1()">Call import-account-transactions command
-                    </button>
+                    <button type="button" onclick="showForm1()">Call import-account-transactions command</button>
                 </form>
                 <form id="form1" action="results" method="post" style="visibility: hidden">
                     <input type="hidden" name="command" value="import-account-transactions"/>
@@ -36,23 +35,39 @@
                             <td><label for="datefield1">Since:</label></td>
                             <td><input id="datefield1" type="date" name="since" required="true"/></td>
                         </tr>
-                        <tr>
-                            <td><button type="submit">Submit</button></td>
-                        </tr>
+                        <tr><td><button type="submit">Submit</button></td></tr>
                     </table>
                 </form>
             </div>
             <div class="command-button">
                 <form action="">
-                    <button type="button" onclick="showForm2()">Call default-import command
-                    </button>
+                    <button type="button" onclick="showForm2()">Call default-import command</button>
                 </form>
                 <form id="form2" action="results" method="post" style="visibility: hidden">
                     <input type="hidden" name="command" value="default-import"/>
-                    <label for="datefield2"> Since:</label>
-                    <input id="datefield2" type="date" name="since" required="true"/>
-                    <br/>
-                    <button type="submit">Submit</button>
+                    <table>
+                        <tr>
+                            <td><label for="datefield2">Since:</label></td>
+                            <td><input id="datefield2" type="date" name="since" required="true"/></td>
+                        </tr>
+                        <tr><td><button type="submit">Submit</button></td></tr>
+                    </table>
+                </form>
+            </div>
+            <div class="command-button">
+                <form action="">
+                    <button type="button" onclick="showForm3()">Call aggregated values</button>
+                </form>
+                <form id="form3" action="results" method="post" style="visibility:hidden">
+                    <input type="hidden" name="command" value="aggregated-values"/>
+                    <input type="hidden" name="ownerExternalId" value="100776"/>
+                    <table>
+                        <tr>
+                            <td><label for="periodmonthsfield">Period in months</label></td>
+                            <td><input id="periodmonthsfield" type="number" name="periodMonths" required="true"/></td>
+                        </tr>
+                        <tr><td><button type="submit">Submit</button></td></tr>
+                    </table>
                 </form>
             </div>
             <br style="clear:both"/>

@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 
 /**
  * Created by eduarddedu on 30/06/16.
@@ -17,12 +15,12 @@ import java.util.concurrent.TimeoutException;
 @WebServlet("/results")
 public class Results extends HttpServlet {
     @Inject
-    KontomatikSession ks;
+    Session session;
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Check if end user is signed in:
-        if (ks.getSignature() == null) {
+        if (session.getSignature() == null) {
             resp.sendRedirect("signin.xhtml");
             return;
         }
@@ -32,21 +30,21 @@ public class Results extends HttpServlet {
         try {
             switch (cmd) {
                 case "import-owners-details":
-                    result = ks.executeCommand(Urls.IMPORT_OWNERS, null, 10000);
+                    result = session.executeCommand(Urls.IMPORT_OWNERS, null, 10000);
                     break;
                 case "import-accounts":
-                    result = ks.executeCommand(Urls.IMPORT_ACCOUNTS, null, 15000);
+                    result = session.executeCommand(Urls.IMPORT_ACCOUNTS, null, 15000);
                     break;
                 case "import-account-transactions":
                     String params = "&iban=" + req.getParameter("iban") + "&since=" + req.getParameter("since");
-                    result = ks.executeCommand(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 15000);
+                    result = session.executeCommand(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 15000);
                     break;
                 case "default-import":
                     params = "&since=" + req.getParameter("since");
-                    result = ks.executeCommand(Urls.DEFAULT_IMPORT, params, 24000);
+                    result = session.executeCommand(Urls.DEFAULT_IMPORT, params, 24000);
                     break;
-                case "aggregates":
-                    result = null;
+                case "aggregated-values":
+                    result = session.getAggregates(req.getParameter("periodMonths"));
                     break;
             }
             out.println(result);

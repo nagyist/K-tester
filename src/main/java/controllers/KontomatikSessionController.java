@@ -1,7 +1,7 @@
 package controllers;
 
-import kontomatik.KontomatikClient;
-import kontomatik.KontomatikSession;
+import kontomatik.ResourcesBean;
+import kontomatik.Session;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -21,18 +21,18 @@ import java.io.PrintWriter;
 public class KontomatikSessionController extends HttpServlet {
 
     @Inject
-    KontomatikSession kontomatikSession;
+    Session session;
     @Inject
-    KontomatikClient kontomatikClient;
+    ResourcesBean resourcesBean;
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        kontomatikSession.setSignature(
+        session.setSignature(
                 req.getParameter("sessionId"),
                 req.getParameter("sessionIdSignature"),
-                kontomatikClient.getApiKey());
+                resourcesBean.getApiKey());
         PrintWriter out = resp.getWriter();
-        out.println("Session params successfully transmitted.");
+        out.println("Session params successfully set.");
     }
 
 }

@@ -16,10 +16,10 @@
         <script type="text/javascript">
             embedKontomatik({
                 //<![CDATA[
-                client: '#{kontomatikClient.name}',
+                client: '#{resourcesBean.clientName}',
                 divId: 'kontomatik',
                 locale: 'en',
-                ownerExternalId: 100776,
+                ownerExternalId: '#{resourcesBean.ownerExternalId}',
                 onSuccess: function (target, sessionId, sessionIdSignature) {
                     // Pass session params to the backend:
 

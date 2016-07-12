@@ -1,8 +1,10 @@
 package kontomatik;
 
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.util.concurrent.*;
 import java.util.regex.Matcher;
@@ -11,13 +13,13 @@ import java.util.regex.Pattern;
 /**
  * Created by eduarddedu on 03/07/16.
  */
-@ApplicationScoped
-public class KontomatikSession {
+@SessionScoped
+public class Session implements Serializable {
 
     private String SIGNATURE;
-
-
+    private String apiKey;
     public void setSignature(String sessionId, String sessionIdSignature, String apiKey) {
+        this.apiKey = apiKey;
         this.SIGNATURE = "apiKey=" + apiKey + "&sessionId=" + sessionId + "&sessionIdSignature=" + sessionIdSignature;
     }
 
@@ -64,14 +66,21 @@ public class KontomatikSession {
         }
 
     }
-
+    @Inject private ResourcesBean resourcesBean;
+    public String getAggregates(String periodMonths) throws IOException {
+        String params = "periodMonths=" + periodMonths +
+                "&apiKey=" + apiKey + "&ownerExternalId=" + resourcesBean.getOwnerExternalId();
+        String GET_URL = Urls.AGGREGATED_VALUES.value + "?" + params;
+        HttpUtil h = new HttpUtil().doGetRequest(GET_URL);
+        return h.getResponse();
+    }
 
     public String executeCommand(Urls url, String params, int pollingTimeout) throws IOException {
         String POST_URL = url.value;
         String PARAMS = params == null ? SIGNATURE : SIGNATURE + params;
         HttpUtil h = new HttpUtil().doPostRequest(POST_URL, PARAMS);
         int responseCode = h.getResponseCode();
-        System.out.format("API %s command called. Response Code :: %s", url, responseCode);
+        System.out.format("API %s command called :: Response Code == %s%n", url, responseCode);
         if (responseCode == HttpURLConnection.HTTP_ACCEPTED) { //success
             return pollForCommandStatus(h, pollingTimeout);
         } else {
