@@ -11,15 +11,14 @@ import java.io.Serializable;
 @SessionScoped
 public class ResourcesBean implements Serializable {
 
-    private String clientName = "ededu-test";
-    private String apiKey = "54689db20f69a84961672d65b1e76a24894d070daaee618078eef7c30d6e9d73";
+    private String clientName = "smartloans-test";
+    private String apiKey = "6e907d69e7acbbdf8411b62010070c0a6309bebbe5ca549136ca6e067e2543a4";
     private String ownerExternalId = "100776";
 
 
     public String getClientName() {
         return clientName;
     }
-
 
     public void setClientName(String name) {
         clientName = name;
