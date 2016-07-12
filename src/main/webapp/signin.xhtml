@@ -31,12 +31,9 @@
                         dataType: 'text',
 
                         success: function (response) {
-
-                            console.log('Got response: ' + response);
                             $(function() {
-                                window.location.replace(
-                                        window.location.origin + '/kontomatik-app/commands.xhtml');
-
+                                $('#kontomatik').html('');
+                                window.location.replace(window.location.origin + '/kontomatik-app/commands.xhtml');
                             });
 
                         },
