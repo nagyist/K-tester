@@ -8,8 +8,13 @@ import java.net.URL;
  * Created by eduarddedu on 02/07/16.
  */
 class HttpUtil {
+    /**
+     * Http utility class based on java.net library.
+     * Fires up an Http GET or POST request and loads the server response into a String
+     * The String can be retrieved using getResponse() and the response code can be obtained
+     * with getResponseCode()
+     */
     private final String USER_AGENT = "Mozilla/5.0";
-    private String text = null;
     private URL obj;
     private HttpURLConnection con = null;
 
@@ -18,8 +23,20 @@ class HttpUtil {
             throw new IllegalStateException("Http request was never submitted or it failed");
     }
 
-    public String getResponse() {
+    public String getResponse() throws IOException {
         checkConnectionStatus();
+        String text;
+        if (con.getResponseCode() >= 400) {  // HttpURLConnection.getInputStream() would throw an IOException in this case
+            text = con.getResponseMessage();
+        } else {
+            InputStream in = new BufferedInputStream(con.getInputStream());
+            int x;
+            StringBuilder sb = new StringBuilder();
+            while ((x = in.read()) != -1)
+                sb.append((char) x);
+            in.close();
+            text = sb.toString();
+        }
         return text;
     }
 
@@ -28,27 +45,11 @@ class HttpUtil {
         return con.getResponseCode();
     }
 
-    private void setText(int responseCode) throws IOException {
-        checkConnectionStatus();
-        if (responseCode >= 400) {  // HttpURLConnection.getInputStream() would throw an IOException in this case
-            text = con.getResponseMessage();
-            return;
-        }
-        InputStream in = new BufferedInputStream(con.getInputStream());
-        int x;
-        StringBuilder sb = new StringBuilder();
-        while ( (x = in.read()) != -1)
-            sb.append( (char) x);
-        in.close();
-        text = sb.toString();
-    }
-
     protected HttpUtil doGetRequest(String GET_URL) throws IOException {
         obj = new URL(GET_URL);
         con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
-        setText(con.getResponseCode());
         return this;
     }
 
@@ -64,7 +65,6 @@ class HttpUtil {
         os.write(POST_PARAMS.getBytes());
         os.flush();
         os.close();
-        setText(con.getResponseCode());
         return this;
     }
 }

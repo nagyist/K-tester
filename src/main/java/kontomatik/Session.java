@@ -55,7 +55,7 @@ public class Session implements Serializable {
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    private String pollForCommandStatus(HttpUtil h, int timeout) {
+    private String pollForCommandStatus(HttpUtil h, int timeout) throws IOException {
         String GET_URL = createGetUrl(h.getResponse());
         PollingTask task = new PollingTask(GET_URL, h);
         Future<String> future = executor.submit(task);
