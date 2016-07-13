@@ -27,34 +27,26 @@ public class Results extends HttpServlet {
         PrintWriter out = resp.getWriter();
         String cmd = req.getParameter("command");
         String result = null;
-        try {
-            switch (cmd) {
-                case "import-owners-details":
-                    result = session.executeCommand(Urls.IMPORT_OWNERS, null, 10000);
-                    break;
-                case "import-accounts":
-                    result = session.executeCommand(Urls.IMPORT_ACCOUNTS, null, 15000);
-                    break;
-                case "import-account-transactions":
-                    String params = "&iban=" + req.getParameter("iban") + "&since=" + req.getParameter("since");
-                    result = session.executeCommand(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 15000);
-                    break;
-                case "default-import":
-                    params = "&since=" + req.getParameter("since");
-                    result = session.executeCommand(Urls.DEFAULT_IMPORT, params, 24000);
-                    break;
-                case "aggregated-values":
-                    result = session.getAggregates(req.getParameter("periodMonths"));
-                    break;
-            }
-            out.println(result);
-        } catch(IOException ex) {
-            /*HttpConnection artificially throws an IOException if the remote server returns a response code >= 400
-              (Additionally see https://bugs.openjdk.java.net/browse/JDK-6400786)
-              Most likely cause for 400 response is that the session with the remote bank has expired either because
-              of timeout or because after executing default-import the end-user is effectively signed out.*/
-            ex.printStackTrace();
-            resp.sendRedirect("signin.xhtml");
+
+        switch (cmd) {
+            case "import-owners-details":
+                result = session.executeCommand(Urls.IMPORT_OWNERS, null, 10000);
+                break;
+            case "import-accounts":
+                result = session.executeCommand(Urls.IMPORT_ACCOUNTS, null, 15000);
+                break;
+            case "import-account-transactions":
+                String params = "&iban=" + req.getParameter("iban") + "&since=" + req.getParameter("since");
+                result = session.executeCommand(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 15000);
+                break;
+            case "default-import":
+                params = "&since=" + req.getParameter("since");
+                result = session.executeCommand(Urls.DEFAULT_IMPORT, params, 24000);
+                break;
+            case "aggregated-values":
+                result = session.getAggregates(req.getParameter("periodMonths"));
+                break;
         }
+        out.println(result);
     }
 }

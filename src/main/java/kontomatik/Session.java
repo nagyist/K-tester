@@ -15,6 +15,9 @@ import java.util.regex.Pattern;
  */
 @SessionScoped
 public class Session implements Serializable {
+    /**
+     * Represents a session with the Kontomatik API server
+     */
 
     private String SIGNATURE;
     private String apiKey;
@@ -38,8 +41,8 @@ public class Session implements Serializable {
         if (m.find()) {
             id = m.group(1);
         } else {
-            throw new IllegalStateException(
-                    String.format("Pattern %s not found in response", pattern));
+            throw new IllegalArgumentException(
+                    String.format("Pattern %s not found in String %s%n", pattern, text));
         }
         return id;
     }

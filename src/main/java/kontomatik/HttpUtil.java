@@ -13,19 +13,27 @@ class HttpUtil {
     private URL obj;
     private HttpURLConnection con = null;
 
-    public String getResponse() {
-        if (text == null)
+    private void checkConnectionStatus() {
+        if (con == null)
             throw new IllegalStateException("Http request was never submitted or it failed");
+    }
+
+    public String getResponse() {
+        checkConnectionStatus();
         return text;
     }
 
     public int getResponseCode() throws IOException {
-        if (con == null)
-            throw new IllegalStateException("Http request was never submitted or it failed");
+        checkConnectionStatus();
         return con.getResponseCode();
     }
 
-    private void setText() throws IOException {
+    private void setText(int responseCode) throws IOException {
+        checkConnectionStatus();
+        if (responseCode >= 400) {  // HttpURLConnection.getInputStream() would throw an IOException in this case
+            text = con.getResponseMessage();
+            return;
+        }
         InputStream in = new BufferedInputStream(con.getInputStream());
         int x;
         StringBuilder sb = new StringBuilder();
@@ -40,7 +48,7 @@ class HttpUtil {
         con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
-        setText();
+        setText(con.getResponseCode());
         return this;
     }
 
@@ -56,7 +64,7 @@ class HttpUtil {
         os.write(POST_PARAMS.getBytes());
         os.flush();
         os.close();
-        setText();
+        setText(con.getResponseCode());
         return this;
     }
 }
