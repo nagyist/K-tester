@@ -26,9 +26,6 @@ public class Session implements Serializable {
         this.SIGNATURE = "apiKey=" + apiKey + "&sessionId=" + sessionId + "&sessionIdSignature=" + sessionIdSignature;
     }
 
-    public String getSignature() {
-        return SIGNATURE;
-    }
     protected static final String API_ENDPOINT = "https://test.api.kontomatik.com/";
 
 

@@ -1,6 +1,9 @@
 package kontomatik;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -25,19 +28,16 @@ class HttpUtil {
 
     public String getResponse() throws IOException {
         checkConnectionStatus();
-        String text;
-        if (con.getResponseCode() >= 400) {  // HttpURLConnection.getInputStream() would throw an IOException in this case
-            text = con.getResponseMessage();
-        } else {
-            InputStream in = new BufferedInputStream(con.getInputStream());
-            int x;
-            StringBuilder sb = new StringBuilder();
-            while ((x = in.read()) != -1)
-                sb.append((char) x);
-            in.close();
-            text = sb.toString();
+        if (con.getResponseCode() >= 400) {
+            throw new IOException(con.getResponseMessage());
         }
-        return text;
+        InputStream in = new BufferedInputStream(con.getInputStream());
+        int x;
+        StringBuilder sb = new StringBuilder();
+        while ((x = in.read()) != -1)
+            sb.append((char) x);
+        in.close();
+        return sb.toString();
     }
 
     public int getResponseCode() throws IOException {

@@ -23,7 +23,8 @@ class PollingTask implements Callable<String> {
         while (true) {
             try {
                 response = httpUtil.doGetRequest(url).getResponse();
-                if (response.contains("state=\"successful\"") || response.contains("state=\"error\"")) {
+                if (response.contains("state=\"successful\"") || response.contains("state=\"error\"")
+                        || response.contains("state=\"fatal\"")) {
                     return response;
                 } else {
                     TimeUnit.MILLISECONDS.sleep(repeat);

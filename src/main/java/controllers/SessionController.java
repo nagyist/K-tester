@@ -9,8 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: Eduard Dedu
@@ -21,18 +24,18 @@ import java.io.PrintWriter;
 public class SessionController extends HttpServlet {
 
     @Inject
-    Session session;
+    Session ks;
     @Inject
     ResourcesBean resourcesBean;
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        session.setSignature(
+        ks.setSignature(
                 req.getParameter("sessionId"),
                 req.getParameter("sessionIdSignature"),
                 resourcesBean.getApiKey());
-        PrintWriter out = resp.getWriter();
-        out.println("Session params successfully set.");
+        HttpSession session = req.getSession(true); // Create a session if it doesn't exit
+        session.setAttribute("logged", true);
     }
 
 }
