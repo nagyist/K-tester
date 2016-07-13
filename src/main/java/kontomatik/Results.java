@@ -13,10 +13,16 @@ import java.io.PrintWriter;
 /**
  * Created by eduarddedu on 30/06/16.
  */
-@WebServlet("/results")
+@WebServlet("results")
 public class Results extends HttpServlet {
     @Inject
     Session session;
+
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Do not accept direct requests from the browser, redirect to the sign-in page
+        resp.sendRedirect("signin.xhtml");
+    }
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,6 +33,7 @@ public class Results extends HttpServlet {
             return;
         }
         PrintWriter out = resp.getWriter();
+        // All requests addressed to this resource must have a "command" param
         String cmd = req.getParameter("command");
         String xml = null;
         try {
@@ -51,10 +58,8 @@ public class Results extends HttpServlet {
                     xml = session.getAggregates(req.getParameter("periodMonths"));
                     break;
             }
-            resp.setContentType("text/xml");
             out.println(xml);
         } catch (IOException ex) {
-            resp.setContentType("text/html");
             out.println(ex.getMessage());
         } finally {
             out.close();
