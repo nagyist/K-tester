@@ -1,19 +1,9 @@
-#header {
-    padding: 0.5%;
-}
-
-#clientform {
-    visibility: hidden;
-    float: right;
-    margin-left: 1em;
-}
-
 
 .tooltip {
     position: relative;
     display: inline;
-    float:right;
-    padding: 5px;
+    float: right;
+    margin-right: 12px;
 }
 
 .tooltip .tooltiptext {

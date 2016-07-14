@@ -23,24 +23,10 @@
     <div id="header">
         <a href="signin.xhtml">Sign in</a> | <a href="commands.xhtml">Commands</a> |
         <a href="http://developer.kontomatik.com/api-doc" target="_blank">Documentation</a>
-        <div class="tooltip" onclick="showClientForm()">${resourcesBean.clientName}
+
+        <div class="tooltip" onclick="redirect()">${resourcesBean.clientName}
             <span class="tooltiptext">Change client</span>
         </div>
-        <form id="clientform" action="client-params" method="post" style="margin-right:20px">
-            <table style="width:100%">
-                <tr>
-                    <td><label for="clientname">Enter your client parameter: </label></td>
-                    <td><input id="clientname" name="clientname" type="text" required="true"/></td>
-                </tr>
-                <tr>
-                    <td><label for="apikey">Enter your API key:</label></td>
-                    <td><input id="apikey" name="apikey" type="text" required="true"/></td>
-                </tr>
-                <tr>
-                    <td><button type="submit">Submit</button></td>
-                </tr>
-            </table>
-        </form>
     </div>
 
     <div id="sidebar"></div>
