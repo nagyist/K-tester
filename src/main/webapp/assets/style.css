@@ -46,9 +46,8 @@
     visibility: visible;
 }
 
-.command-button {
-    float: left;
-    margin-left: 10px;
+.aligned {
+    float:left;
 }
 
 

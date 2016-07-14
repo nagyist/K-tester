@@ -28,7 +28,7 @@ public class Results extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Check if we're logged in
         HttpSession hs = req.getSession(false);
-        if ( hs.getAttribute("logged") == null || !(boolean) hs.getAttribute("logged") ) {
+        if ( hs == null || hs.getAttribute("logged") == null || !(boolean) hs.getAttribute("logged") ) {
             resp.sendRedirect("signin.xhtml");
             return;
         }
