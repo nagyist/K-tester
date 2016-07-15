@@ -6,46 +6,46 @@
 <ui:composition template="template.xhtml">
     <ui:define name="content">
         <div id="controlpannel">
-            <form action="results" method="post">
-                <fieldset class="aligned">
-                    <legend>Call import-owners-details command</legend>
+            <form action="results" method="post" class="padded">
+                <fieldset>
+                    <p>Call import-owners-details command</p>
                     <input type="hidden" name="command" value="import-owners-details"/>
                     <button type="submit">Send request</button>
                 </fieldset>
             </form>
-            <form action="results" method="post">
-                <fieldset class="aligned">
-                    <legend>Call import-accounts command</legend>
+            <form action="results" method="post" class="padded">
+                <fieldset>
+                    <p>Call import-accounts command</p>
                     <input type="hidden" name="command" value="import-accounts"/>
                     <button type="submit">Send request</button>
                 </fieldset>
             </form>
-            <form action="results" method="post">
-                <fieldset class="aligned">
-                    <legend>Call import-account-transactions command</legend>
+            <form action="results" method="post" class="padded">
+                <fieldset>
+                    <p>Call import-account-transactions command</p>
                     <input type="hidden" name="command" value="import-account-transactions"/>
-                    IBAN: <input id="ibanfield" type="text" name="iban" required="true" autocomplete="off"/>
+                    IBAN: <input type="text" name="iban" required="true" autocomplete="off"/>
                     <br/><br/>
-                    Date to start from: <input id="datefield1" type="date" name="since" required="true"/>
+                    Date to start from: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
                     <br/><br/>
                     <button type="submit">Send request</button>
                 </fieldset>
             </form>
-            <form action="results" method="post" class="aligned">
+            <form action="results" method="post" class="padded">
                 <fieldset>
-                    <legend>Call default-import command</legend>
+                    <p>Call default-import command</p>
                     <input type="hidden" name="command" value="default-import"/>
-                    Date to start from: <input id="datefield2" type="date" name="since" required="true"/>
+                    Date to start from: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
                     <br/><br/>
                     <button type="submit">Send request</button>
                 </fieldset>
             </form>
-            <form action="results" method="post" class="aligned">
+            <form action="results" method="post" class="padded">
                 <fieldset>
-                    <legend>Call aggregated values</legend>
+                    <p>Call aggregated values</p>
                     <input type="hidden" name="command" value="aggregated-values"/>
                     <input type="hidden" name="ownerExternalId" value="${resourcesBean.ownerExternalId}"/>
-                    Period in months: <input id="periodmonthsfield" type="number" name="periodMonths" required="true"/>
+                    Period in months: <input type="number" name="periodMonths" required="true"/>
                     <br/><br/>
                     <button type="submit">Send request</button>
                 </fieldset>

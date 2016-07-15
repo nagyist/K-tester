@@ -36,8 +36,11 @@
     visibility: visible;
 }
 
-.aligned {
-    float:left;
+.padded {
+    padding: 20px 80% 10px 0;
+}
+fieldset {
+    background-color:lightblue;
 }
 
 
