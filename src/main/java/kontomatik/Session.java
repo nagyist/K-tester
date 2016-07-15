@@ -66,6 +66,13 @@ public class Session implements Serializable {
         }
 
     }
+
+    public String getCatalog() throws IOException {
+        String params = "apiKey=" + apiKey + "&country=all";
+        String GET_URL = Urls.CATALOG.value + "?" + params;
+        HttpUtil h = new HttpUtil().doGetRequest(GET_URL);
+        return h.getResponse();
+    }
     @Inject private ResourcesBean resourcesBean;
     public String getAggregates(String periodMonths) throws IOException {
         String params = "periodMonths=" + periodMonths +
