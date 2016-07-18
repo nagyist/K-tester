@@ -24,16 +24,17 @@
                     // Pass session params to the backend:
 
                     var query = '?sessionId=' + sessionId + '&sessionIdSignature=' + sessionIdSignature + '&target=' + target;
-
+                    var URL = window.location.origin + '/kontomatik-app/session' + query;
                     $.ajax({
                         type: 'GET',
-                        url: window.location.origin + '/kontomatik-app/session-params' + query,
+                        url: URL,
                         dataType: 'text',
 
                         success: function (response) {
                             $(function() {
                                 $('#kontomatik').html('');
-                                window.location.replace(window.location.origin + '/kontomatik-app/commands.xhtml');
+                                var newLocation = window.location.origin + '/kontomatik-app/commands.xhtml';
+                                window.location.replace(newLocation);
                             });
 
                         },

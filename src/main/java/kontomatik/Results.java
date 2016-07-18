@@ -39,28 +39,29 @@ public class Results extends HttpServlet {
         try {
             switch (cmd) {
                 case "import-owners-details":
-                    xml = session.executeCommand(Urls.IMPORT_OWNERS, null, 10000);
+                    xml = session.getCommandResponse(Urls.IMPORT_OWNERS, null, 10000);
                     break;
                 case "import-accounts":
-                    xml = session.executeCommand(Urls.IMPORT_ACCOUNTS, null, 15000);
+                    xml = session.getCommandResponse(Urls.IMPORT_ACCOUNTS, null, 15000);
                     break;
                 case "import-account-transactions":
                     String params = "&iban=" + req.getParameter("iban") + "&since=" + req.getParameter("since");
-                    xml = session.executeCommand(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 15000);
+                    xml = session.getCommandResponse(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 15000);
                     break;
                 case "default-import":
                     // Mark HttpSession as not logged in
                     hs.setAttribute("logged", false);
                     params = "&since=" + req.getParameter("since");
-                    xml = session.executeCommand(Urls.DEFAULT_IMPORT, params, 24000);
+                    xml = session.getCommandResponse(Urls.DEFAULT_IMPORT, params, 24000);
                     break;
                 case "aggregated-values":
-                    xml = session.getAggregates(req.getParameter("periodMonths"));
+                    xml = session.getAggregatesResponse(req.getParameter("periodMonths"));
                     break;
             }
             out.println(xml);
         } catch (IOException ex) {
-            out.println(ex.getMessage());
+            ex.printStackTrace();
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         } finally {
             out.close();
         }

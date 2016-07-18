@@ -20,28 +20,28 @@ class HttpUtil {
     private final String USER_AGENT = "Mozilla/5.0";
     private URL obj;
     private HttpURLConnection con = null;
+    private String response = null;
 
-    private void checkConnectionStatus() {
-        if (con == null)
-            throw new IllegalStateException("Http request was never submitted or it failed");
+
+    protected String getResponse() {
+        return response;
     }
 
-    public String getResponse() throws IOException {
-        checkConnectionStatus();
-        if (con.getResponseCode() >= 400) {
+    private void setResponse() throws IOException {
+        InputStream in = null;
+        try {
+            in = new BufferedInputStream(con.getInputStream());
+            int x;
+            StringBuilder sb = new StringBuilder();
+            while ((x = in.read()) != -1)
+                sb.append((char) x);
+            response = sb.toString();
+        } catch (IOException e) {
             throw new IOException(con.getResponseMessage());
-        }
-        InputStream in = new BufferedInputStream(con.getInputStream());
-        int x;
-        StringBuilder sb = new StringBuilder();
-        while ((x = in.read()) != -1)
-            sb.append((char) x);
-        in.close();
-        return sb.toString();
+        } finally { if (in != null) in.close(); }
     }
 
-    public int getResponseCode() throws IOException {
-        checkConnectionStatus();
+    protected int getResponseCode() throws IOException {
         return con.getResponseCode();
     }
 
@@ -50,6 +50,7 @@ class HttpUtil {
         con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
+        setResponse();
         return this;
     }
 
@@ -65,6 +66,16 @@ class HttpUtil {
         os.write(POST_PARAMS.getBytes());
         os.flush();
         os.close();
+        setResponse();
         return this;
     }
+
+
+    protected InputStream getInputStream() throws IOException {
+        if (con.getResponseCode() >= 400) {
+            throw new IOException(con.getResponseMessage());
+        }
+        return new BufferedInputStream(con.getInputStream());
+    }
+
 }

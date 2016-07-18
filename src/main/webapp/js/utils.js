@@ -12,6 +12,8 @@ function showForm1() {
 function showForm2() {
     $("#form2").css('visibility', 'visible');
 }
-function showForm3() {
+function hasImportOwnersCommand() {
     $("#form3").css('visibility', 'visible');
+    var exists = "#{session.hasImportOwnersCommand}";
+    alert (exists);
 }
