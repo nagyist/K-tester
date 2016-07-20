@@ -3,6 +3,7 @@ package kontomatik;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -14,8 +15,10 @@ import java.util.regex.Pattern;
 /**
  * Created by eduarddedu on 03/07/16.
  */
+
+@Named
 @SessionScoped
-public class Session implements Serializable {
+public class SessionBean implements Serializable {
     /**
      * Represents a session with the Kontomatik API server
      */
@@ -71,9 +74,7 @@ public class Session implements Serializable {
     public InputStream requestCatalog() throws IOException {
         String params = "apiKey=" + apiKey + "&country=all";
         String GET_URL = Urls.CATALOG.value + "?" + params;
-        HttpUtil h = new HttpUtil().doGetRequest(GET_URL);
-        return h.getInputStream();
-
+        return new HttpUtil().getConnectionInputStream(GET_URL);
     }
 
     @Inject
@@ -87,73 +88,39 @@ public class Session implements Serializable {
         return h.getResponse();
     }
 
+    // Convenience methods:
+
     public String getCommandResponse(Urls url, String params, int timeout) throws IOException {
+        return getCommandResponse(url, params, true, timeout);
+    }
+    public String getCommandResponse(Urls url) throws IOException {
+        return getCommandResponse(url, null, false, 0);
+    }
+
+    private String getCommandResponse(Urls url, String params, boolean poll, int timeout) throws IOException {
         String POST_URL = url.value;
         String PARAMS = params == null ? SIGNATURE : SIGNATURE + params;
         HttpUtil h = new HttpUtil().doPostRequest(POST_URL, PARAMS);
         int responseCode = h.getResponseCode();
         System.out.format("%s command called :: Response Code == %s%n", url, responseCode);
-        if (responseCode != HttpURLConnection.HTTP_ACCEPTED)
-            throw new IOException();
-
-
+        if (responseCode > HttpURLConnection.HTTP_ACCEPTED)
+            throw new IOException("Call failed");
+        if (!poll)
+            return h.getResponse();
         String GET_URL = createGetUrl(h.getResponse());
         PollingTask task = new PollingTask(GET_URL, h);
         if ( !poll(task, timeout)) {
-            System.err.println("A critical error has occurred while polling.");
-            throw new IOException();
+            throw new IOException("A critical error has occurred while polling.");
         } else {
             return h.getResponse();
         }
     }
 
-    private boolean
-            hasImportOwnersDetailsCommand,
-            hasImportAccountsCommand,
-            hasImportAccountTransactionsCommand,
-            hasDefaultImportCommand,
-            hasSignOutCommand = false;
-
-    public boolean hasSignOutCommand() {
-        return hasSignOutCommand;
+    private String formStyle;
+    public String getFormStyle() { return formStyle; }
+    public void setFormStyle(String s) {
+        formStyle = s;
     }
-
-    public void setHasSignOutCommand(boolean b) {
-        hasSignOutCommand = b;
-    }
-
-    public String hasImportOwnersDetailsCommand() {
-        return "yes";
-    }
-
-    public void setHasImportOwnersDetailsCommand(boolean b) {
-        hasImportOwnersDetailsCommand = b;
-    }
-
-    public boolean hasImportAccountsCommand() {
-        return hasImportAccountsCommand;
-    }
-
-    public void setHasImportAccountsCommand(boolean b) {
-        hasImportAccountsCommand = b;
-    }
-
-    public boolean hasImportAccountTransactionsCommand() {
-        return hasImportAccountTransactionsCommand;
-    }
-
-    public void setHasImportAccountTransactionsCommand(boolean b) {
-        hasImportAccountTransactionsCommand = b;
-    }
-
-    public boolean hasDefaultImportCommand() {
-        return hasDefaultImportCommand;
-    }
-
-    public void setHasDefaultImportCommand(boolean b) {
-        hasDefaultImportCommand = b;
-    }
-
 
 }
 

@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 @WebServlet("results")
 public class Results extends HttpServlet {
     @Inject
-    Session session;
+    SessionBean sessionBean;
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,29 +39,32 @@ public class Results extends HttpServlet {
         try {
             switch (cmd) {
                 case "import-owners-details":
-                    xml = session.getCommandResponse(Urls.IMPORT_OWNERS, null, 10000);
+                    xml = sessionBean.getCommandResponse(Urls.IMPORT_OWNERS, null, 10000);
                     break;
                 case "import-accounts":
-                    xml = session.getCommandResponse(Urls.IMPORT_ACCOUNTS, null, 15000);
+                    xml = sessionBean.getCommandResponse(Urls.IMPORT_ACCOUNTS, null, 15000);
                     break;
                 case "import-account-transactions":
                     String params = "&iban=" + req.getParameter("iban") + "&since=" + req.getParameter("since");
-                    xml = session.getCommandResponse(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 15000);
+                    xml = sessionBean.getCommandResponse(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 15000);
                     break;
                 case "default-import":
                     // Mark HttpSession as not logged in
                     hs.setAttribute("logged", false);
                     params = "&since=" + req.getParameter("since");
-                    xml = session.getCommandResponse(Urls.DEFAULT_IMPORT, params, 24000);
+                    xml = sessionBean.getCommandResponse(Urls.DEFAULT_IMPORT, params, 24000);
                     break;
                 case "aggregated-values":
-                    xml = session.getAggregatesResponse(req.getParameter("periodMonths"));
+                    xml = sessionBean.getAggregatesResponse(req.getParameter("periodMonths"));
                     break;
+                case "sign-out":
+                    xml = sessionBean.getCommandResponse(Urls.SIGN_OUT);
             }
             out.println(xml);
         } catch (IOException ex) {
-            ex.printStackTrace();
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+            System.out.println(ex.getMessage());
+            kontomatik.Error.setXmlResponse(ex.getMessage());
+            resp.sendRedirect("error");
         } finally {
             out.close();
         }

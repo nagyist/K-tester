@@ -49,7 +49,7 @@ public class XmlParser {
 
 
 
-    public List<String> getBankCommandsList(InputStream in, String targetName) {
+    public List<String> getBankCommandsList(InputStream in, String targetName) throws IOException {
         try {
             XPath xpath = XPathFactory.newInstance().newXPath();
             String expression = String.format("//target[@name='%s']", targetName);
@@ -67,8 +67,10 @@ public class XmlParser {
 
         } catch ( XPathExpressionException e) {
             e.printStackTrace();
+            return null;
+        } finally {
+            in.close();
         }
-        return null;
 
     }
 }

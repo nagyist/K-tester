@@ -21,26 +21,29 @@
                 locale: 'en',
                 ownerExternalId: '#{resourcesBean.ownerExternalId}',
                 onSuccess: function (target, sessionId, sessionIdSignature) {
-                    // Pass session params to the backend:
-
-                    var query = '?sessionId=' + sessionId + '&sessionIdSignature=' + sessionIdSignature + '&target=' + target;
-                    var URL = window.location.origin + '/kontomatik-app/session' + query;
-                    $.ajax({
-                        type: 'GET',
-                        url: URL,
-                        dataType: 'text',
-
-                        success: function (response) {
+                    // Pass session params to the backend
+                    $.ajax({                                // A PlainObject to configure the Ajax request
+                        type: 'POST',
+                        url: window.location.origin + '/${resourcesBean.contextRoot}/session',
+                        data:
+                        {
+                            sessionId: sessionId,
+                            sessionIdSignature: sessionIdSignature,
+                            target: target,
+                        },
+                        dataType: 'text',                   // we expect a simple String response back from the server
+                        success: function (data, textStatus, jqXHR) {
                             $(function() {
                                 $('#kontomatik').html('');
-                                var newLocation = window.location.origin + '/kontomatik-app/commands.xhtml';
-                                window.location.replace(newLocation);
+                                var location = window.location.origin + '/${resourcesBean.contextRoot}/commands.xhtml';
+                                window.location.replace(location);
                             });
 
                         },
-                        error: function (response) {
-                            alert('Sorry, the request cannot be processed');
-                            console.log('Ajax request failed with response: ' + response.responseText);
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            // Redirect to error page
+                            var location = window.location.origin + '/${resourcesBean.contextRoot}/error';
+                            window.location.replace(location);
                         }
                     });
                 },

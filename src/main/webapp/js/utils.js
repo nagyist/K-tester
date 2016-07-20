@@ -5,15 +5,11 @@ function redirect() {
     var location = window.location.origin + '/kontomatik-app/credentials.xhtml';
     window.location.replace(location);
 }
-// Not used, shown here as example JQuery
-function showForm1() {
-    $("#form1").css('visibility', 'visible');
+// Not used but provided here as example JQuery code
+function renderForm() {
+   $("#signOutForm").css('visibility', 'visible');
 }
-function showForm2() {
-    $("#form2").css('visibility', 'visible');
-}
-function hasImportOwnersCommand() {
-    $("#form3").css('visibility', 'visible');
-    var exists = "#{session.hasImportOwnersCommand}";
-    alert (exists);
-}
+
+
+
+

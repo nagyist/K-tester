@@ -50,6 +50,13 @@
                     <button type="submit">Send request</button>
                 </fieldset>
             </form>
+            <form id="signOutForm" action="results" method="post" class="padded" style="${sessionBean.formStyle}">
+                <fieldset>
+                    <p>Call sign-out command</p>
+                    <input type="hidden" name="command" value="sign-out"/>
+                    <button type="submit">Send request</button>
+                </fieldset>
+            </form>
         <br style="clear:both"/>
     </div>
 </ui:define>
