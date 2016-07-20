@@ -35,14 +35,13 @@ class HttpUtil {
             while ((x = in.read()) != -1)
                 sb.append((char) x);
             response = sb.toString();
-        } catch (IOException e) { // When the remote server responds with a 404 getInputStream() throws an IOException
+        } catch (IOException e) { // Happens the remote server responds with a code > 400
             try ( InputStream in = con.getErrorStream()) {
                 while ((x = in.read()) != -1)
                     sb.append((char) x);
-                System.out.println("HERE");
-                throw new IOException(sb.toString()); // Server error message will be retrieved and propagated to the frontend layer
-            } catch(NullPointerException ex) { // We don't have an error stream available
-                throw new IOException("No message available");
+                throw new IOException(sb.toString()); // Message will be retrieved and propagated to the frontend layer
+            } catch(NullPointerException ex) {
+                throw new IOException("No error stream available");
             }
         }
     }
