@@ -19,10 +19,9 @@ class PollingTask implements Callable<Boolean> {
     }
 
     public Boolean call() { // Returns false only when a serious unexpected connection error occurs
-        String response;
         while (true) {
             try {
-                response = httpUtil.doGetRequest(url).getResponse();
+                String response = httpUtil.doGetRequest(url).getResponse();
                 if (response.contains("state=\"successful\"") || response.contains("state=\"error\"")
                         || response.contains("state=\"fatal\"")) {
                     return true;
