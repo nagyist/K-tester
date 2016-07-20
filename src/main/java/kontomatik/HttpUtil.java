@@ -39,7 +39,6 @@ class HttpUtil {
             try ( InputStream in = con.getErrorStream()) {
                 while ((x = in.read()) != -1)
                     sb.append((char) x);
-                System.out.println("HERE");
                 throw new IOException(sb.toString()); // Server error message will be retrieved and propagated to the frontend layer
             } catch(NullPointerException ex) { // We don't have an error stream available
                 throw new IOException("No message available");

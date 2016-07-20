@@ -62,7 +62,6 @@ public class Results extends HttpServlet {
             }
             out.println(xml);
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
             kontomatik.Error.setXmlResponse(ex.getMessage());
             resp.sendRedirect("error");
         } finally {
