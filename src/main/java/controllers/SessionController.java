@@ -45,7 +45,7 @@ public class SessionController extends HttpServlet {
 
         try {
             String targetName = req.getParameter("target");
-            List<String> commands = new XmlParser().getBankCommandsList(sessionBean.requestCatalog(), targetName);
+            List<String> commands = new XmlParser(sessionBean.requestCatalog()).getBankCommandsList(targetName);
             if (commands.contains("SignOutCommand"))
                 sessionBean.setFormStyle("visibility:visible");
             else

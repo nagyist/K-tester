@@ -1,0 +1,72 @@
+<h:form id="changeClientForm">
+                             <h:panelGrid columns="3">
+                                 <h:outputLabel for="clientname">Enter your client parameter: </h:outputLabel>
+                                 <h:inputText id="clientname" name="clientName" required="true" requiredMessage="Please fill this field"/>
+                                 <h:message for="clientname" styleClass="errorMessage" style="color:red"/>
+
+                                 <h:outputLabel for="apikey">Enter your API key:</h:outputLabel>
+                                 <h:inputText id="apikey" name="apiKey" required="true" requiredMessage="Please fill this field"/>
+                                 <h:message for="apikey" styleClass="errorMessage" style="color:red"/>
+
+                                 <h:commandButton value="Submit" action="signin.xhtml" onclick="sendParams()"/>
+                             </h:panelGrid>
+                      </h:form>
+
+
+
+
+<ui:composition template="template.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:commandButton value="Yes" action="signin?faces-redirect=true"/>
+                <h:commandButton value="No, change the client parameter" action="inputform.xhtml"/>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+
+
+
+
+private String findCommandId(String text) {
+        String id;
+        // Use a capturing group in regex:
+        String pattern = "command id=\"([0-9]+)\"";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(text);
+        if (m.find()) {
+            id = m.group(1);
+        } else {
+            throw new IllegalArgumentException(
+                    String.format("Pattern %s not found in String %s%n", pattern, text));
+        }
+        return id;
+    }
+
+private String response = null;
+
+
+    protected String getResponse() throws IOException {
+        setResponse();
+        return response;
+    }
+
+    private void setResponse() throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int x;
+        try ( InputStream in = new BufferedInputStream(con.getInputStream()) ) {
+            while ((x = in.read()) != -1)
+                sb.append((char) x);
+            response = sb.toString();
+        } catch (IOException e) { // Happens when the remote server responds with a code > 400
+            try ( InputStream in = con.getErrorStream()) {
+                while ((x = in.read()) != -1)
+                    sb.append((char) x);
+                throw new IOException(sb.toString()); // Message will be retrieved and propagated to the frontend layer
+            } catch(NullPointerException ex) {
+                throw new IOException("No error stream available");
+            }
+        }
+    }

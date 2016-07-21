@@ -1,5 +1,7 @@
 package kontomatik;
 
+import org.w3c.dom.Document;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -26,44 +29,50 @@ public class Results extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Check if we're logged in
+        // Are we logged in ?
         HttpSession hs = req.getSession(false);
         if ( hs == null || hs.getAttribute("logged") == null || !(boolean) hs.getAttribute("logged") ) {
             resp.sendRedirect("signin.xhtml");
             return;
         }
         PrintWriter out = resp.getWriter();
-        // All requests addressed to this resource must have a "command" param
+        // All requests must have a "command" param
         String cmd = req.getParameter("command");
-        String xml = null;
+        Document document = null;
         try {
             switch (cmd) {
                 case "import-owners-details":
-                    xml = sessionBean.getCommandResponse(Urls.IMPORT_OWNERS, null, 10000);
+                    document = sessionBean.getCommandResponse(Urls.IMPORT_OWNERS, null, 10000);
                     break;
                 case "import-accounts":
-                    xml = sessionBean.getCommandResponse(Urls.IMPORT_ACCOUNTS, null, 15000);
+                    document = sessionBean.getCommandResponse(Urls.IMPORT_ACCOUNTS, null, 15000);
                     break;
                 case "import-account-transactions":
                     String params = "&iban=" + req.getParameter("iban") + "&since=" + req.getParameter("since");
-                    xml = sessionBean.getCommandResponse(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 15000);
+                    document = sessionBean.getCommandResponse(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 15000);
                     break;
                 case "default-import":
                     // Mark HttpSession as not logged in
                     hs.setAttribute("logged", false);
                     params = "&since=" + req.getParameter("since");
-                    xml = sessionBean.getCommandResponse(Urls.DEFAULT_IMPORT, params, 24000);
+                    document = sessionBean.getCommandResponse(Urls.DEFAULT_IMPORT, params, 24000);
                     break;
                 case "aggregated-values":
-                    xml = sessionBean.getAggregatesResponse(req.getParameter("periodMonths"));
+                    document = sessionBean.getAggregatesResponse(req.getParameter("periodMonths"));
                     break;
                 case "sign-out":
-                    xml = sessionBean.getCommandResponse(Urls.SIGN_OUT);
+                    document = sessionBean.getCommandResponse(Urls.SIGN_OUT);
             }
-            out.println(xml);
+            resp.setContentType("application/xml");
+            resp.setCharacterEncoding("UTF-8");
+            out.print(XmlParser.documentToString(document));
+            //XmlParser.documentToFile(document, "/Users/eduarddedu/Downloads/import-owners.xml");
+            //XmlParser.writeToCharStream(document, out);
         } catch (IOException ex) {
             kontomatik.Error.setXmlResponse(ex.getMessage());
             resp.sendRedirect("error");
+        } catch(TransformerException e1) {
+            out.println(e1.toString());
         } finally {
             out.close();
         }

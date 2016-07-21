@@ -21,30 +21,6 @@ class HttpUtil {
     private final String USER_AGENT = "Mozilla/5.0";
     private URL obj;
     private HttpURLConnection con = null;
-    private String response = null;
-
-
-    protected String getResponse() {
-        return response;
-    }
-
-    private void setResponse() throws IOException {
-        StringBuilder sb = new StringBuilder();
-        int x;
-        try ( InputStream in = new BufferedInputStream(con.getInputStream()) ) {
-            while ((x = in.read()) != -1)
-                sb.append((char) x);
-            response = sb.toString();
-        } catch (IOException e) { // Happens when the remote server responds with a code > 400
-            try ( InputStream in = con.getErrorStream()) {
-                while ((x = in.read()) != -1)
-                    sb.append((char) x);
-                throw new IOException(sb.toString()); // Message will be retrieved and propagated to the frontend layer
-            } catch(NullPointerException ex) {
-                throw new IOException("No error stream available");
-            }
-        }
-    }
 
     protected int getResponseCode() throws IOException {
         return con.getResponseCode();
@@ -55,7 +31,6 @@ class HttpUtil {
         con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
-        setResponse();
         return this;
     }
 
@@ -71,31 +46,19 @@ class HttpUtil {
         os.write(POST_PARAMS.getBytes());
         os.flush();
         os.close();
-        setResponse();
         return this;
     }
 
 
-    protected InputStream getConnectionInputStream(String GET_URL) throws IOException {
-        obj = new URL(GET_URL);
-        con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("GET");
-        con.setRequestProperty("User-Agent", USER_AGENT);
+    protected InputStream getConnectionInputStream() throws IOException {
         try {
             return new BufferedInputStream(con.getInputStream());
-        } catch(IOException e) {
-            try {
-                InputStream in = con.getErrorStream();
-                int x;
-                StringBuilder sb = new StringBuilder();
-                while ((x = in.read()) != -1)
-                    sb.append((char) x);
-                throw new IOException(sb.toString());
-            } catch(Exception ex) {
-                throw new IOException(ex.toString());
-            }
+        } catch (IOException e) { // Happens when the remote server responds with a code > 400
+            InputStream in = con.getErrorStream();
+            if (in == null)
+                throw new IOException("No error stream available");
+            return in;
         }
     }
-
 
 }
