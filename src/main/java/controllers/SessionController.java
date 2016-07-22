@@ -26,7 +26,6 @@ public class SessionController extends HttpServlet {
     SessionBean sessionBean;
     @Inject
     ResourcesBean resourcesBean;
-    @Inject kontomatik.Error error;
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,6 +35,7 @@ public class SessionController extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("HERE");
         String apiKey = resourcesBean.getApiKey();
         String sessionId = req.getParameter("sessionId");
         String sessionIdSignature = req.getParameter("sessionIdSignature");
@@ -43,18 +43,12 @@ public class SessionController extends HttpServlet {
         HttpSession session = req.getSession(true); // Create a session if it doesn't exit
         session.setAttribute("logged", true);
 
-        try {
-            String targetName = req.getParameter("target");
-            List<String> commands = new XmlParser(sessionBean.requestCatalog()).getBankCommandsList(targetName);
-            if (commands.contains("SignOutCommand"))
-                sessionBean.setFormStyle("visibility:visible");
-            else
-                sessionBean.setFormStyle("visibility:hidden");
-        } catch (IOException ex) {
-            kontomatik.Error.setXmlResponse(ex.getMessage());
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
-        }
-
+        String targetName = req.getParameter("target");
+        List<String> commands = new XmlParser(sessionBean.requestCatalog()).getBankCommandsList(targetName);
+        if (commands.contains("SignOutCommand"))
+            sessionBean.setFormStyle("visibility:visible");
+        else
+            sessionBean.setFormStyle("visibility:hidden");
 
 
     }

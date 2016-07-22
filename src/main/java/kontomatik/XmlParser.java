@@ -5,7 +5,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,6 +19,9 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,39 +99,14 @@ public class XmlParser {
         }
     }
 
-    public static void writeToCharStream(Document doc, java.io.Writer writer) throws TransformerException {
-        DOMSource domSource = new DOMSource(doc);
-        StreamResult result = new StreamResult(writer);
-        TransformerFactory tf = TransformerFactory.newInstance();
-        Transformer transformer = tf.newTransformer();
-        transformer.transform(domSource, result);
+    public static void writeToOutputStream(Document doc, PrintWriter writer) throws TransformerException {
+        DOMSource source = new DOMSource(doc);
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        transformer.transform(source, new StreamResult(writer));
     }
 
-    public static String documentToString(Document doc) throws TransformerException, UnsupportedEncodingException,
-    IOException {
-        DOMSource domSource = new DOMSource(doc);
-        ByteArrayOutputStream bos =  new ByteArrayOutputStream();
-        StreamResult result = new StreamResult(bos);
-        TransformerFactory tf = TransformerFactory.newInstance();
-        Transformer transformer = tf.newTransformer();
 
-        System.out.println(transformer.getOutputProperty(OutputKeys.ENCODING));
-
-        transformer.transform(domSource, result);
-
-        FileOutputStream fos = new FileOutputStream(new File("/Users/eduarddedu/Downloads/bytes01.btf"));
-        fos.write(bos.toByteArray());
-        /*
-        StringBuilder sb = new StringBuilder();
-        for (byte b : bos.toByteArray())
-            sb.append( (char) b);
-        return sb.toString();
-
-        //return bos.toString("UTF-8");
-        */
-        return bos.toString("UTF-8");
-
-    }
     public static void documentToFile(Document doc, String fileName) throws TransformerException {
         File file = new File(fileName);
         TransformerFactory transformerFactory = TransformerFactory.newInstance();

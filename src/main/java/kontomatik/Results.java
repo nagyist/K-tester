@@ -21,25 +21,28 @@ public class Results extends HttpServlet {
     @Inject
     SessionBean sessionBean;
 
+
+
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Do not accept direct requests from the browser, redirect to the sign-in page
         resp.sendRedirect("signin.xhtml");
     }
 
+
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Are we logged in ?
         HttpSession hs = req.getSession(false);
-        if ( hs == null || hs.getAttribute("logged") == null || !(boolean) hs.getAttribute("logged") ) {
+        if (hs == null || hs.getAttribute("logged") == null || !(boolean) hs.getAttribute("logged")) {
             resp.sendRedirect("signin.xhtml");
             return;
         }
-        PrintWriter out = resp.getWriter();
-        // All requests must have a "command" param
         String cmd = req.getParameter("command");
+        resp.setContentType("text/xml");
+        resp.setCharacterEncoding("UTF-8");
         Document document = null;
-        try {
+        try ( PrintWriter out = resp.getWriter() ) {
             switch (cmd) {
                 case "import-owners-details":
                     document = sessionBean.getCommandResponse(Urls.IMPORT_OWNERS, null, 10000);
@@ -52,7 +55,6 @@ public class Results extends HttpServlet {
                     document = sessionBean.getCommandResponse(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 15000);
                     break;
                 case "default-import":
-                    // Mark HttpSession as not logged in
                     hs.setAttribute("logged", false);
                     params = "&since=" + req.getParameter("since");
                     document = sessionBean.getCommandResponse(Urls.DEFAULT_IMPORT, params, 24000);
@@ -62,19 +64,12 @@ public class Results extends HttpServlet {
                     break;
                 case "sign-out":
                     document = sessionBean.getCommandResponse(Urls.SIGN_OUT);
+                    break;
             }
-            resp.setContentType("application/xml");
-            resp.setCharacterEncoding("UTF-8");
-            out.print(XmlParser.documentToString(document));
-            //XmlParser.documentToFile(document, "/Users/eduarddedu/Downloads/import-owners.xml");
-            //XmlParser.writeToCharStream(document, out);
-        } catch (IOException ex) {
-            kontomatik.Error.setXmlResponse(ex.getMessage());
-            resp.sendRedirect("error");
-        } catch(TransformerException e1) {
-            out.println(e1.toString());
-        } finally {
-            out.close();
+            XmlParser.writeToOutputStream(document, out);
+        } catch (TransformerException e) {
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+            System.out.println(e.toString());
         }
     }
 }

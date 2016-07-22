@@ -85,11 +85,9 @@ public class SessionBean implements Serializable {
         HttpUtil h = new HttpUtil().doPostRequest(POST_URL, PARAMS);
         int responseCode = h.getResponseCode();
         System.out.format("%s command called :: Response Code == %s%n", url, responseCode);
-        if (responseCode > HttpURLConnection.HTTP_ACCEPTED)
-            throw new IOException("Call failed");
-        if (!requiresPolling)
-        return new XmlParser(h.getConnectionInputStream()).getDocument();
-        // else ...
+        if (responseCode >= 400 || !requiresPolling)
+           return new XmlParser(h.getConnectionInputStream()).getDocument();
+
         String GET_URL = createGetUrl(h.getConnectionInputStream());
         PollingTask task = new PollingTask(GET_URL, h);
         Document xml = poll(task, timeout);
