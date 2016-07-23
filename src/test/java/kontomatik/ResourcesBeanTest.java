@@ -7,9 +7,10 @@ import junit.framework.TestCase;
  */
 public class ResourcesBeanTest extends TestCase {
 
-    public void testGetName() {
+    public void testGetResources() {
         ResourcesBean resourcesBean = new ResourcesBean();
         assertTrue(resourcesBean.getClientName() != null);
+        assertTrue(resourcesBean.getApiKey() == null); // apiKey should never been exposed on this branch !
     }
 
 }
