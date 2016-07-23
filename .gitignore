@@ -1,8 +1,7 @@
 .
 ..
 .idea
-Trash.txt
-controllers-app.iml
-controllers-maven-app.iml
 target
-widget.html
+*.html
+*.txt
+*.iml
