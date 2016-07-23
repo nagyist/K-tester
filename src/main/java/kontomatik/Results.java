@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 
 /**
@@ -42,7 +43,7 @@ public class Results extends HttpServlet {
         resp.setContentType("text/xml");
         resp.setCharacterEncoding("UTF-8");
         Document document = null;
-        try ( PrintWriter out = resp.getWriter() ) {
+        try ( OutputStream out = resp.getOutputStream() ) {
             switch (cmd) {
                 case "import-owners-details":
                     document = sessionBean.getCommandResponse(Urls.IMPORT_OWNERS, null, 10000);
@@ -55,7 +56,6 @@ public class Results extends HttpServlet {
                     document = sessionBean.getCommandResponse(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 15000);
                     break;
                 case "default-import":
-                    hs.setAttribute("logged", false);
                     params = "&since=" + req.getParameter("since");
                     document = sessionBean.getCommandResponse(Urls.DEFAULT_IMPORT, params, 24000);
                     break;
@@ -67,7 +67,7 @@ public class Results extends HttpServlet {
                     break;
             }
             XmlParser.writeToOutputStream(document, out);
-        } catch (TransformerException e) {
+        } catch (Exception e) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
             System.out.println(e.toString());
         }

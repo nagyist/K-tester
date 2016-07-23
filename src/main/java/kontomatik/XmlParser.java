@@ -5,10 +5,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -19,9 +19,6 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,21 +96,29 @@ public class XmlParser {
         }
     }
 
-    public static void writeToOutputStream(Document doc, PrintWriter writer) throws TransformerException {
+    public static void writeToOutputStream(Document doc, OutputStream outputStream) throws IOException {
         DOMSource source = new DOMSource(doc);
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        transformer.transform(source, new StreamResult(writer));
+        try {
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.transform(source, new StreamResult(outputStream));
+        } catch (TransformerException e) {
+            throw new IOException(e);
+        }
     }
 
 
-    public static void documentToFile(Document doc, String fileName) throws TransformerException {
+    public static void documentToFile(Document doc, String fileName) throws IOException {
         File file = new File(fileName);
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         DOMSource source = new DOMSource(doc);
-        Transformer transformer = transformerFactory.newTransformer();
         StreamResult result = new StreamResult(file);
-        transformer.transform(source, result);
+        try {
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.transform(source, result);
+        } catch (TransformerException e) {
+            throw new IOException(e);
+        }
 
     }
 }

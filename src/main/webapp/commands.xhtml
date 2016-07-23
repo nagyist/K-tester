@@ -42,7 +42,7 @@
             </form>
             <form action="results" method="post" class="padded">
                 <fieldset>
-                    <p>Call aggregated values</p>
+                    <p>Call aggregated values [ownerExternalId=${resourcesBean.ownerExternalId}]</p>
                     <input type="hidden" name="command" value="aggregated-values"/>
                     <input type="hidden" name="ownerExternalId" value="${resourcesBean.ownerExternalId}"/>
                     Period in months: <input type="number" name="periodMonths" required="true"/>

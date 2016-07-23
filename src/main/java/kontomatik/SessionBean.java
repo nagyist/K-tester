@@ -40,9 +40,14 @@ public class SessionBean implements Serializable {
                 Urls.POLL_STATUS.value, id, SIGNATURE);
     }
 
-    private ExecutorService executor = Executors.newSingleThreadExecutor();
-
-
+    private ExecutorService executor = Executors.newSingleThreadExecutor(
+            new ThreadFactory() {
+                @Override
+                public Thread newThread(Runnable runnable) {
+                    return new Thread(runnable, "polling-task");
+                }
+            }
+    );
     private Document poll(PollingTask task, int timeout) {
         Future<Document> future = executor.submit(task);
         try {

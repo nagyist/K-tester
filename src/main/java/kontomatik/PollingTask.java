@@ -2,6 +2,7 @@ package kontomatik;
 
 import org.w3c.dom.Document;
 
+import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.Callable;
@@ -34,7 +35,7 @@ class PollingTask implements Callable<Document> {
                 InputStream in = httpUtil.doGetRequest(url).getConnectionInputStream();
                 XmlParser parser = new XmlParser(in);
                 String state = parser.getState();
-                System.out.format("state=%s%n", state);
+                System.out.format("state=\"%s\"%n", state);
                 if (state.equals("successful") || state.equals("error") || state.equals("fatal")) {
                     return parser.getDocument();
                 } else {

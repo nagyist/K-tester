@@ -35,7 +35,6 @@ public class SessionController extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("HERE");
         String apiKey = resourcesBean.getApiKey();
         String sessionId = req.getParameter("sessionId");
         String sessionIdSignature = req.getParameter("sessionIdSignature");
