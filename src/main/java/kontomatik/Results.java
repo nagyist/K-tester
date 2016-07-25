@@ -46,18 +46,18 @@ public class Results extends HttpServlet {
         try ( OutputStream out = resp.getOutputStream() ) {
             switch (cmd) {
                 case "import-owners-details":
-                    document = sessionBean.getCommandResponse(Urls.IMPORT_OWNERS, null, 10000);
+                    document = sessionBean.getCommandResponse(Urls.IMPORT_OWNERS, null, 30);
                     break;
                 case "import-accounts":
-                    document = sessionBean.getCommandResponse(Urls.IMPORT_ACCOUNTS, null, 15000);
+                    document = sessionBean.getCommandResponse(Urls.IMPORT_ACCOUNTS, null, 60);
                     break;
                 case "import-account-transactions":
                     String params = "&iban=" + req.getParameter("iban") + "&since=" + req.getParameter("since");
-                    document = sessionBean.getCommandResponse(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 15000);
+                    document = sessionBean.getCommandResponse(Urls.IMPORT_ACCOUNT_TRANSACTIONS, params, 60);
                     break;
                 case "default-import":
                     params = "&since=" + req.getParameter("since");
-                    document = sessionBean.getCommandResponse(Urls.DEFAULT_IMPORT, params, 24000);
+                    document = sessionBean.getCommandResponse(Urls.DEFAULT_IMPORT, params, 60);
                     break;
                 case "aggregated-values":
                     document = sessionBean.getAggregatesResponse(req.getParameter("periodMonths"));
@@ -68,8 +68,8 @@ public class Results extends HttpServlet {
             }
             XmlParser.writeToOutputStream(document, out);
         } catch (Exception e) {
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
             System.out.println(e.toString());
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }
