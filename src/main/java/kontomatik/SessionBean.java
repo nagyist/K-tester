@@ -51,7 +51,7 @@ public class SessionBean implements Serializable {
     private Document poll(PollingTask task, int timeout) {
         Future<Document> future = executor.submit(task);
         try {
-            return future.get(timeout, TimeUnit.MILLISECONDS);
+            return future.get(timeout, TimeUnit.SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException ignore) {
             System.out.format("Polling task timed out after %s millis. %n", timeout);
             task.cancel();
