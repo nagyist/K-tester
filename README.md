@@ -1,6 +1,6 @@
 ## Kontomatik app
 
-- A demo Maven web app that allows the user to run [Kontomatik Service](http://developer.kontomatik.com/api-doc) commands and view the result XML responses. 
+- A demo Maven web app that allows the user to run [Kontomatik Service](http://developer.kontomatik.com/api-doc) commands and view the result XML responses 
 
 - The home page embeds Kontomatik's SignIn Widget which enables the user to sign into his bank
 
