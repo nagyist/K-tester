@@ -19,7 +19,6 @@
 
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
-        <version.jboss.spec.javaee.7.0>1.0.3.Final</version.jboss.spec.javaee.7.0>
 
         <!-- other plug-in versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
@@ -27,6 +26,11 @@
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
+
+        <version.jboss.spec.javaee.7.0>1.0.3.Final</version.jboss.spec.javaee.7.0>
+
+        <!-- apache tomcat version -->
+        <version.apache.tomcat>8.5.4</version.apache.tomcat>
     </properties>
 
     <dependencyManagement>
@@ -62,7 +66,9 @@
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
+            <!--
             <scope>provided</scope>
+            -->
         </dependency>
 
         <!-- Import the Common Annotations API (JSR-250), we use provided scope
@@ -70,14 +76,18 @@
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.2_spec</artifactId>
+            <!--
             <scope>provided</scope>
+            -->
         </dependency>
 
         <!-- Import the Servlet API, we use provided scope as the API is included in WildFly -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.1_spec</artifactId>
+            <!--
             <scope>provided</scope>
+            -->
         </dependency>
 
 
@@ -85,17 +95,16 @@
         <dependency>
             <groupId>org.jboss.spec.javax.faces</groupId>
             <artifactId>jboss-jsf-api_2.2_spec</artifactId>
+            <!--
             <scope>provided</scope>
+            -->
         </dependency>
 
     </dependencies>
-
     <build>
-
         <!-- Set the name of the WAR, used as the context root when the app
             is deployed -->
         <finalName>${project.artifactId}</finalName>
-
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
@@ -111,7 +120,29 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <server>myke</server>
+                    <url>http://ns377978.ip-5-196-89.eu:8080/manager/text</url>
+                </configuration>
+            </plugin>
         </plugins>
-
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh</artifactId>
+                <version>2.10</version>
+            </extension>
+        </extensions>
     </build>
+    <distributionManagement>
+        <repository>
+            <id>kimsufi.repository</id>
+            <!-- sftp protocol can also be used here -->
+            <url>scp://ks3374725.kimsufi.com/opt/tomcat/apache-tomcat-8.5.4/webapps/</url>
+        </repository>
+    </distributionManagement>
 </project>
