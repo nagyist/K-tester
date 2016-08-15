@@ -14,7 +14,7 @@ public class ResourcesBean implements Serializable {
     private String clientName = "smartloans-test";
     private String apiKey = "6e907d69e7acbbdf8411b62010070c0a6309bebbe5ca549136ca6e067e2543a4";
     private String ownerExternalId = "100780";
-    private final String contextRoot = "ktester";
+    private final String contextRoot = "K-tester";
 
 
     public String getClientName() {
