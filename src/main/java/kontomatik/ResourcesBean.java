@@ -14,7 +14,7 @@ public class ResourcesBean implements Serializable {
     private String clientName = "smartloans-test";
     private String apiKey; // api key should never been exposed on this branch !
     private String ownerExternalId = "100780";
-    private final String contextRoot = "kontomatik-app";
+    private final String contextRoot = "K-tester";
 
 
     public String getClientName() {
