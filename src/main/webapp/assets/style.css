@@ -1,49 +1,20 @@
 
-.tooltip {
-    position: relative;
-    display: inline;
-    float: right;
-    margin-right: 12px;
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: #555;
-    color: #fff;
+.userForm {
+    padding: 20px 0 10px 0;
     text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    top: 100%;
-    left: 50%;
-    margin-left: -60px;
+    margin: auto;
 }
 
-.tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #555 transparent;
+.sendButton {
+        text-align: center;
 }
 
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-}
-
-.padded {
-    padding: 20px 80% 10px 0;
-}
 fieldset {
-    background-color: lightblue;
+    background-color: #99bbff;
 }
 
-#signOutForm {
+
+.signOutForm {
     visibility: hidden;
 }
 

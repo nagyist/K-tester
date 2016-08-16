@@ -5,60 +5,58 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <ui:composition template="template.xhtml">
     <ui:define name="content">
-        <div id="controlpannel">
-            <form action="results" method="post" class="padded">
+            <form action="results" method="post" class="userForm">
                 <fieldset>
-                    <p>Call import-owners-details command</p>
+                    <p><strong>Import owners</strong></p>
                     <input type="hidden" name="command" value="import-owners-details"/>
-                    <button type="submit">Send request</button>
+                    <button type="submit" class="sendButton">Submit</button>
                 </fieldset>
             </form>
-            <form action="results" method="post" class="padded">
+            <form action="results" method="post" class="userForm">
                 <fieldset>
-                    <p>Call import-accounts command</p>
+                    <p><strong>Import accounts</strong></p>
                     <input type="hidden" name="command" value="import-accounts"/>
-                    <button type="submit">Send request</button>
+                    <button type="submit" class="sendButton">Submit</button>
                 </fieldset>
             </form>
-            <form action="results" method="post" class="padded">
+            <form action="results" method="post" class="userForm">
                 <fieldset>
-                    <p>Call import-account-transactions command</p>
+                    <p><strong>Import account transactions</strong></p>
                     <input type="hidden" name="command" value="import-account-transactions"/>
-                    IBAN: <input type="text" name="iban" required="true" autocomplete="off"/>
+                    Account IBAN: <input type="text" name="iban" required="true" autocomplete="off"/>
                     <br/><br/>
-                    Date to start from: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
+                    Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
                     <br/><br/>
-                    <button type="submit">Send request</button>
+                    <button type="submit" class="sendButton">Submit</button>
                 </fieldset>
             </form>
-            <form action="results" method="post" class="padded">
+            <form action="results" method="post" class="userForm">
                 <fieldset>
-                    <p>Call default-import command</p>
+                    <p><strong>Default-import</strong></p>
                     <input type="hidden" name="command" value="default-import"/>
-                    Date to start from: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
+                    Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
                     <br/><br/>
-                    <button type="submit">Send request</button>
+                    <button type="submit" class="sendButton">Submit</button>
                 </fieldset>
             </form>
-            <form action="results" method="post" class="padded">
+            <form action="results" method="post" class="userForm">
                 <fieldset>
-                    <p>Call aggregated values [ownerExternalId=${resourcesBean.ownerExternalId}]</p>
+                    <p><strong>Aggregated-values</strong></p>
                     <input type="hidden" name="command" value="aggregated-values"/>
                     <input type="hidden" name="ownerExternalId" value="${resourcesBean.ownerExternalId}"/>
-                    Period in months: <input type="number" name="periodMonths" required="true"/>
+                    Months: <input type="number" name="periodMonths" required="true"/>
                     <br/><br/>
-                    <button type="submit">Send request</button>
+                    <button type="submit" class="sendButton">Submit</button>
                 </fieldset>
             </form>
-            <form id="signOutForm" action="results" method="post" class="padded" style="${sessionBean.formStyle}">
+            <form id="signOutForm" action="results" method="post" class="userForm" style="${sessionBean.formStyle}">
                 <fieldset>
-                    <p>Call sign-out command</p>
+                    <p><strong>Sign-out</strong></p>
                     <input type="hidden" name="command" value="sign-out"/>
-                    <button type="submit">Send request</button>
+                    <button type="submit" class="sendButton">Submit</button>
                 </fieldset>
             </form>
         <br style="clear:both"/>
-    </div>
 </ui:define>
 </ui:composition>
 </html>

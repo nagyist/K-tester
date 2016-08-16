@@ -9,25 +9,92 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-    <title>KontomatikApp</title>
+    <title>${resourcesBean.contextRoot}</title>
     <ui:insert name="head"/>
     <script type="text/javascript" src='https://signin.kontomatik.com/assets/signin-widget.js'></script>
     <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js'></script>
     <script type="text/javascript" src="js/utils.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
+    <style type="text/css">
+        nav {
+        float: left;
+        max-width: 160px;
+        margin: 0;
+        padding: 1em;
+        }
+
+        nav ul {
+        list-style-type: none;
+        padding: 0;
+        }
+
+        nav ul a {
+        text-decoration: none;
+        color: blue;
+        }
+
+        .tooltip {
+        position: relative;
+        display: inline;
+        float: right;
+        margin-right: 12px;
+        }
+
+        .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        top: 100%;
+        left: 50%;
+        margin-left: -60px;
+        }
+
+        .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent #555 transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+        visibility: visible;
+        }
+
+        #content {
+        margin: auto;
+        width: 50%;
+        border: solid;
+        background-color: #001133;
+        }
+
+    </style>
 </head>
 
 <body>
 
-<div id="container">
-    <div id="header">
-        <a href="signin.xhtml">Sign in</a> | <a href="commands.xhtml">Commands</a> |
-        <a href="http://developer.kontomatik.com/api-doc" target="_blank">Documentation</a>
+<nav>
+    <ul>
+        <li><a href="signin.xhtml">Sign in</a></li>
+        <li><a href="commands.xhtml">Commands</a></li>
+        <li><a href="http://developer.kontomatik.com/api-doc" target="_blank">Documentation</a></li>
+    </ul>
+</nav>
 
-        <div class="tooltip" onclick="redirect()">${resourcesBean.clientName}
-            <span class="tooltiptext">Change client</span>
-        </div>
-    </div>
+<div id="header" class="tooltip" onclick="redirect()">${resourcesBean.clientName}
+    <span class="tooltiptext">Change client</span>
+</div>
+
+<div id="container">
 
     <div id="sidebar"></div>
 
