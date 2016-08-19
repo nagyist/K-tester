@@ -5,8 +5,13 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <ui:composition template="template.xhtml">
     <ui:define name="content">
+
+
         <div id="header" class="tooltip" onclick="redirect()">${resourcesBean.clientName}
             <span class="tooltiptext">Change client</span>
+        </div>
+        <div class="info" style="margin-top: 5px;">
+            <p style="margin: auto; width: 25%;"><strong>Use the Sign-in Widget to connect to your bank: </strong></p>
         </div>
         <nav>
             <ul>
@@ -16,7 +21,8 @@
             </ul>
         </nav>
         <div id="kontomatik">
-            <script type="text/javascript">
+        </div>
+        <script type="text/javascript">
                 //<![CDATA[
                 embedKontomatik({
                     client: '#{resourcesBean.clientName}',
@@ -49,58 +55,53 @@
                     }
                 });
                 //]]>
-            </script>
-        </div>
-        <div id="controlPanel">
+        </script>
+
+        <div id="komands">
+            <p style="text-align: left;"><strong>Call high-level API commands: </strong></p>
             <form action="results" method="post" class="userForm">
                 <fieldset>
-                    <p><strong>Import owners</strong></p>
                     <input type="hidden" name="command" value="import-owners-details"/>
-                    <button type="submit" class="sendButton">Submit</button>
+                    <button type="submit" class="sendButton">Import owners</button>
                 </fieldset>
             </form>
             <form action="results" method="post" class="userForm">
                 <fieldset>
-                    <p><strong>Import accounts</strong></p>
                     <input type="hidden" name="command" value="import-accounts"/>
-                    <button type="submit" class="sendButton">Submit</button>
+                    <button type="submit" class="sendButton">Import accounts</button>
                 </fieldset>
             </form>
             <form action="results" method="post" class="userForm">
                 <fieldset>
-                    <p><strong>Import account transactions</strong></p>
                     <input type="hidden" name="command" value="import-account-transactions"/>
                     Account IBAN: <input type="text" name="iban" required="true" autocomplete="off"/>
                     <br/><br/>
                     Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
                     <br/><br/>
-                    <button type="submit" class="sendButton">Submit</button>
+                    <button type="submit" class="sendButton">Import account transactions</button>
                 </fieldset>
             </form>
             <form action="results" method="post" class="userForm">
                 <fieldset>
-                    <p><strong>Default-import</strong></p>
                     <input type="hidden" name="command" value="default-import"/>
                     Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
                     <br/><br/>
-                    <button type="submit" class="sendButton">Submit</button>
+                    <button type="submit" class="sendButton">Default-import</button>
                 </fieldset>
             </form>
             <form action="results" method="post" class="userForm">
                 <fieldset>
-                    <p><strong>Aggregated-values</strong></p>
                     <input type="hidden" name="command" value="aggregated-values"/>
                     <input type="hidden" name="ownerExternalId" value="${resourcesBean.ownerExternalId}"/>
                     Months: <input type="number" name="periodMonths" required="true"/>
                     <br/><br/>
-                    <button type="submit" class="sendButton">Submit</button>
+                    <button type="submit" class="sendButton">Aggregated-values</button>
                 </fieldset>
             </form>
             <form id="signOutForm" action="results" method="post" class="userForm" style="${sessionBean.formStyle}">
                 <fieldset>
-                    <p><strong>Sign-out</strong></p>
                     <input type="hidden" name="command" value="sign-out"/>
-                    <button type="submit" class="sendButton">Submit</button>
+                    <button type="submit" class="sendButton">Sign-out</button>
                 </fieldset>
             </form>
 
