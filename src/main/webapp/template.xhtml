@@ -37,6 +37,7 @@
         position: relative;
         display: inline;
         float: right;
+        margin-top: 10px;
         margin-right: 12px;
         }
 
@@ -69,34 +70,42 @@
         .tooltip:hover .tooltiptext {
         visibility: visible;
         }
+        #header {
+        background-color: white;
+        }
 
         #content {
         margin: auto;
-        width: 50%;
+        width: 70%;
         border: solid;
-        background-color: #001133;
+        white-space: nowrap;
         }
 
+        #kontomatik {
+        margin: auto;
+        width: 50;
+        text-align: center;
+        background-color: white;
+        }
+
+        .userForm, .sendButton {
+        text-align: center;
+        }
+
+        fieldset {
+        background-color: #99bbff;
+        }
+
+
+        .signOutForm {
+        visibility: hidden;
+        }
     </style>
 </head>
 
 <body>
 
-<nav>
-    <ul>
-        <li><a href="signin.xhtml">Sign in</a></li>
-        <li><a href="commands.xhtml">Commands</a></li>
-        <li><a href="http://developer.kontomatik.com/api-doc" target="_blank">Documentation</a></li>
-    </ul>
-</nav>
-
-<div id="header" class="tooltip" onclick="redirect()">${resourcesBean.clientName}
-    <span class="tooltiptext">Change client</span>
-</div>
-
 <div id="container">
-
-    <div id="sidebar"></div>
 
     <div id="content">
         <ui:insert name="content"/>
