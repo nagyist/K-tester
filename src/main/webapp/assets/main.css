@@ -1,8 +1,14 @@
-nav {
+
+        #header {
+        border: solid;
+        }
+
+
+        nav {
         float: left;
         max-width: 160px;
         margin: 0;
-        padding: 1em;
+        padding: 0;
         }
 
         nav ul {
@@ -53,10 +59,6 @@ nav {
         visibility: visible;
         }
 
-
-        #header {
-
-        }
 
         #content {
         margin: auto;

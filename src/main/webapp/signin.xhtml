@@ -6,20 +6,19 @@
 <ui:composition template="template.xhtml">
     <ui:define name="content">
 
-
-        <div id="header" class="tooltip" onclick="redirect()">${resourcesBean.clientName}
+        <div id="header">
+            <nav>
+                <ul>
+                    <li><a href="signin.xhtml">Sign in</a></li>
+                    <li><a href="commands.xhtml">Commands</a></li>
+                    <li><a href="http://developer.kontomatik.com/api-doc" target="_blank">Documentation</a></li>
+                </ul>
+            </nav>
+        <div id="client" class="tooltip" onclick="redirect()">${resourcesBean.clientName}
             <span class="tooltiptext">Change client</span>
         </div>
-        <div class="info" style="margin-top: 5px;">
-            <p style="margin: auto; width: 25%;"><strong>Use the Sign-in Widget to connect to your bank: </strong></p>
+
         </div>
-        <nav>
-            <ul>
-                <li><a href="signin.xhtml">Sign in</a></li>
-                <li><a href="commands.xhtml">Commands</a></li>
-                <li><a href="http://developer.kontomatik.com/api-doc" target="_blank">Documentation</a></li>
-            </ul>
-        </nav>
         <div id="kontomatik">
         </div>
         <script type="text/javascript">
