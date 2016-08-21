@@ -6,104 +6,123 @@
 <ui:composition template="template.xhtml">
     <ui:define name="content">
 
-        <div id="header">
-            <nav>
-                <ul>
-                    <li><a href="signin.xhtml">Sign in</a></li>
-                    <li><a href="http://developer.kontomatik.com/api-doc" target="_blank">Documentation</a></li>
-                </ul>
-            </nav>
+        <header>
+            <h3>K-tester</h3>
             <div class="tooltip" onclick="redirect()">${resourcesBean.clientName}
                 <span class="tooltiptext">Change client</span>
             </div>
             <br style="clear: both"/>
-        </div>
-        <div id="kontomatik">
-        </div>
-        <script type="text/javascript">
-                //<![CDATA[
-                embedKontomatik({
-                    client: '#{resourcesBean.clientName}',
-                    divId: 'kontomatik',
-                    locale: 'en',
-                    ownerExternalId: '#{resourcesBean.ownerExternalId}',
-                    onSuccess: function (target, sessionId, sessionIdSignature) {
-                        // Pass session params to the backend
-                        $.ajax({
-                            type: 'POST',
-                            url: window.location.origin + '/${resourcesBean.contextRoot}/session',
-                            data:
-                            {
-                            sessionId: sessionId,
-                            sessionIdSignature: sessionIdSignature,
-                            target: target,
-                            },
-                            dataType: 'text',
-                            success: function (data, textStatus, jqXHR) {
-                                   $(":button").prop('disabled', false);
-                                   $(":input").prop('disabled', false);
-
-                            },
-                             error: function (jqXHR, textStatus, errorThrown) {
-                                        alert(errorThrown);
+        </header>
+        <nav>
+            <ul>
+                <li><a href="signin.xhtml">Sign in</a></li>
+                <li><a href="http://developer.kontomatik.com/api-doc" target="_blank">Documentation</a></li>
+            </ul>
+        </nav>
+        <section>
+            <table>
+                <tr>
+                    <th>Use Kontomatik Widget to connect to your bank:</th>
+                    <th>Call Kontomatik API commands (you must sign in first):</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="kontomatik"></div>
+                        <script type="text/javascript">
+                            //<![CDATA[
+                                embedKontomatik({
+                                    client: '#{resourcesBean.clientName}',
+                                    divId: 'kontomatik',
+                                    locale: 'en',
+                                    ownerExternalId: '#{resourcesBean.ownerExternalId}',
+                                    onSuccess: function (target, sessionId, sessionIdSignature) {
+                                    // Pass session params to the backend
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: window.location.origin + '/${resourcesBean.contextRoot}/session',
+                                            data:
+                                            {
+                                            sessionId: sessionId,
+                                            sessionIdSignature: sessionIdSignature,
+                                            target: target,
+                                            },
+                                            dataType: 'text',
+                                            success: function (data, textStatus, jqXHR) {
+                                                $(":button").prop('disabled', false);
+                                                $(":input").prop('disabled', false);
+                                            },
+                                            error: function (jqXHR, textStatus, errorThrown) {
+                                                        alert(errorThrown);
+                                            }
+                                        });
+                                    },
+                                    onError: function (exception) {
+                                        alert('A Kontomatik error has occurred: ' + exception);
                                     }
-                             });
-                    },
-                    onError: function (exception) {
-                        alert('A Kontomatik error has occurred: ' + exception);
-                    }
-                });
-                //]]>
-        </script>
-
-        <div id="komands">
-            <form action="results" method="post" class="userForm">
-                <fieldset>
-                    <input type="hidden" name="command" value="import-owners-details"/>
-                    <button type="submit" disabled="disabled">Import owners</button>
-                </fieldset>
-            </form>
-            <form action="results" method="post" class="userForm">
-                <fieldset>
-                    <input type="hidden" name="command" value="import-accounts" disabled="disabled"/>
-                    <button type="submit" disabled="disabled">Import accounts</button>
-                </fieldset>
-            </form>
-            <form action="results" method="post" class="userForm">
-                <fieldset>
-                    <input type="hidden" name="command" value="import-account-transactions" disabled="disabled"/>
-                    Account IBAN: <input type="text" name="iban" required="true" autocomplete="off" disabled="disabled"/>
-                    <br/><br/>
-                    Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy" disabled="disabled"/>
-                    <br/><br/>
-                    <button type="submit" disabled="disabled">Import account transactions</button>
-                </fieldset>
-            </form>
-            <form action="results" method="post" class="userForm">
-                <fieldset>
-                    <input type="hidden" name="command" value="default-import"/>
-                    Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy" disabled="disabled"/>
-                    <br/><br/>
-                    <button type="submit" disabled="disabled">Default-import</button>
-                </fieldset>
-            </form>
-            <form action="results" method="post" class="userForm">
-                <fieldset>
-                    <input type="hidden" name="command" value="aggregated-values"/>
-                    <input type="hidden" name="ownerExternalId" value="${resourcesBean.ownerExternalId}"/>
-                    Months: <input type="number" name="periodMonths" required="true" disabled="disabled"/>
-                    <br/><br/>
-                    <button type="submit" disabled="disabled">Aggregated-values</button>
-                </fieldset>
-            </form>
-            <form id="signOutForm" action="results" method="post" class="userForm" style="${sessionBean.formStyle}">
-                <fieldset>
-                    <input type="hidden" name="command" value="sign-out"/>
-                    <button type="submit" disabled="disabled">Sign-out</button>
-                </fieldset>
-            </form>
-
-        </div>
+                                });
+                            //]]>
+                        </script>
+                    </td>
+                    <td>
+                        <div id="commands">
+                            <form action="results" method="post" class="userForm">
+                                <fieldset>
+                                    <input type="hidden" name="command" value="import-owners-details"/>
+                                    <button type="submit" disabled="disabled">Import owners</button>
+                                </fieldset>
+                            </form>
+                            <form action="results" method="post" class="userForm">
+                                <fieldset>
+                                    <input type="hidden" name="command" value="import-accounts" disabled="disabled"/>
+                                    <button type="submit" disabled="disabled">Import accounts</button>
+                                </fieldset>
+                            </form>
+                            <form action="results" method="post" class="userForm">
+                                <fieldset>
+                                    <input type="hidden" name="command" value="import-account-transactions"
+                                           disabled="disabled"/>
+                                    Account IBAN: <input type="text" name="iban" required="true" autocomplete="off"
+                                                         disabled="disabled"/>
+                                    <br/><br/>
+                                    Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"
+                                                  disabled="disabled"/>
+                                    <br/><br/>
+                                    <button type="submit" disabled="disabled">Import account transactions</button>
+                                </fieldset>
+                            </form>
+                            <form action="results" method="post" class="userForm">
+                                <fieldset>
+                                    <input type="hidden" name="command" value="default-import"/>
+                                    Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"
+                                                  disabled="disabled"/>
+                                    <br/><br/>
+                                    <button type="submit" disabled="disabled">Default-import</button>
+                                </fieldset>
+                            </form>
+                            <form action="results" method="post" class="userForm">
+                                <fieldset>
+                                    <input type="hidden" name="command" value="aggregated-values"/>
+                                    <input type="hidden" name="ownerExternalId"
+                                           value="${resourcesBean.ownerExternalId}"/>
+                                    Months: <input type="number" name="periodMonths" required="true"
+                                                   disabled="disabled"/>
+                                    <br/><br/>
+                                    <button type="submit" disabled="disabled">Aggregated-values</button>
+                                </fieldset>
+                            </form>
+                            <form id="signOutForm" action="results" method="post" class="userForm"
+                                  style="${sessionBean.formStyle}">
+                                <fieldset>
+                                    <input type="hidden" name="command" value="sign-out"/>
+                                    <button type="submit" disabled="disabled">Sign-out</button>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br style="clear:both"/>
+        </section>
     </ui:define>
 </ui:composition>
 </html>
