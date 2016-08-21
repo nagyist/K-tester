@@ -1,4 +1,9 @@
 
+        #content {
+        margin: auto;
+        width: 60%;
+        }
+
         #header {
         border: solid;
         }
@@ -59,32 +64,24 @@
         visibility: visible;
         }
 
-
-        #content {
-        margin: auto;
-        width: 80%;
-        }
-
         #kontomatik {
-         margin: auto;
-         width: 25%;
-         margin-top: 5px;
+        margin-top: 10px;
+        float: left;
         }
 
         #komands {
-        margin: auto;
-        width:25%;
+        float: right;
+        margin-top: 40px;
         text-align: center;
         }
 
-
-        .userForm {
-
+        fieldset {
+        border-radius: 5px;
         }
 
 
-        fieldset {
-        border-radius: 5px;
+        button {
+
         }
 
 
