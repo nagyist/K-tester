@@ -9,11 +9,11 @@
         <header>
             <nav>
                 <ul>
-                    <li><a href="signin.xhtml">Reload</a></li>
+                    <li><a href="signin.xhtml">Home</a></li>
                 </ul>
             </nav>
-            <div class="tooltip" onclick="redirect()">${resourcesBean.clientName}
-                <span class="tooltiptext">Change client</span>
+            <div class="tooltip" onclick="redirect()">
+                <span class="tooltiptext" style="visibility: visible;">Change client</span>
             </div>
             <br style="clear: both"/>
         </header>
@@ -21,7 +21,7 @@
             <div class="widget">
                 <div class="tooltip" style="float: left; margin-bottom: 20px;">
                     <div id="kontomatik"></div>
-                    <span class="tooltiptext">Sign in to your bank</span>
+                    <span class="tooltiptext">Use Kontomatik Widget to connect to a bank!</span>
                 </div>
                 <script type="text/javascript">
                             //<![CDATA[
@@ -57,12 +57,11 @@
                                 });
                             //]]>
 
-
                 </script>
             </div>
 
             <div class="commands">
-                <div class="tooltip" style="margin-top: 90px; margin-bottom: 20px;">
+                <div class="tooltip" style="margin: 100px 0 20px;">
                     <form action="results" method="post" class="userForm">
                         <fieldset>
                             <input type="hidden" name="command" value="import-owners-details"/>
@@ -115,15 +114,22 @@
                             <button type="submit" disabled="disabled">Sign-out</button>
                         </fieldset>
                     </form>
-                    <span class="tooltiptext">Kontomatik API commands</span>
+                    <br style="clear:both"/>
+                    <span class="tooltiptext">Run Kontomatik API commands</span>
                 </div>
             </div>
             <br style="clear:both"/>
         </section>
         <footer>
-            <br/>
-            <h2>K-tester</h2>
-            <br/>
+            <nav>
+                <ul>
+                    <li><a href="https://github.com/eduarddedu/K-tester">Help</a></li>
+                </ul>
+            </nav>
+            <div class="tooltip">
+                <span class="tooltiptext" style="visibility: visible;">K-tester</span>
+            </div>
+            <br style="clear:both"/>
         </footer>
     </ui:define>
 </ui:composition>
