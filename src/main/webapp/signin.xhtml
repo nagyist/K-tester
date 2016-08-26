@@ -5,24 +5,11 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <ui:composition template="template.xhtml">
     <ui:define name="content">
-
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="signin.xhtml">Home</a></li>
-                </ul>
-            </nav>
-            <div class="tooltip" onclick="redirect()">
-                <span class="tooltiptext" style="visibility: visible;">Change client</span>
-            </div>
-            <br style="clear: both"/>
-        </header>
         <section>
-            <div class="widget">
-                <div class="tooltip" style="float: left; margin-bottom: 20px;">
-                    <div id="kontomatik"></div>
-                    <span class="tooltiptext">Use Kontomatik Widget to connect to a bank!</span>
-                </div>
+            <div id="widget" class="tooltip" style="float: none; display: block; margin: auto; text-align: center; border: 1px dotted;">
+                <div id="kontomatik"></div>
+                <br style="clear:both"/>
+                <span class="tooltiptext">Connect to a bank with Kontomatik Widget! </span>
                 <script type="text/javascript">
                             //<![CDATA[
                                 embedKontomatik({
@@ -43,11 +30,11 @@
                                             },
                                             dataType: 'text',
                                             success: function (data, textStatus, jqXHR) {
-                                                $(":button").prop('disabled', false);
-                                                $(":input").prop('disabled', false);
+                                                 redirect('commands.xhtml');
+
                                             },
                                             error: function (jqXHR, textStatus, errorThrown) {
-                                                        alert(errorThrown);
+                                                 alert(errorThrown);
                                             }
                                         });
                                     },
@@ -56,81 +43,9 @@
                                     }
                                 });
                             //]]>
-
                 </script>
             </div>
-
-            <div class="commands">
-                <div class="tooltip" style="margin: 100px 0 20px;">
-                    <form action="results" method="post" class="userForm">
-                        <fieldset>
-                            <input type="hidden" name="command" value="import-owners-details"/>
-                            <button type="submit" disabled="disabled">Import owners</button>
-                        </fieldset>
-                    </form>
-                    <form action="results" method="post" class="userForm">
-                        <fieldset>
-                            <input type="hidden" name="command" value="import-accounts" disabled="disabled"/>
-                            <button type="submit" disabled="disabled">Import accounts</button>
-                        </fieldset>
-                    </form>
-                    <form action="results" method="post" class="userForm">
-                        <fieldset>
-                            <input type="hidden" name="command" value="import-account-transactions"
-                                   disabled="disabled"/>
-                            Account IBAN: <input type="text" name="iban" required="true" autocomplete="off"
-                                                 disabled="disabled"/>
-                            <br/><br/>
-                            Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"
-                                          disabled="disabled"/>
-                            <br/><br/>
-                            <button type="submit" disabled="disabled">Import account transactions</button>
-                        </fieldset>
-                    </form>
-                    <form action="results" method="post" class="userForm">
-                        <fieldset>
-                            <input type="hidden" name="command" value="default-import"/>
-                            Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"
-                                          disabled="disabled"/>
-                            <br/><br/>
-                            <button type="submit" disabled="disabled">Default-import</button>
-                        </fieldset>
-                    </form>
-                    <form action="results" method="post" class="userForm">
-                        <fieldset>
-                            <input type="hidden" name="command" value="aggregated-values"/>
-                            <input type="hidden" name="ownerExternalId"
-                                   value="${resourcesBean.ownerExternalId}"/>
-                            Months: <input type="number" name="periodMonths" required="true"
-                                           disabled="disabled"/>
-                            <br/><br/>
-                            <button type="submit" disabled="disabled">Aggregated-values</button>
-                        </fieldset>
-                    </form>
-                    <form id="signOutForm" action="results" method="post" class="userForm"
-                          style="${sessionBean.formStyle}">
-                        <fieldset>
-                            <input type="hidden" name="command" value="sign-out"/>
-                            <button type="submit" disabled="disabled">Sign-out</button>
-                        </fieldset>
-                    </form>
-                    <br style="clear:both"/>
-                    <span class="tooltiptext">Run Kontomatik API commands</span>
-                </div>
-            </div>
-            <br style="clear:both"/>
         </section>
-        <footer>
-            <nav>
-                <ul>
-                    <li><a href="https://github.com/eduarddedu/K-tester">Help</a></li>
-                </ul>
-            </nav>
-            <div class="tooltip">
-                <span class="tooltiptext" style="visibility: visible;">K-tester</span>
-            </div>
-            <br style="clear:both"/>
-        </footer>
     </ui:define>
 </ui:composition>
 </html>

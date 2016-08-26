@@ -1,15 +1,10 @@
 /**
  * Created by eduarddedu on 21/06/16
  */
-function redirect() {
-    var location = window.location.origin + '/K-tester/credentials.xhtml';
+function redirect(page) {
+    var location = window.location.origin + '/K-tester/' + page;
     window.location.replace(location);
 }
-// Not used but provided here as example JQuery code
-function renderForm() {
-   $("#signOutForm").css('visibility', 'visible');
-}
-
 
 
 

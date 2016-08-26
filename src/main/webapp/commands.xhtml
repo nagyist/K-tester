@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="template.xhtml">
+    <ui:define name="content">
+        <section>
+            <div id="commands" class="tooltip" style="float: none; display: block; margin: auto; width: 20%; text-align: center; border: 1px dotted;">
+                <form action="results" method="post" class="userForm">
+                    <fieldset>
+                        <input type="hidden" name="command" value="import-owners-details"/>
+                        <button type="submit">Import owners</button>
+                    </fieldset>
+                </form>
+                <form action="results" method="post" class="userForm">
+                    <fieldset>
+                        <input type="hidden" name="command" value="import-accounts"/>
+                        <button type="submit">Import accounts</button>
+                    </fieldset>
+                </form>
+                <form action="results" method="post" class="userForm">
+                    <fieldset>
+                        <input type="hidden" name="command" value="import-account-transactions"/>
+                        Account IBAN: <input type="text" name="iban" required="true" autocomplete="off"/>
+                        <br/><br/>
+                        Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
+                        <br/><br/>
+                        <button type="submit">Import account transactions</button>
+                    </fieldset>
+                </form>
+                <form action="results" method="post" class="userForm">
+                    <fieldset>
+                        <input type="hidden" name="command" value="default-import"/>
+                        Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
+                        <br/><br/>
+                        <button type="submit">Default-import</button>
+                    </fieldset>
+                </form>
+                <form action="results" method="post" class="userForm">
+                    <fieldset>
+                        <input type="hidden" name="command" value="aggregated-values"/>
+                        <input type="hidden" name="ownerExternalId"
+                               value="${resourcesBean.ownerExternalId}"/>
+                        Months: <input type="number" name="periodMonths" required="true"/>
+                        <br/><br/>
+                        <button type="submit">Aggregated-values</button>
+                    </fieldset>
+                </form>
+                <form id="signOutForm" action="results" method="post" class="userForm"
+                      style="${sessionBean.formStyle}">
+                    <fieldset>
+                        <input type="hidden" name="command" value="sign-out"/>
+                        <button type="submit">Sign-out</button>
+                    </fieldset>
+                </form>
+                <br style="clear:both"/>
+                <span class="tooltiptext">Run Kontomatik API commands! </span>
+            </div>
+        </section>
+    </ui:define>
+</ui:composition>
+</html>

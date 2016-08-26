@@ -18,16 +18,39 @@
 </head>
 
 <body>
-
 <div id="container">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="signin.xhtml">Home</a></li>
+            </ul>
+        </nav>
+        <div class="tooltip" id="clientTooltip">
+            <span class="tooltiptext" style="visibility: visible;">Change client</span>
+        </div>
+        <br style="clear: both"/>
+        <script type="text/javascript">
+            document.getElementById("clientTooltip").addEventListener("click",
+            function() {
+                redirect('credentials.xhtml');
+            });
+        </script>
+    </header>
 
     <div id="content">
         <ui:insert name="content"/>
     </div>
 
-    <br style="clear: both"/>
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="https://github.com/eduarddedu/K-tester" target="_blank">Help</a></li>
+            </ul>
+        </nav>
+        <h3 style="display: inline; float: right; margin-right: 5px;">K-tester</h3>
+        <br style="clear:both"/>
+    </footer>
 </div>
-
 </body>
 </html>
 
