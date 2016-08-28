@@ -16,6 +16,16 @@ public class ResourcesBean implements Serializable {
     private String ownerExternalId = "100780";
     private final String contextRoot = "K-tester";
 
+    public String getCSSPropertyValue(String propertyName) {
+        String s = propertyName;
+        if (s == null)
+            return null;
+        switch(s) {
+            case "disabled": return null;
+        }
+        return null;
+    }
+
 
     public String getClientName() {
         return clientName;

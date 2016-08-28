@@ -2,57 +2,50 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<head>
-    <title>Signin</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-</head>
-
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <ui:composition template="template.xhtml">
     <ui:define name="content">
-        <div id='kontomatik'></div>
-        <script type="text/javascript">
-            embedKontomatik({
-                //<![CDATA[
-                client: '#{resourcesBean.clientName}',
-                divId: 'kontomatik',
-                locale: 'en',
-                ownerExternalId: '#{resourcesBean.ownerExternalId}',
-                onSuccess: function (target, sessionId, sessionIdSignature) {
-                    // Pass session params to the backend
-                    $.ajax({                                // A PlainObject to configure the Ajax request
-                        type: 'POST',
-                        url: window.location.origin + '/${resourcesBean.contextRoot}/session',
-                        data:
-                        {
-                            sessionId: sessionId,
-                            sessionIdSignature: sessionIdSignature,
-                            target: target,
-                        },
-                        dataType: 'text',                   // we expect a simple String response back from the server
-                        success: function (data, textStatus, jqXHR) {
-                            $(function() {
-                                $('#kontomatik').html('');
-                                var location = window.location.origin + '/${resourcesBean.contextRoot}/commands.xhtml';
-                                window.location.replace(location);
-                            });
+        <section>
+            <div id="widget" class="tooltip" style="float: none; display: block; margin: auto; width: 25%; text-align: center; border: 1px dotted;">
+                <div id="kontomatik"></div>
+                <br style="clear:both"/>
+                <span class="tooltiptext">Connect to a bank with Kontomatik Widget! </span>
+                <script type="text/javascript">
+                            //<![CDATA[
+                                embedKontomatik({
+                                    client: '#{resourcesBean.clientName}',
+                                    divId: 'kontomatik',
+                                    locale: 'en',
+                                    ownerExternalId: '#{resourcesBean.ownerExternalId}',
+                                    onSuccess: function (target, sessionId, sessionIdSignature) {
+                                    // Pass session params to the backend
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: window.location.origin + '/${resourcesBean.contextRoot}/session',
+                                            data:
+                                            {
+                                            sessionId: sessionId,
+                                            sessionIdSignature: sessionIdSignature,
+                                            target: target,
+                                            },
+                                            dataType: 'text',
+                                            success: function (data, textStatus, jqXHR) {
+                                                 redirect('commands.xhtml');
 
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            // Redirect to error page
-                            var location = window.location.origin + '/${resourcesBean.contextRoot}/error';
-                            window.location.replace(location);
-                        }
-                    });
-                },
-                onError: function (exception) {
-                    alert('A Kontomatik error has occurred: ' + exception);
-                }
-            });
-            //]]>
-        </script>
+                                            },
+                                            error: function (jqXHR, textStatus, errorThrown) {
+                                                 alert(errorThrown);
+                                            }
+                                        });
+                                    },
+                                    onError: function (exception) {
+                                        alert('A Kontomatik error has occurred: ' + exception);
+                                    }
+                                });
+                            //]]>
+                </script>
+            </div>
+        </section>
     </ui:define>
 </ui:composition>
 </html>
