@@ -1,6 +1,8 @@
 
         #container {
+        position: relative;
         margin: auto;
+        height: 900px;
         border: 1px solid;
         border-style: groove;
         border-color: grey;
@@ -10,11 +12,17 @@
         background-color: LightGray;
         }
 
-
         footer {
         background-color: LightGray;
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
         }
 
+        #content {
+        border: 3px solid blue;
+        }
 
         nav {
         float: left;
@@ -35,8 +43,6 @@
 
 
         .tooltip {
-        position: relative;
-        display: inline;
         float: right;
         margin-top: 10px;
         margin-right: 12px;
@@ -49,7 +55,7 @@
         color: #fff;
         text-align: center;
         border-radius: 6px;
-        padding: 5px 0;
+        padding: 5px 2px;
         margin: auto;
         }
 
@@ -58,7 +64,8 @@
         }
 
         section {
-        padding: 50px;
+        border: 1px groove red;
+        margin: 50px 5px;
         }
 
 
