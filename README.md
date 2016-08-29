@@ -1,4 +1,4 @@
-## Kontomatik app
+## K-tester
 
 - A Maven web app that allows the user to run [Kontomatik API (web service)](http://developer.kontomatik.com/api-doc) commands and view the result XML responses 
 
