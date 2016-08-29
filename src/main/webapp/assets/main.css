@@ -21,13 +21,13 @@
         }
 
         #content {
-        border: 3px solid blue;
+        /*border: 3px solid blue;*/
         }
 
         nav {
         float: left;
         max-width: 260px;
-        margin: 0 5px 0 5px;
+        margin: 0 5px;
         padding: 0;
         }
 
@@ -55,7 +55,7 @@
         color: #fff;
         text-align: center;
         border-radius: 6px;
-        padding: 5px 2px;
+        padding: 5px 5px;
         margin: auto;
         }
 
@@ -64,12 +64,19 @@
         }
 
         section {
-        border: 1px groove red;
+        /*border: 1px groove red;*/
         margin: 50px 5px;
         }
 
+        .panel {
+        margin: auto;
+        width: 25%;
+        text-align: center;
+        border-style: inset;
+        }
 
         fieldset {
+        margin: 5px 30px;
         border-radius: 5px;
         }
 

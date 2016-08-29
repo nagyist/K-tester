@@ -6,7 +6,8 @@
 <ui:composition template="template.xhtml">
     <ui:define name="content">
         <section>
-            <div id="commands" class="tooltip" style="float: none; display: block; margin: auto; width: 25%; text-align: center; border: 1px dotted;">
+            <div id="commands" class="panel">
+                <br/>
                 <form action="results" method="post" class="userForm">
                     <fieldset>
                         <input type="hidden" name="command" value="import-owners-details"/>
@@ -54,8 +55,7 @@
                         <button type="submit">Sign-out</button>
                     </fieldset>
                 </form>
-                <br style="clear:both"/>
-                <span class="tooltiptext">Run Kontomatik API commands! </span>
+                <p><strong>Run Kontomatik API commands!</strong></p>
             </div>
         </section>
     </ui:define>
