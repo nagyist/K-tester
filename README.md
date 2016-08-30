@@ -2,7 +2,7 @@
 
 - A Maven web app that allows the user to run [Kontomatik API (web service)](http://developer.kontomatik.com/api-doc) commands and view the result XML responses 
 
-- The home page embeds the Sign-in Widget enabling the user to connect to his bank; to login with test credentials, select Polish bank BGZ (eBGZ) then enter username = 'test' and password = 'Test123'
+- The home page embeds the Sign-in Widget which enables the user to connect to his bank; to login with test credentials, select **PL** in the country drop-down list, choose **BGZ BNP Paribas (eBGZ)** bank, then enter username = 'test' and password = 'Test123'
 
 - After successfully signing in, you will be redirected to a page displaying a GUI panel where the main Kontomatik API [commands and parameters](http://developer.kontomatik.com/api-doc/#advanced-api) are mapped to HTML user input components 
 
