@@ -8,20 +8,9 @@
         }
 
         header {
-        background-color: LightGray;
+        background-color: DarkSlateGray;
         }
 
-        footer {
-        background-color: LightGray;
-        position: absolute;
-        left: 0px;
-        right: 0px;
-        bottom: 0px;
-        }
-
-        #content {
-        /*border: 3px solid blue;*/
-        }
 
         nav {
         float: left;
@@ -37,8 +26,22 @@
 
         nav ul a {
         text-decoration: none;
-        color: blue;
+        color: white;
         }
+
+
+        footer {
+        background-color: DarkSlateGray;
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        }
+
+
+        #content {
+        }
+
 
 
         .tooltip {
@@ -46,6 +49,8 @@
         margin-top: 10px;
         margin-right: 12px;
         }
+
+
 
         .tooltip .tooltiptext {
         visibility: hidden;
@@ -58,21 +63,36 @@
         margin: auto;
         }
 
+
+
         .tooltip:hover .tooltiptext {
         visibility: visible;
         }
 
+
+
         section {
-        /*border: 1px groove red;*/
-        margin: 50px 5px;
+        margin: 30px 5px;
         }
+
 
         .panel {
         margin: 5px auto;
         text-align: center;
         }
 
+
         fieldset {
         margin: 5px 30px;
         border-radius: 5px;
+        }
+
+        p.user-info {
+        margin: auto;
+        background-color: DarkSlateGray;
+        text-align: center;
+        width: 35%;
+        padding: 3px;
+        color: white;
+        font-size: 110%;
         }
