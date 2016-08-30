@@ -6,7 +6,7 @@
 <ui:composition template="template.xhtml">
     <ui:define name="content">
         <section>
-            <div id="commands" class="panel">
+            <div id="commands" class="panel" style="width: 30%;">
                 <br/>
                 <form action="results" method="post" class="userForm">
                     <fieldset>
@@ -48,8 +48,7 @@
                         <button type="submit">Aggregated-values</button>
                     </fieldset>
                 </form>
-                <form id="signOutForm" action="results" method="post" class="userForm"
-                      style="${sessionBean.formStyle}">
+                <form id="signOutForm" action="results" method="post" class="userForm">
                     <fieldset>
                         <input type="hidden" name="command" value="sign-out"/>
                         <button type="submit">Sign-out</button>
