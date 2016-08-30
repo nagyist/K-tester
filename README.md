@@ -6,7 +6,7 @@
 
 - To login with test credentials, select **PL** in the country drop-down list, choose **BGZ BNP Paribas (eBGZ)** bank, then sign in with username **_test_** and password **_Test123_**
 
-- After successfully signing in, you will be redirected to a page displaying a GUI panel where the main Kontomatik API [commands and parameters](http://developer.kontomatik.com/api-doc/#advanced-api) are mapped to HTML user input components 
+- After signing in, you will be redirected to a page displaying a GUI panel where the main Kontomatik API [commands and parameters](http://developer.kontomatik.com/api-doc/#advanced-api) are mapped to HTML user input components 
 
 - It's also possible to replace the default client credentials used internally by the app with any valid client name/API key
 
