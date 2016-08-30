@@ -9,14 +9,14 @@
             <div id="widget" class="panel">
                 <br style="clear:both"/>
                 <div id="kontomatik"></div>
-                <br/>
-                <p><strong>Connect to a bank with Kontomatik Widget!</strong></p>
+                <p><strong>Connect to a bank using Kontomatik's Sign-in Widget</strong>!</p>
                 <script type="text/javascript">
                             //<![CDATA[
                                 embedKontomatik({
                                     client: '#{resourcesBean.clientName}',
                                     divId: 'kontomatik',
                                     locale: 'en',
+                                    showFavicons: true,
                                     ownerExternalId: '#{resourcesBean.ownerExternalId}',
                                     onSuccess: function (target, sessionId, sessionIdSignature) {
                                     // Pass session params to the backend
@@ -40,7 +40,7 @@
                                         });
                                     },
                                     onError: function (exception) {
-                                        alert('A Kontomatik error has occurred: ' + exception);
+                                        alert('Error: ' + exception);
                                     }
                                 });
                             //]]>

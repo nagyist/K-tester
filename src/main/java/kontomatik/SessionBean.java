@@ -102,16 +102,6 @@ public class SessionBean implements Serializable {
             return xml;
     }
 
-    private String formStyle;
-
-    public String getFormStyle() {
-        return formStyle;
-    }
-
-    public void setFormStyle(String s) {
-        formStyle = s;
-    }
-
 }
 
 

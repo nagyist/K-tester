@@ -7,3 +7,4 @@
 - After successfully signing in, you will be redirected to a page displaying a GUI panel where the main Kontomatik API [commands and parameters](http://developer.kontomatik.com/api-doc/#advanced-api) are mapped to HTML user input components 
 
 - It's also possible to replace the default client credentials used internally by the app with any valid client name/API key
+

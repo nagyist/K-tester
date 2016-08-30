@@ -2,10 +2,9 @@
         #container {
         position: relative;
         margin: auto;
-        height: 900px;
-        border: 1px solid;
-        border-style: groove;
-        border-color: grey;
+        width: 60%;
+        height: 850px;
+        border-style: inset;
         }
 
         header {
@@ -69,18 +68,11 @@
         }
 
         .panel {
-        margin: auto;
-        width: 25%;
+        margin: 5px auto;
         text-align: center;
-        border-style: inset;
         }
 
         fieldset {
         margin: 5px 30px;
         border-radius: 5px;
         }
-
-        .signOutForm {
-        visibility: hidden;
-        }
-

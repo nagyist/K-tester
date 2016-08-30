@@ -42,14 +42,6 @@ public class SessionController extends HttpServlet {
         HttpSession session = req.getSession(true); // Create a session if it doesn't exit
         session.setAttribute("logged", true);
 
-        String targetName = req.getParameter("target");
-        List<String> commands = new XmlParser(sessionBean.requestCatalog()).getBankCommandsList(targetName);
-        if (commands.contains("SignOutCommand"))
-            sessionBean.setFormStyle("visibility:visible");
-        else
-            sessionBean.setFormStyle("visibility:hidden");
-
-
     }
 
 }
