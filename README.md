@@ -4,7 +4,7 @@
 
 - The home page embeds the Sign-in Widget which enables the user to connect to his bank 
 
-- To login with test credentials, select **PL** in the country drop-down list, choose **BGZ BNP Paribas (eBGZ)** bank, then enter (username) *_test_* and (password) *_Test123_*
+- To login with test credentials, select **PL** in the country drop-down list, choose **BGZ BNP Paribas (eBGZ)** bank, then enter (username) **_test_** and (password) **_Test123_**
 
 - After successfully signing in, you will be redirected to a page displaying a GUI panel where the main Kontomatik API [commands and parameters](http://developer.kontomatik.com/api-doc/#advanced-api) are mapped to HTML user input components 
 
