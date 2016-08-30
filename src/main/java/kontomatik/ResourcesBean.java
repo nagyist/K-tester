@@ -2,6 +2,7 @@ package kontomatik;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 
 /**
@@ -15,16 +16,6 @@ public class ResourcesBean implements Serializable {
     private String apiKey; // cannot expose !
     private String ownerExternalId = "100780";
     private final String contextRoot = "K-tester";
-
-    public String getCSSPropertyValue(String propertyName) {
-        String s = propertyName;
-        if (s == null)
-            return null;
-        switch(s) {
-            case "disabled": return null;
-        }
-        return null;
-    }
 
 
     public String getClientName() {
@@ -46,5 +37,6 @@ public class ResourcesBean implements Serializable {
     }
 
     public String getContextRoot() { return contextRoot; }
+
 
 }
