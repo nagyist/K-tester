@@ -1,6 +1,6 @@
 ## K-tester
 
-- A Maven web app that allows the user to run [Kontomatik API (web service)](http://developer.kontomatik.com/api-doc) commands and view the result XML responses 
+- A Maven web app that allows the user to run [Kontomatik API](http://developer.kontomatik.com/api-doc) commands and view the result XML responses 
 
 - The home page embeds the Sign-in Widget which enables the user to connect to his bank; to login with test credentials, select **PL** in the country drop-down list, choose **BGZ BNP Paribas (eBGZ)** bank, then enter username = 'test' and password = 'Test123'
 
