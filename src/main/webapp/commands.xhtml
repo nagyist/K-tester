@@ -10,48 +10,54 @@
             <br/>
             <form action="results" method="post" class="userForm">
                 <fieldset>
+                    <legend>Import owners command</legend>
                     <input type="hidden" name="command" value="import-owners-details"/>
-                    <button type="submit">Import owners</button>
+                    <button type="submit">Submit</button>
                 </fieldset>
             </form>
             <form action="results" method="post" class="userForm">
                 <fieldset>
+                    <legend>Import accounts command</legend>
                     <input type="hidden" name="command" value="import-accounts"/>
-                    <button type="submit">Import accounts</button>
+                    <button type="submit">Submit</button>
                 </fieldset>
             </form>
             <form action="results" method="post" class="userForm">
                 <fieldset>
+                    <legend>Import account transactions command</legend>
                     <input type="hidden" name="command" value="import-account-transactions"/>
                     Account IBAN: <input type="text" name="iban" required="true" autocomplete="off"/>
                     <br/><br/>
                     Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
                     <br/><br/>
-                    <button type="submit">Import account transactions</button>
+                    <button type="submit">Submit</button>
                 </fieldset>
             </form>
             <form action="results" method="post" class="userForm">
                 <fieldset>
+                    <legend>Default import command</legend>
                     <input type="hidden" name="command" value="default-import"/>
                     Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
                     <br/><br/>
-                    <button type="submit">Default-import</button>
+                    <button type="submit">Submit</button>
                 </fieldset>
             </form>
             <form action="results" method="post" class="userForm">
                 <fieldset>
+                    <legend>Aggregated values command</legend>
                     <input type="hidden" name="command" value="aggregated-values"/>
                     <input type="hidden" name="ownerExternalId"
                            value="${resourcesBean.ownerExternalId}"/>
                     Months: <input type="number" name="periodMonths" required="true"/>
                     <br/><br/>
-                    <button type="submit">Aggregated-values</button>
+                    <button type="submit">Submit</button>
                 </fieldset>
             </form>
             <form id="signOutForm" action="results" method="post" class="userForm">
                 <fieldset>
+                    <legend>Sign out command</legend>
                     <input type="hidden" name="command" value="sign-out"/>
-                    <button type="submit">Sign-out</button>
+                    <button type="submit">Submit</button>
                 </fieldset>
             </form>
         </div>
