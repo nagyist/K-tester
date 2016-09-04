@@ -1,16 +1,4 @@
 
-        #container {
-        position: relative;
-        margin: auto;
-        width: 60%;
-        height: 750px;
-        border-style: inset;
-        }
-
-        header {
-        background-color: DarkSlateGray;
-        }
-
 
         nav {
         float: left;
@@ -30,24 +18,10 @@
         }
 
 
-        footer {
-        background-color: DarkSlateGray;
-        position: absolute;
-        left: 0px;
-        right: 0px;
-        bottom: 0px;
-        }
-
-
-        #content {
-        }
-
-
 
         .tooltip {
         float: right;
-        margin-top: 10px;
-        margin-right: 12px;
+        margin-top: 15px;
         }
 
 
