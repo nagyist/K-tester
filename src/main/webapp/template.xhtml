@@ -18,37 +18,40 @@
 </head>
 
 <body>
-<header class="w3-container w3-teal">
-    <nav>
-        <ul>
-            <li><a href="signin.xhtml">Home</a></li>
-        </ul>
-    </nav>
+<div id="wrapper">
+    <header class="w3-container w3-teal">
+        <nav>
+            <ul>
+                <li><a href="signin.xhtml">Home</a></li>
+            </ul>
+        </nav>
 
-    <div class="tooltip" id="redirect_div">
-        <span class="tooltiptext" style="visibility: visible;">Change client</span>
-    </div>
-    <br style="clear: both"/>
-    <script type="text/javascript">
+        <div class="tooltip" id="redirect_div">
+            <span class="tooltiptext" style="visibility: visible;">Change client</span>
+        </div>
+        <br style="clear: both"/>
+        <script type="text/javascript">
             document.getElementById("redirect_div").addEventListener("click",
             function() {
                 redirect('credentials.xhtml');
             });
 
-    </script>
-</header>
 
-<section id="content" class="w3-container">
-    <ui:insert name="content"/>
-</section>
+        </script>
+    </header>
 
-<footer class="w3-container w3-teal">
-    <nav>
-        <ul>
-            <li><a href="https://github.com/eduarddedu/K-tester" target="_blank">Help</a></li>
-        </ul>
-    </nav>
-</footer>
+    <section id="content">
+        <ui:insert name="content"/>
+    </section>
+
+    <footer class="w3-container w3-teal">
+        <nav>
+            <ul>
+                <li><a href="https://github.com/eduarddedu/K-tester" target="_blank">Help</a></li>
+            </ul>
+        </nav>
+    </footer>
+</div>
 </body>
 
 </html>

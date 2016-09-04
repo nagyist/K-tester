@@ -1,3 +1,21 @@
+        html, body {
+        height: 100%;
+        margin: 0; padding: 0;  /* to avoid scrollbars */
+        }
+
+        #wrapper {
+        display: flex;  /* use the flex model */
+        min-height: 100%;
+        flex-direction: column;  /* learn more: http://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/ */
+        }
+
+        header {}
+
+        footer {}
+
+        section {
+        flex: 1;
+        }
 
 
         nav {
@@ -41,14 +59,6 @@
 
         .tooltip:hover .tooltiptext {
         visibility: visible;
-        }
-
-
-
-        section {
-        margin: 30px 5px;
-        height: 600px;
-        overflow: scroll;
         }
 
 
