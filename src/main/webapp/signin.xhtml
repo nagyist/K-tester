@@ -5,12 +5,11 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <ui:composition template="template.xhtml">
     <ui:define name="content">
-        <section>
-            <p class="user-info">Connect to a bank using Kontomatik's Sign-in Widget!</p>
-            <div id="widget" class="panel">
-                <br style="clear:both"/>
-                <div id="kontomatik"></div>
-                <script type="text/javascript">
+        <p class="user-info">Connect to a bank using Kontomatik's Sign-in Widget!</p>
+        <div id="widget" class="panel">
+            <br style="clear:both"/>
+            <div id="kontomatik"></div>
+            <script type="text/javascript">
                             //<![CDATA[
                                 embedKontomatik({
                                     client: '#{resourcesBean.clientName}',
@@ -44,9 +43,9 @@
                                     }
                                 });
                             //]]>
-                </script>
-            </div>
-        </section>
+
+            </script>
+        </div>
     </ui:define>
 </ui:composition>
 </html>
