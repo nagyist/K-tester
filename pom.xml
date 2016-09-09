@@ -110,9 +110,9 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
                 <configuration>
-                    <!--
-                    <hostname>${wildfly-hostname}</hostname>
-                    -->
+                    <!-- Deploy only when local port 9990 is forwarded to localhost:9990 on the remote machine.
+                         $ ssh -L 9990:localhost:9990 [user@]hostname
+                     -->
                     <hostname>localhost</hostname>
                     <port>9990</port>
                     <username>${wildfly-username}</username>
