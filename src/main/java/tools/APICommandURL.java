@@ -1,9 +1,9 @@
-package kontomatik;
+package tools;
 
 /**
  * Created by eduarddedu on 06/07/16.
  */
-enum Urls {
+enum APICommandURL {
     DEFAULT_IMPORT(SessionBean.API_ENDPOINT + "v1/command/default-import.xml"),
     IMPORT_OWNERS(SessionBean.API_ENDPOINT + "v1/command/import-owners.xml"),
     IMPORT_ACCOUNTS(SessionBean.API_ENDPOINT + "v1/command/import-accounts.xml"),
@@ -14,7 +14,7 @@ enum Urls {
     CATALOG(SessionBean.API_ENDPOINT + "v1/catalog.xml"),
     DATA(SessionBean.API_ENDPOINT + "v1/data.xml");
     String value;
-    private Urls(String s) {
+    private APICommandURL(String s) {
         value = s;
     }
 }

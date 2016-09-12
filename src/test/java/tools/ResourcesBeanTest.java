@@ -1,4 +1,4 @@
-package kontomatik;
+package tools;
 
 import junit.framework.TestCase;
 

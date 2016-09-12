@@ -1,4 +1,4 @@
-package kontomatik;
+package tools;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
