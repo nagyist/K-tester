@@ -8,7 +8,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>${resourcesBean.contextRoot}</title>
+    <title>${resourcesBean.appName}</title>
     <ui:insert name="head"/>
     <script type="text/javascript" src='https://signin.kontomatik.com/assets/signin-widget.js'></script>
     <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js'></script>
@@ -25,7 +25,6 @@
                 <li><a href="signin.xhtml">Home</a></li>
             </ul>
         </nav>
-
         <div class="tooltip" id="redirect_div">
             <span class="tooltiptext" style="visibility: visible;">${resourcesBean.clientName}</span>
         </div>
@@ -33,10 +32,8 @@
         <script type="text/javascript">
             document.getElementById("redirect_div").addEventListener("click",
             function() {
-                redirect('credentials.xhtml');
+                redirect('/credentials.xhtml');
             });
-
-
         </script>
     </header>
 

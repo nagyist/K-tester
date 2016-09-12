@@ -94,9 +94,14 @@
 
     </dependencies>
     <build>
-        <!-- Set the name of the WAR, used as the context root when the app
-            is deployed -->
-        <finalName>${project.artifactId}</finalName>
+        <!-- We can set the name of the WAR, to be used as the context root when the app
+            is deployed, using the <finalName> tag.
+
+            <finalName>${project.artifactId}</finalName>
+
+            Instead we'll assign the app to the context root "/" by including in the WEB-INF directory
+            the appserver-specific descriptor file jboss-web.xml.
+        -->
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>

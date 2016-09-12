@@ -6,8 +6,7 @@
 <ui:composition template="template.xhtml">
     <ui:define name="content">
         <p class="user-info">Connect to a bank using Kontomatik's Sign-in Widget!</p>
-        <div id="widget" class="panel">
-            <br style="clear:both"/>
+        <div id="widget" class="centered-panel">
             <div id="kontomatik"></div>
             <script type="text/javascript">
                             //<![CDATA[
@@ -21,7 +20,7 @@
                                     // Pass session params to the backend
                                         $.ajax({
                                             type: 'POST',
-                                            url: window.location.origin + '/${resourcesBean.contextRoot}/session',
+                                            url: window.location.origin + '/session',
                                             data:
                                             {
                                             sessionId: sessionId,
@@ -30,7 +29,7 @@
                                             },
                                             dataType: 'text',
                                             success: function (data, textStatus, jqXHR) {
-                                                 redirect('commands.xhtml');
+                                                 redirect('/commands.xhtml');
 
                                             },
                                             error: function (jqXHR, textStatus, errorThrown) {

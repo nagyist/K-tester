@@ -62,22 +62,25 @@
         }
 
 
-        .panel {
-        margin: 5px auto;
+        p.user-info {
+        margin: auto;
+        width: 80;
         text-align: center;
+        padding: 20px;
+        font-size: 110%;
+        color: gray;
+        }
+
+
+        .centered-panel {
+        margin: 0 auto;
+        padding-bottom: 5px;
+        text-align: center;
+        overflow: scroll;
         }
 
 
         fieldset {
         margin: 5px 30px;
-        border-radius: 5px;
         }
 
-        p.user-info {
-        margin: auto;
-        width: 80;
-        text-align: center;
-        padding: 3px;
-        font-size: 110%;
-        color: gray;
-        }
