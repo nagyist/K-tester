@@ -1,4 +1,4 @@
-package kontomatik;
+package tools;
 
 
 import org.w3c.dom.Document;
@@ -9,7 +9,6 @@ import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.net.HttpURLConnection;
 import java.util.concurrent.*;
 
 /**
@@ -37,7 +36,7 @@ public class SessionBean implements Serializable {
     private String createGetUrl(InputStream in) throws IOException {
         String id = new XmlParser(in).getCommandId();
         return String.format("%s%s.xml?%s",
-                Urls.POLL_STATUS.value, id, SIGNATURE);
+                APICommandURL.POLL_STATUS.value, id, SIGNATURE);
     }
 
     private ExecutorService executor = Executors.newSingleThreadExecutor(
@@ -62,7 +61,7 @@ public class SessionBean implements Serializable {
 
     public InputStream requestCatalog() throws IOException {
         String params = "apiKey=" + apiKey + "&country=all";
-        String GET_URL = Urls.CATALOG.value + "?" + params;
+        String GET_URL = APICommandURL.CATALOG.value + "?" + params;
         return new HttpUtil().doGetRequest(GET_URL).getConnectionInputStream();
     }
 
@@ -71,20 +70,20 @@ public class SessionBean implements Serializable {
     public Document getAggregatesResponse(String periodMonths) throws IOException {
         String params = "periodMonths=" + periodMonths +
                 "&apiKey=" + apiKey + "&ownerExternalId=" + resourcesBean.getOwnerExternalId();
-        String GET_URL = Urls.AGGREGATED_VALUES.value + "?" + params;
+        String GET_URL = APICommandURL.AGGREGATED_VALUES.value + "?" + params;
         HttpUtil h = new HttpUtil().doGetRequest(GET_URL);
         return new XmlParser(h.getConnectionInputStream()).getDocument();
     }
 
     // Convenience methods:
-    public Document getCommandResponse(Urls url, String params, int timeout) throws IOException {
+    public Document getCommandResponse(APICommandURL url, String params, int timeout) throws IOException {
         return getCommandResponse(url, params, true, timeout);
     }
-    public Document getCommandResponse(Urls url) throws IOException {
+    public Document getCommandResponse(APICommandURL url) throws IOException {
         return getCommandResponse(url, null, false, 0);
     }
 
-    private Document getCommandResponse(Urls url, String params, boolean requiresPolling, int timeout) throws IOException {
+    private Document getCommandResponse(APICommandURL url, String params, boolean requiresPolling, int timeout) throws IOException {
         String POST_URL = url.value;
         String PARAMS = params == null ? SIGNATURE : SIGNATURE + params;
         HttpUtil h = new HttpUtil().doPostRequest(POST_URL, PARAMS);

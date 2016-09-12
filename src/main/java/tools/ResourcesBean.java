@@ -1,8 +1,7 @@
-package kontomatik;
+package tools;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 
 /**

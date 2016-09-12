@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.digitoyz.webapps.demo</groupId>
+    <groupId>com.specsays.ktester</groupId>
     <artifactId>K-tester</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -110,9 +110,9 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
                 <configuration>
-                    <!--
-                    <hostname>${wildfly-hostname}</hostname>
-                    -->
+                    <!-- Deploy only when local port 9990 is forwarded to localhost:9990 on the remote machine.
+                         $ ssh -L 9990:localhost:9990 [user@]hostname
+                     -->
                     <hostname>localhost</hostname>
                     <port>9990</port>
                     <username>${wildfly-username}</username>

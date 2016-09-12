@@ -1,6 +1,6 @@
 package controllers;
 
-import kontomatik.ResourcesBean;
+import tools.ResourcesBean;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
