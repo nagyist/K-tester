@@ -9,32 +9,37 @@
         flex-direction: column;  /* learn more: http://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/ */
         }
 
-        header {}
-
-        footer {}
+        header, footer {
+        background-color: #333333
+        }
 
         section {
         flex: 1;
         }
 
-
-        nav {
-        float: left;
-        max-width: 260px;
-        margin: 0 5px;
-        padding: 0;
-        }
-
-        nav ul {
+        ul {
         list-style-type: none;
+        margin: 0;
         padding: 0;
+        overflow: hidden;
+        background-color: #333333;
         }
 
-        nav ul a {
-        text-decoration: none;
+        li {
+        float: left;
+        }
+
+        li a {
+        display: block;
         color: white;
+        text-align: center;
+        padding: 16px;
+        text-decoration: none;
         }
 
+        li a:hover {
+        background-color: #111111;
+        }
 
 
         .tooltip {
@@ -62,22 +67,35 @@
         }
 
 
-        .panel {
-        margin: 5px auto;
+        p.user-info {
+        margin: auto;
+        width: 80;
         text-align: center;
+        padding: 20px;
+        font-size: 110%;
+        color: gray;
+        }
+
+
+        .centered-panel {
+        margin: 0 auto;
+        padding-bottom: 5px;
+        text-align: center;
+        overflow: scroll;
         }
 
 
         fieldset {
         margin: 5px 30px;
-        border-radius: 5px;
         }
 
-        p.user-info {
+
+        .footer-text {
         margin: auto;
         width: 80;
+        padding: 20px;
         text-align: center;
-        padding: 3px;
-        font-size: 110%;
-        color: gray;
+        color: #cccccc;
+        font-size: 70%;
         }
+

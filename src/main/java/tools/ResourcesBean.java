@@ -14,7 +14,7 @@ public class ResourcesBean implements Serializable {
     private String clientName = "smartloans-test";
     private String apiKey; // cannot expose !
     private String ownerExternalId = "100780";
-    private final String contextRoot = "K-tester";
+    private final String appName = "K-tester";
 
 
     public String getClientName() {
@@ -35,7 +35,7 @@ public class ResourcesBean implements Serializable {
         return ownerExternalId;
     }
 
-    public String getContextRoot() { return contextRoot; }
+    public String getAppName() { return appName; }
 
 
 }
