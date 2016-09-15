@@ -18,7 +18,7 @@ import java.io.IOException;
  * Created on: 09/06/16
  */
 @WebServlet("session")
-public class SessionController extends HttpServlet {
+public class SessionServlet extends HttpServlet {
 
     @Inject
     SessionBean sessionBean;

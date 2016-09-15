@@ -44,24 +44,24 @@ public class Results extends HttpServlet {
         try ( OutputStream out = resp.getOutputStream() ) {
             switch (cmd) {
                 case "import-owners-details":
-                    document = sessionBean.getCommandResponse(APICommandURL.IMPORT_OWNERS, null, 30);
+                    document = sessionBean.getCommandResponse(KontomatikUrl.IMPORT_OWNERS, null, 30);
                     break;
                 case "import-accounts":
-                    document = sessionBean.getCommandResponse(APICommandURL.IMPORT_ACCOUNTS, null, 60);
+                    document = sessionBean.getCommandResponse(KontomatikUrl.IMPORT_ACCOUNTS, null, 60);
                     break;
                 case "import-account-transactions":
                     String params = "&iban=" + req.getParameter("iban") + "&since=" + req.getParameter("since");
-                    document = sessionBean.getCommandResponse(APICommandURL.IMPORT_ACCOUNT_TRANSACTIONS, params, 60);
+                    document = sessionBean.getCommandResponse(KontomatikUrl.IMPORT_ACCOUNT_TRANSACTIONS, params, 60);
                     break;
                 case "default-import":
                     params = "&since=" + req.getParameter("since");
-                    document = sessionBean.getCommandResponse(APICommandURL.DEFAULT_IMPORT, params, 60);
+                    document = sessionBean.getCommandResponse(KontomatikUrl.DEFAULT_IMPORT, params, 60);
                     break;
                 case "aggregated-values":
                     document = sessionBean.getAggregatesResponse(req.getParameter("periodMonths"));
                     break;
                 case "sign-out":
-                    document = sessionBean.getCommandResponse(APICommandURL.SIGN_OUT);
+                    document = sessionBean.getCommandResponse(KontomatikUrl.SIGN_OUT);
                     break;
             }
             XmlParser.writeToOutputStream(document, out);

@@ -15,7 +15,7 @@
                                     divId: 'kontomatik',
                                     locale: 'en',
                                     showFavicons: true,
-                                    ownerExternalId: '#{resourcesBean.ownerExternalId}',
+                                    ownerExternalId: Math.random().toString(36).substring(2,7),
                                     onSuccess: function (target, sessionId, sessionIdSignature) {
                                     // Pass session params to the backend
                                         $.ajax({
@@ -25,7 +25,7 @@
                                             {
                                             sessionId: sessionId,
                                             sessionIdSignature: sessionIdSignature,
-                                            target: target,
+                                            target: target
                                             },
                                             dataType: 'text',
                                             success: function (data, textStatus, jqXHR) {

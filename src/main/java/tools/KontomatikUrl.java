@@ -3,7 +3,7 @@ package tools;
 /**
  * Created by eduarddedu on 06/07/16.
  */
-enum APICommandURL {
+enum KontomatikUrl {
     DEFAULT_IMPORT(SessionBean.API_ENDPOINT + "v1/command/default-import.xml"),
     IMPORT_OWNERS(SessionBean.API_ENDPOINT + "v1/command/import-owners.xml"),
     IMPORT_ACCOUNTS(SessionBean.API_ENDPOINT + "v1/command/import-accounts.xml"),
@@ -14,7 +14,7 @@ enum APICommandURL {
     CATALOG(SessionBean.API_ENDPOINT + "v1/catalog.xml"),
     DATA(SessionBean.API_ENDPOINT + "v1/data.xml");
     String value;
-    private APICommandURL(String s) {
+    private KontomatikUrl(String s) {
         value = s;
     }
 }
