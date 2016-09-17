@@ -1,5 +1,6 @@
 package tools;
 
+import kontomatik.URLs;
 import org.w3c.dom.Document;
 
 import javax.inject.Inject;
@@ -18,7 +19,9 @@ import java.io.OutputStream;
 @WebServlet("results")
 public class Results extends HttpServlet {
     @Inject
-    SessionBean sessionBean;
+    kontomatik.Session session;
+
+    private kontomatik.URLs urls = new URLs();
 
 
 
@@ -44,29 +47,30 @@ public class Results extends HttpServlet {
         try ( OutputStream out = resp.getOutputStream() ) {
             switch (cmd) {
                 case "import-owners-details":
-                    document = sessionBean.getCommandResponse(KontomatikUrl.IMPORT_OWNERS, null, 30);
+                    document = session.getDocument(urls.POST_IMPORT_OWNERS, null, 30);
                     break;
                 case "import-accounts":
-                    document = sessionBean.getCommandResponse(KontomatikUrl.IMPORT_ACCOUNTS, null, 60);
+                    document = session.getDocument(urls.POST_IMPORT_ACCOUNTS, null, 60);
                     break;
                 case "import-account-transactions":
                     String params = "&iban=" + req.getParameter("iban") + "&since=" + req.getParameter("since");
-                    document = sessionBean.getCommandResponse(KontomatikUrl.IMPORT_ACCOUNT_TRANSACTIONS, params, 60);
+                    document = session.getDocument(urls.POST_IMPORT_ACCOUNT_TRANSACTIONS, params, 60);
                     break;
                 case "default-import":
                     params = "&since=" + req.getParameter("since");
-                    document = sessionBean.getCommandResponse(KontomatikUrl.DEFAULT_IMPORT, params, 60);
+                    document = session.getDocument(urls.POST_DEFAULT_IMPORT, params, 60);
                     break;
                 case "aggregated-values":
-                    document = sessionBean.getAggregatesResponse(req.getParameter("periodMonths"));
+                    document = session.getAggregatesResponse(req.getParameter("periodMonths"));
                     break;
                 case "sign-out":
-                    document = sessionBean.getCommandResponse(KontomatikUrl.SIGN_OUT);
+                    document = session.getDocument(urls.POST_SIGN_OUT);
                     break;
             }
             XmlParser.writeToOutputStream(document, out);
         } catch (Exception e) {
             System.out.println(e.toString());
+            resp.setContentType("text/html"); // ? problem?
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }

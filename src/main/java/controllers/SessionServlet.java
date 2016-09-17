@@ -1,7 +1,7 @@
 package controllers;
 
 import tools.ResourcesBean;
-import tools.SessionBean;
+import kontomatik.Session;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -17,11 +17,11 @@ import java.io.IOException;
  * eduardcdedu@gmail.com
  * Created on: 09/06/16
  */
-@WebServlet("session")
+@WebServlet("session/data")
 public class SessionServlet extends HttpServlet {
 
     @Inject
-    SessionBean sessionBean;
+    Session session;
     @Inject
     ResourcesBean resourcesBean;
 
@@ -36,7 +36,8 @@ public class SessionServlet extends HttpServlet {
         String apiKey = resourcesBean.getApiKey();
         String sessionId = req.getParameter("sessionId");
         String sessionIdSignature = req.getParameter("sessionIdSignature");
-        sessionBean.setSignature(sessionId, sessionIdSignature, apiKey);
+        session.setSignature(sessionId, sessionIdSignature, apiKey);
+        session.setOwnerId(req.getParameter("ownerId"));
         HttpSession session = req.getSession(true); // Create a session if it doesn't exit
         session.setAttribute("logged", true);
 
