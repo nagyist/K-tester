@@ -1,7 +1,6 @@
 package controllers;
 
 import tools.ResourcesBean;
-import tools.SessionBean;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -17,13 +16,18 @@ import java.io.IOException;
  * eduardcdedu@gmail.com
  * Created on: 09/06/16
  */
-@WebServlet("session")
-public class SessionController extends HttpServlet {
+@WebServlet("session/data")
+public class SessionServlet extends HttpServlet {
 
     @Inject
-    SessionBean sessionBean;
-    @Inject
     ResourcesBean resourcesBean;
+
+    private String signature, ownerId;
+
+
+    public String getSignature() {
+        return signature;
+    }
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,11 +38,14 @@ public class SessionController extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String apiKey = resourcesBean.getApiKey();
+        resourcesBean.setOwnerExternalId(req.getParameter("ownerId")); // ownerId should be linked to a database not generated in the frontend
         String sessionId = req.getParameter("sessionId");
         String sessionIdSignature = req.getParameter("sessionIdSignature");
-        sessionBean.setSignature(sessionId, sessionIdSignature, apiKey);
-        HttpSession session = req.getSession(true); // Create a session if it doesn't exit
+        signature = "apiKey=" + apiKey + "&sessionId=" + sessionId + "&sessionIdSignature=" + sessionIdSignature;
+        ownerId = req.getParameter("ownerId");
+        HttpSession session = req.getSession(true); // Create a session if it doesn't exit and add this servlet instance.
         session.setAttribute("logged", true);
+        session.setAttribute("servlet", this);
 
     }
 

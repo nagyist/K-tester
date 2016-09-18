@@ -12,8 +12,13 @@ import java.io.Serializable;
 public class ResourcesBean implements Serializable {
 
     private String clientName = "smartloans-test";
+<<<<<<< HEAD
     private String apiKey; // cannot expose !
+    private String ownerExternalId = "100780";
+=======
+    private String apiKey = "6e907d69e7acbbdf8411b62010070c0a6309bebbe5ca549136ca6e067e2543a4";
     private String ownerExternalId;
+>>>>>>> master
     private final String appName = "K-tester";
 
 

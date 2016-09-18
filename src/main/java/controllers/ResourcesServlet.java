@@ -16,7 +16,7 @@ import java.io.IOException;
  * Created on: 09/06/16
  */
 @WebServlet("client-params")
-public class ResourcesController extends HttpServlet {
+public class ResourcesServlet extends HttpServlet {
 
     @Inject
     private ResourcesBean resourcesBean;

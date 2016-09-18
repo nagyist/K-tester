@@ -76,6 +76,16 @@ public class XmlParser {
         }
     }
 
+    public String getProgress() throws IOException {
+        String result;
+        try {
+            result = (String) xpath.evaluate("/reply/command/progress/value/text()", document, XPathConstants.STRING);
+            return result;
+        } catch (XPathExpressionException e) {
+            throw new IOException(e);
+        }
+    }
+
 
     public List<String> getBankCommandsList(String targetName) throws IOException {
         try {
