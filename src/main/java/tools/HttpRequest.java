@@ -15,10 +15,20 @@ import java.net.URL;
  * Fire up an Http request using java.net.
  */
 
-public class HttpRequest {
+class HttpRequest {
 
     private HttpURLConnection con = null;
+    private URL urlObject;
+
+    public URL getUrlObject() {
+        return urlObject;
+    }
+
     public HttpURLConnection getConnnection() { return con; }
+
+    public HttpRequest(String method, URL obj) throws IOException {
+        this(method, obj, null);
+    }
 
     public HttpRequest(String method, URL obj, String params) throws IOException {
         if (method == null || !(
@@ -27,7 +37,8 @@ public class HttpRequest {
                         method.equalsIgnoreCase("delete"))) {
             throw new IllegalArgumentException("No such method: " + method);
         }
-        con = (HttpURLConnection) obj.openConnection();
+        urlObject = obj;
+        con = (HttpURLConnection) urlObject.openConnection();
         con.setRequestMethod(method);
         con.setRequestProperty("User-Agent", "Mozilla/5.0");
 
@@ -40,6 +51,7 @@ public class HttpRequest {
         }
 
     }
+
 
     public int getResponseCode() throws IOException {
         return con.getResponseCode();

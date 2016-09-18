@@ -34,9 +34,13 @@ public class PollingTask implements Callable<Document> {
                 XmlParser parser = new XmlParser(in);
                 String state = parser.getState();
                 System.out.format("state == \"%s\"%n", state);
-                if (state.equals("successful") || state.equals("error") || state.equals("fatal")) {
+                if (state.equals("error") || state.equals("fatal")) {
                     return parser.getDocument();
-                } else {
+                } else if(state.equals("successful")) {
+                    System.out.format("progress == %s%n", parser.getProgress());
+                    return parser.getDocument();
+                }
+                else {
                     System.out.format("progress == %s%n", parser.getProgress());
                     TimeUnit.MILLISECONDS.sleep(freq);
                 }

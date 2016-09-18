@@ -1,7 +1,6 @@
 package controllers;
 
 import tools.ResourcesBean;
-import kontomatik.Session;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -21,9 +20,14 @@ import java.io.IOException;
 public class SessionServlet extends HttpServlet {
 
     @Inject
-    Session session;
-    @Inject
     ResourcesBean resourcesBean;
+
+    private String signature, ownerId;
+
+
+    public String getSignature() {
+        return signature;
+    }
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,12 +38,14 @@ public class SessionServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String apiKey = resourcesBean.getApiKey();
+        resourcesBean.setOwnerExternalId(req.getParameter("ownerId")); // ownerId should be linked to a database not generated in the frontend
         String sessionId = req.getParameter("sessionId");
         String sessionIdSignature = req.getParameter("sessionIdSignature");
-        session.setSignature(sessionId, sessionIdSignature, apiKey);
-        session.setOwnerId(req.getParameter("ownerId"));
-        HttpSession session = req.getSession(true); // Create a session if it doesn't exit
+        signature = "apiKey=" + apiKey + "&sessionId=" + sessionId + "&sessionIdSignature=" + sessionIdSignature;
+        ownerId = req.getParameter("ownerId");
+        HttpSession session = req.getSession(true); // Create a session if it doesn't exit and add this servlet instance.
         session.setAttribute("logged", true);
+        session.setAttribute("servlet", this);
 
     }
 
