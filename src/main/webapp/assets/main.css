@@ -21,7 +21,6 @@
         list-style-type: none;
         margin: 0;
         padding: 0;
-        overflow: hidden;
         background-color: #333333;
         }
 
@@ -42,31 +41,6 @@
         }
 
 
-        .tooltip {
-        float: right;
-        margin-top: 15px;
-        }
-
-
-
-        .tooltip .tooltiptext {
-        visibility: hidden;
-        width: 260px;
-        background-color: #555;
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 5px 5px;
-        margin: auto;
-        }
-
-
-
-        .tooltip:hover .tooltiptext {
-        visibility: visible;
-        }
-
-
         p.user-info {
         margin: auto;
         width: 80;
@@ -76,17 +50,55 @@
         color: gray;
         }
 
+         .widget-panel {
+         margin: 0 auto;
+         padding-bottom: 5px;
+         text-align: center;
+         }
 
-        .centered-panel {
-        margin: 0 auto;
-        padding-bottom: 5px;
+         .commands-panel {
+         margin: 10px auto;
+         width: 50%;
+
+         }
+
+        fieldset {
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        }
+
+        fieldset legend {
         text-align: center;
         }
 
-
-        fieldset {
-        margin: 5px 30px;
+        input[type=text], [type=number], [type=date], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
         }
+
+
+        input[type=submit] {
+        width: 100%;
+        background-color: #666666;
+        color: white;
+        padding: 5px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+        background-color: #404040;
+        }
+
+
 
 
         .footer-text {
@@ -96,5 +108,10 @@
         text-align: center;
         color: #cccccc;
         font-size: 70%;
+        }
+
+
+        input.watermarked::-webkit-input-placeholder {
+        color: red;
         }
 
