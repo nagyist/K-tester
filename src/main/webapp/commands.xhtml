@@ -6,57 +6,61 @@
 <ui:composition template="template.xhtml">
     <ui:define name="content">
         <p class="user-info">You are connected. Run Kontomatik API commands!</p>
-        <div id="commands" class="centered-panel" style="width: 30%;">
-            <form action="results" method="post" class="userForm">
+        <div class="commands-panel">
+            <form action="results" method="post" class="user-form">
                 <fieldset>
                     <legend>Import owners command</legend>
                     <input type="hidden" name="command" value="import-owners-details"/>
-                    <button type="submit">Submit</button>
+                    <input type="submit" value="Submit"/>
                 </fieldset>
             </form>
-            <form action="results" method="post" class="userForm">
+            <br/>
+            <form action="results" method="post" class="user-form">
                 <fieldset>
                     <legend>Import accounts command</legend>
                     <input type="hidden" name="command" value="import-accounts"/>
-                    <button type="submit">Submit</button>
+                    <input type="submit" value="Submit"/>
                 </fieldset>
             </form>
-            <form action="results" method="post" class="userForm">
-                <fieldset>
-                    <legend>Import account transactions command</legend>
-                    <input type="hidden" name="command" value="import-account-transactions"/>
-                    Account IBAN: <input type="text" name="iban" required="true" autocomplete="off"/>
-                    <br/><br/>
-                    Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
-                    <br/><br/>
-                    <button type="submit">Submit</button>
-                </fieldset>
-            </form>
-            <form action="results" method="post" class="userForm">
+            <br/>
+            <form action="results" method="post" class="user-form">
                 <fieldset>
                     <legend>Default import command</legend>
                     <input type="hidden" name="command" value="default-import"/>
-                    Since: <input type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
-                    <br/><br/>
-                    <button type="submit">Submit</button>
+                    <label>Since</label>
+                    <input class="watermarked" type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
+                    <input type="submit" value="Submit"/>
                 </fieldset>
             </form>
-            <form action="results" method="post" class="userForm">
+            <br/>
+            <form action="results" method="post" class="user-form">
+                <fieldset>
+                    <legend>Import account transactions command</legend>
+                    <input type="hidden" name="command" value="import-account-transactions"/>
+                    <label>IBAN</label>
+                    <input type="text" name="iban" required="true" autocomplete="off"/>
+                    <label>Since</label>
+                    <input class="watermarked" type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
+                    <input type="submit" value="Submit"/>
+                </fieldset>
+            </form>
+            <br/>
+            <form action="results" method="post" class="user-form">
                 <fieldset>
                     <legend>Aggregated values command</legend>
                     <input type="hidden" name="command" value="aggregated-values"/>
-                    <input type="hidden" name="ownerExternalId"
-                           value="${resourcesBean.ownerExternalId}"/>
-                    Months: <input type="number" name="periodMonths" required="true"/>
-                    <br/><br/>
-                    <button type="submit">Submit</button>
+                    <input type="hidden" name="ownerExternalId" value="${resourcesBean.ownerExternalId}"/>
+                    <label>Months</label>
+                    <input type="number" name="periodMonths" required="true"/>
+                    <input type="submit" value="Submit"/>
                 </fieldset>
             </form>
-            <form id="signOutForm" action="results" method="post" class="userForm">
+            <br/>
+            <form id="signOutForm" action="results" method="post" class="user-form">
                 <fieldset>
                     <legend>Sign out command</legend>
                     <input type="hidden" name="command" value="sign-out"/>
-                    <button type="submit">Submit</button>
+                    <input type="submit" value="Submit"/>
                 </fieldset>
             </form>
         </div>

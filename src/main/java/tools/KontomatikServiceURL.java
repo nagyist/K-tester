@@ -14,7 +14,8 @@ import java.net.URL;
  */
 
 public class KontomatikServiceURL {
-    private static final String hostname = "https://test.api.kontomatik.com"; // test API endpoint
+    private static final String PROTOCOL = "https";
+    private static final String HOST = "test.api.kontomatik.com"; // test API endpoint
     public static final URL GET_HEALTH_CHECK;
     public static final URL POST_IMPORT_OWNERS;
     public static final URL POST_IMPORT_ACCOUNTS;
@@ -26,35 +27,34 @@ public class KontomatikServiceURL {
 
     static {
         try {
-            GET_HEALTH_CHECK = new URL( hostname + "/isItWorking" );
-            POST_IMPORT_OWNERS = new URL( hostname + "/v1/command/import-owners.xml" );
-            POST_IMPORT_ACCOUNTS = new URL( hostname + "/v1/command/import-accounts.xml" );
-            POST_IMPORT_ACCOUNT_TRANSACTIONS = new URL( hostname + "/v1/command/import-account-transactions.xml" );
-            POST_DEFAULT_IMPORT = new URL( hostname + "/v1/command/default-import.xml" );
-            POST_SIGN_OUT = new URL( hostname + "/v1/command/sign-out.xml" );
-            GET_CATALOG = new URL( hostname + "/v1/catalog.xml" );
-            GET_DATA = new URL( hostname + "/v1/data.xml" );
+            GET_HEALTH_CHECK = new URL( PROTOCOL, HOST, "/isItWorking" );
+            POST_IMPORT_OWNERS = new URL( PROTOCOL, HOST, "/v1/command/import-owners.xml");
+            POST_IMPORT_ACCOUNTS = new URL( PROTOCOL, HOST, "/v1/command/import-accounts.xml" );
+            POST_IMPORT_ACCOUNT_TRANSACTIONS = new URL( PROTOCOL, HOST, "/v1/command/import-account-transactions.xml" );
+            POST_DEFAULT_IMPORT = new URL( PROTOCOL, HOST, "/v1/command/default-import.xml" );
+            POST_SIGN_OUT = new URL( PROTOCOL, HOST, "/v1/command/sign-out.xml" );
+            GET_CATALOG = new URL( PROTOCOL, HOST, "/v1/catalog.xml" );
+            GET_DATA = new URL( PROTOCOL, HOST, "/v1/data.xml" );
         } catch (java.net.MalformedURLException ex) {
             throw new RuntimeException(ex);
         }
     }
 
-    public static URL newGET_STATUS(String commandId, String SIGNATURE) {
+    public static URL newGET_STATUS(String commandId, String signature) {
         try {
             System.out.format("commandId == %s%n", commandId);
-            String spec = String.format("%s%s.xml?%s",
-                    hostname + "/v1/command/", commandId, SIGNATURE);
-            return new URL(spec);
+            String file = String.format("%s%s.xml?%s", "/v1/command/", commandId, signature);
+            return new URL(PROTOCOL, HOST, file);
         } catch (MalformedURLException ex) {
             throw new RuntimeException(ex);
         }
 
     }
 
-    public static URL newGET_AGGREGATES(String params) {
+    public static URL newGET_AGGREGATES(String signature) {
         try {
-            String spec = String.format("%s%s", hostname + "/v1/aggregates.xml", "?" + params);
-            return new URL(spec);
+            String file = String.format("%s?%s", "/v1/aggregates.xml", signature);
+            return new URL(PROTOCOL, HOST, file);
         } catch (MalformedURLException ex) {
             throw new RuntimeException(ex);
         }

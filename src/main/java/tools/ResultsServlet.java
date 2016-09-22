@@ -67,7 +67,7 @@ public class ResultsServlet extends HttpServlet {
                     document = executor.callDefaultImport(sessionSignature, data); break;
 
                 case "aggregated-values" :
-                    data = String.format("%s&monthsPeriod=%s&ownerExternalId=%s", sessionSignature,
+                    data = String.format("apiKey=%s&monthsPeriod=%s&ownerExternalId=%s", resourcesBean.getApiKey(),
                             req.getParameter("monthsPeriod"),
                             resourcesBean.getOwnerExternalId());
                     document = executor.callAggregatedValues(data); break;

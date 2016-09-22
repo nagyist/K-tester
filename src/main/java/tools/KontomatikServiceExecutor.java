@@ -42,8 +42,8 @@ public class KontomatikServiceExecutor {
 
 
 
-    public Document callAggregatedValues(String query) throws IOException {
-        URL GET_URL = KontomatikServiceURL.newGET_AGGREGATES(query);
+    public Document callAggregatedValues(String params) throws IOException {
+        URL GET_URL = KontomatikServiceURL.newGET_AGGREGATES(params);
         HttpRequest request = new HttpRequest("GET",
                 GET_URL);
         System.out.format("GET %s%n", GET_URL.toString());
@@ -60,14 +60,19 @@ public class KontomatikServiceExecutor {
 
         HttpRequest request = new HttpRequest("POST", POST_URL, data == null ? sessionSignature : data); // Some commands require additional params (data).
         System.out.format("POST %s%n", request.getUrlObject().toString());
-        System.out.format("Response Code :: %s%n", request.getResponseCode());
+        int code = request.getResponseCode();
+        System.out.format("Response Code :: %s%n", code);
 
-        if (polling) {
+        if (code != 200 && code != 202) { // Some error occurred, let's still hope we have an XML response from the service
+            return new XmlParser(request.getInputStream()).getDocument();
+        }
+        else if (!polling) {
+            return new XmlParser(request.getInputStream()).getDocument(); // Sign-out command doesn't need polling.
+        }
+        else {
             String id = new XmlParser(request.getInputStream()).getCommandId();
             URL GET_URL = KontomatikServiceURL.newGET_STATUS(id, sessionSignature);
             return poll(GET_URL);
-        } else {
-            return new XmlParser(request.getInputStream()).getDocument(); // Sign-out command doesn't need polling.
         }
     }
 

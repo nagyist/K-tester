@@ -22,7 +22,7 @@ public class SessionServlet extends HttpServlet {
     @Inject
     ResourcesBean resourcesBean;
 
-    private String signature, ownerId;
+    private String signature;
 
 
     public String getSignature() {
@@ -42,7 +42,6 @@ public class SessionServlet extends HttpServlet {
         String sessionId = req.getParameter("sessionId");
         String sessionIdSignature = req.getParameter("sessionIdSignature");
         signature = "apiKey=" + apiKey + "&sessionId=" + sessionId + "&sessionIdSignature=" + sessionIdSignature;
-        ownerId = req.getParameter("ownerId");
         HttpSession session = req.getSession(true); // Create a session if it doesn't exit and add this servlet instance.
         session.setAttribute("logged", true);
         session.setAttribute("servlet", this);
