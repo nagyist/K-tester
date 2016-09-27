@@ -9,43 +9,9 @@
         <div id="widget" class="widget-panel">
             <div id="kontomatik"></div>
             <script type="text/javascript">
-                            var id = Math.random().toString(36).substring(2,7);
-                            //<![CDATA[
-                                embedKontomatik({
-                                    client: '#{resourcesBean.clientName}',
-                                    divId: 'kontomatik',
-                                    locale: 'en',
-                                    showFavicons: true,
-                                    ownerExternalId: id,
-                                    onSuccess: function (target, sessionId, sessionIdSignature) {
-                                    // Pass session params to the backend
-                                        $.ajax({
-                                            type: 'POST',
-                                            url: window.location.origin + '/session/data',
-                                            data:
-                                            {
-                                            sessionId: sessionId,
-                                            sessionIdSignature: sessionIdSignature,
-                                            target: target,
-                                            ownerId: id
-                                            },
-                                            dataType: 'text',
-                                            success: function (data, textStatus, jqXHR) {
-                                                 redirect('/commands.xhtml');
-
-                                            },
-                                            error: function (jqXHR, textStatus, errorThrown) {
-                                                 alert(errorThrown);
-                                            }
-                                        });
-                                    },
-                                    onError: function (exception) {
-                                        alert('Error: ' + exception);
-                                    }
-                                });
-                            //]]>
-
+                  var clientName = '#{resourcesBean.clientName}';
             </script>
+            <script type="text/javascript" src="js/kontomatik.js"></script>
         </div>
     </ui:define>
 </ui:composition>
