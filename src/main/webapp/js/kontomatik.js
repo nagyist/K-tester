@@ -3,7 +3,7 @@ embedKontomatik({
     divId: 'kontomatik',
     locale: 'en',
     showFavicons: true,
-    ownerExternalId: Math.random().toString(36).substring(2,7),
+    ownerExternalId: id,
     onSuccess: function (target, sessionId, sessionIdSignature) {
         // Pass session params to the backend
         $.ajax({
