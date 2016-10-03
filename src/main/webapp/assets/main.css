@@ -58,7 +58,7 @@ p.user-info {
 
 .commands-panel {
   margin: 10px auto;
-  width: 50%;
+  width: 40%;
 
 }
 
@@ -110,8 +110,9 @@ input[type=submit]:hover {
   font-size: 70%;
 }
 
-
+/*
 input.watermarked::-webkit-input-placeholder {
   color: red;
 }
+*/
 
