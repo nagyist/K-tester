@@ -28,7 +28,7 @@
                     <legend>Default import command</legend>
                     <input type="hidden" name="command" value="default-import"/>
                     <label>Since</label>
-                    <input class="watermarked" type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
+                    <input class="date" type="date" name="since" required="true" value="dd/mm/yyyy"/>
                     <input type="submit" value="Submit"/>
                 </fieldset>
             </form>
@@ -40,7 +40,7 @@
                     <label>IBAN</label>
                     <input type="text" name="iban" required="true" autocomplete="off"/>
                     <label>Since</label>
-                    <input class="watermarked" type="date" name="since" required="true" placeholder="dd/mm/yyyy"/>
+                    <input class="date" type="date" name="since" required="true" value="dd/mm/yyyy"/>
                     <input type="submit" value="Submit"/>
                 </fieldset>
             </form>
@@ -64,6 +64,12 @@
                 </fieldset>
             </form>
         </div>
+        <script type="text/javascript" src="js/watermarked.js"></script>
+        <script type="text/javascript">
+            jQuery(function($){
+                $(".date").Watermark("dd/mm/yyyy");
+            });
+        </script>
     </ui:define>
 </ui:composition>
 </html>
